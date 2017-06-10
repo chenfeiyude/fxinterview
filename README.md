@@ -11,10 +11,11 @@ This README would normally document whatever steps are necessary to get your app
 ### How do I get set up? ###
 
 * Summary of set up
-1. install python3.6 official release
-2. install django by pip
+
+1. install python3.6 official release.
+2. install django by pip:
 pip3.6 install Django
-3. create a project with django
+3. create a project with django:
 python3.6 -m django startproject fxinterview
 
 * Configuration
