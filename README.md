@@ -38,6 +38,7 @@ python3.6 manage.py startapp interviewee
 
 4. create virtual environment:
 python3.6 -m venv /path/to/fxinterview/venv
+
 5. start venv:
 source venv/bin/activate
 
@@ -56,7 +57,9 @@ pip3.6 install mysqlclient
 * Database configuration
 1. create database fxinterview in your mysql
 
-2. migrate db
+2. update settings.py DATABASES to configure your mysql (do not commit)
+
+3. migrate db
 python3.6 manage.py migrate
 python3.6 manage.py makemigrations interviewer
 python3.6 manage.py sqlmigrate interviewer 0001
