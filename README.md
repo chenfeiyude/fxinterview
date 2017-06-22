@@ -60,7 +60,7 @@ pip3.6 install mysqlclient
 python3.6 manage.py migrate
 python3.6 manage.py makemigrations interviewer
 python3.6 manage.py sqlmigrate interviewer 0001
-python3.6 manage.py sqlmigrate interviewer 0002
+python3.6 manage.py migrate (check states)
 
 * How to run tests
 * Deployment instructions
