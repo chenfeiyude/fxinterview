@@ -12,58 +12,58 @@ This README would normally document whatever steps are necessary to get your app
 
 * Summary of set up
 MAC-OS
-1. install python3.6 official release<br />
-2. install django by pip for coding<br />
-3. create a project with django (Already done)<br />
-4. create virtual environment<br />
-5. start venv<br />
-6. install django in evnv<br />
-7. install mysqlclient<br />
-8. creating database fxinterview<br />
-9. migrate db<br />
-10. start server<br />
+1. install python3.6 official release
+2. install django by pip for coding
+3. create a project with django (Already done)
+4. create virtual environment
+5. start venv
+6. install django in evnv
+7. install mysqlclient
+8. creating database fxinterview
+9. migrate db
+10. start server
 
 
-* Configuration<br />
-1. install python3.6 official release.<br />
+* Configuration
+1. install python3.6 official release.
 
-2. install django by pip for coding:<br />
-pip3.6 install Django<br />
-doc at https://docs.djangoproject.com/en/1.11/intro/<br />
+2. install django by pip for coding:
+pip3.6 install Django
+doc at https://docs.djangoproject.com/en/1.11/intro/
 
-3. create your own app with django (Already done):<br />
-python3.6 -m django startproject fxinterview<br />
-python3.6 manage.py startapp interviewer<br />
-python3.6 manage.py startapp interviewee<br />
+3. create your own app with django (Already done):
+python3.6 -m django startproject fxinterview
+python3.6 manage.py startapp interviewer
+python3.6 manage.py startapp interviewee
 
-4. create virtual environment:<br />
-python3.6 -m venv /path/to/fxinterview/venv<br />
+4. create virtual environment:
+python3.6 -m venv /path/to/fxinterview/venv
 
-5. start venv:<br />
-source venv/bin/activate<br />
+5. start venv:
+source venv/bin/activate
 
 * Dependencies
-1. install django in evnv:<br />
-pip3.6 install django<br />
+1. install django in evnv:
+pip3.6 install django
 
-2. install mysqlclient<br />
-(brew unlink mysql)<br />
-brew install mysql-connector-c<br />
-(brew unlink mysql-connector-c)<br />
-(brew link mysql)<br />
-pip3.6 install mysqlclient<br />
+2. install mysqlclient
+(brew unlink mysql)
+brew install mysql-connector-c
+(brew unlink mysql-connector-c)
+(brew link mysql)
+pip3.6 install mysqlclient
 
 
-* Database configuration<br />
-1. create database fxinterview in your mysql<br />
+* Database configuration
+1. create database fxinterview in your mysql
 
-2. update settings.py DATABASES to configure your mysql (do not commit)<br />
+2. update settings.py DATABASES to configure your mysql (do not commit)
 
-3. migrate db<br />
-python3.6 manage.py migrate<br />
-python3.6 manage.py makemigrations interviewer<br />
-python3.6 manage.py sqlmigrate interviewer 0001<br />
-python3.6 manage.py migrate (check states)<br />
+3. migrate db
+python3.6 manage.py migrate
+python3.6 manage.py makemigrations interviewer
+python3.6 manage.py sqlmigrate interviewer 0001
+python3.6 manage.py migrate (check states)  
 
 * How to run tests
 * Deployment instructions
