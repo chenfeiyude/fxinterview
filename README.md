@@ -66,11 +66,30 @@ python3.6 manage.py sqlmigrate interviewer 0001
 python3.6 manage.py migrate (check states)  
 
 * How to run tests
+1. Test interviewer project:  
+python3.6 manage.py test interviewer 
+ 
+2. Test interviewee project:  
+python3.6 manage.py test interviewee  
+
 * Deployment instructions
 
 ### Contribution guidelines ###
 
-* Writing tests
+* Writing tests  
+Every new functionality should has a related test. 
+
+1. Add your test case class into project_name/tests.py 
+
+2. Every test case should contain description for showing what are you testing
+
+3. Test case class name should be ClassNameTests, and test case name should be test_function_name  
+e.g. CompanyModelTests
+
+4. Run testing with command:  
+python3.6 manage.py test project_name  
+e.g. python3.6 manage.py test interviewer  
+
 * Code review
 * Other guidelines
 
