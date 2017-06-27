@@ -1,1 +1,3 @@
 venv/*
+fxinterview/local_settings.py
+.idea/*
