@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['www.fxinterview.com', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'interviewer.apps.InterviewerConfig',
+    'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

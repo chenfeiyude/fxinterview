@@ -33,13 +33,14 @@ doc at https://docs.djangoproject.com/en/1.11/intro/
 
 3. create your own app with django (Already done):  
 python3.6 -m django startproject fxinterview  
-python3.6 manage.py startapp interviewer  
-python3.6 manage.py startapp interviewee  
+python3.6 manage.py startapp main  
 
-4. create virtual environment:  
+4. create your local_settings.py based on local_settings_template.py  
+
+5. create virtual environment:  
 python3.6 -m venv /path/to/fxinterview/venv  
 
-5. start venv:  
+6. start venv:  
 source venv/bin/activate  
 
 * Dependencies  
