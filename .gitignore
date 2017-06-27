@@ -1,3 +1,6 @@
-venv/*
 fxinterview/local_settings.py
-.idea/*
+.idea/
+fxinterview/__pycache__/
+main/__pycache__/
+main/migrations/
+venv/
