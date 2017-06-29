@@ -1,6 +1,5 @@
 from django.db import models
-# Create your models here.
-
+from django.contrib.auth.models import User
 
 class ContactDetails(models.Model):
     address1 = models.CharField(max_length=100)
@@ -9,6 +8,13 @@ class ContactDetails(models.Model):
     address4 = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    contactDetails = models.ForeignKey(ContactDetails, on_delete=models.CASCADE)
+    validated = models.BooleanField(default=False)
+    role = models.CharField(max_length=100)
 
 
 class Company(models.Model):
