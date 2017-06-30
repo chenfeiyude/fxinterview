@@ -51,7 +51,7 @@ class JobQuestion(models.Model):
 
 
 class ApplicationQuestion(models.Model):
-    interviewee = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    interviewee_email = models.CharField(max_length=100)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     deadline = models.DateTimeField('Application deadline', null=True, blank=True)
     start_time = models.DateTimeField('Start answer time', null=True, blank=True)

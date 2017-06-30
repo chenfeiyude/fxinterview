@@ -11,7 +11,7 @@ def index(request):
 
 
 def view_application_questions(request, application_question_id):
-    email = request.method.get('interviewee_email')
-    application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=email)
+    interviewee_email = request.GET.get('interviewee_email')
+    application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
 
     return render(request, 'application/view_application_questions.html', {'application_question': application_question})
