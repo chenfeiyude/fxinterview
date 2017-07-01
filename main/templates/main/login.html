@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    {% if form.errors %}
+{% extends "../main/base.html" %}
+
+{% block title %}Application Questions{% endblock %}
+
+{% block content %}
+
+ {% if form.errors %}
         <p>Sorry, wrong username or password.</p>
     {% endif %}
     <form method="POST">
@@ -19,5 +19,5 @@
         </p>
         <button type="submit">Login</button>
     </form>
-</body>
-</html>
+
+{% endblock %}
