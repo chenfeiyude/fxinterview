@@ -43,6 +43,9 @@ python3.6 -m venv /path/to/fxinterview/venv
 6. start venv:  
 source venv/bin/activate  
 
+7. install requirement libs  
+pip3.6 install -r ./requirements.txt
+
 * Dependencies  
 1. install django in evnv:    
 pip3.6 install django  
