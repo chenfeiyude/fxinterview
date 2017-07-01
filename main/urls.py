@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login/$', auth_views.login, {'template_name': 'main/login.html'}),
     url(r'^interviewee/application/(?P<application_question_id>[0-9]+)$', views.view_application_questions, name='view_application_questions'),
+    url(r'^application/(?P<application_question_id>[0-9]+)$', views.view_application_questions, name='view_application_questions'),
 ]

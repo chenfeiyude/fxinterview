@@ -1,5 +1,14 @@
 from django.contrib import admin
-from main.models import Profile, ContactDetails, Company
+
+from .models import *
+
+# Register your models here.
 admin.site.register(Profile)
-admin.site.register(ContactDetails)
 admin.site.register(Company)
+admin.site.register(ContactDetails)
+admin.site.register(CompanyStaff)
+admin.site.register(Job)
+admin.site.register(Question)
+admin.site.register(JobQuestion)
+admin.site.register(ApplicationQuestion)
+admin.site.register(Answer)
