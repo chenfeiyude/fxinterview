@@ -25,7 +25,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contactDetails = models.ForeignKey(ContactDetails, on_delete=models.CASCADE)
     validated = models.BooleanField(default=False)
-    role = models.IntegerField(max_length=1, choices=ROLE_CHOICES, default=ADMIN_ROLE)
+    role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
 
 
 class Company(models.Model):
