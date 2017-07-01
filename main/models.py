@@ -14,10 +14,18 @@ class ContactDetails(models.Model):
 
 
 class Profile(models.Model):
+    ADMIN_ROLE = 1
+    INTERVIEWER_STATUS = 2
+    INTERVIEWEE_STATUS = 3
+    ROLE_CHOICES = (
+        (ADMIN_ROLE, 'admin'),
+        (INTERVIEWER_STATUS, 'interviewer'),
+        (INTERVIEWEE_STATUS, 'interviewee'),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contactDetails = models.ForeignKey(ContactDetails, on_delete=models.CASCADE)
     validated = models.BooleanField(default=False)
-    role = models.CharField(max_length=100)
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=ADMIN_ROLE)
 
 
 class Company(models.Model):
