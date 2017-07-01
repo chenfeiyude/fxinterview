@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
 from .local_settings import *
+import logging, logging.config, yaml
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -111,3 +111,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = "/var/www/fxinterview.com/static/"
+
+LOGGING_CONFIG = None
+
+logging.config.dictConfig(yaml.load(open('./log/logging.conf')))
+
+# output log to file
+# error_log_file = logging.getLogger('error_file')
+# error_log_file.error("Error FILE")
+
+# info_log_file = logging.getLogger('info_file')
+# info_log_file.info("Info FILE")
