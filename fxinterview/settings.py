@@ -27,6 +27,8 @@ SECRET_KEY = 'l3#nmrq8d%(!gzpr9-u*!#=0pnr))3)!pvo3tc2rdw6xt)_0xu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_REDIRECT_URL = '/accounts/home'
+
 ALLOWED_HOSTS = ['www.fxinterview.com', 'localhost']
 
 
