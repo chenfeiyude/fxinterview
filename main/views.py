@@ -23,6 +23,9 @@ def check_user_role(request):
 
 def view_application_questions(request, application_question_id):
     interviewee_email = request.GET.get('interviewee_email')
-    logging.info(interviewee_email)
+    logging.info(interviewee_email + " is viewing application question with id " + application_question_id)
+
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
+
+    
     return render(request, 'main/view_application_questions.html', {'application_question': application_question})
