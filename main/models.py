@@ -22,7 +22,7 @@ class Profile(models.Model):
         (INTERVIEWEE_STATUS, 'interviewee'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    contactDetails = models.ForeignKey(ContactDetails, on_delete=models.CASCADE)
+    contact_details = models.ForeignKey(ContactDetails)
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
 
