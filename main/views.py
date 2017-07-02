@@ -10,7 +10,7 @@ def index(request):
 
 
 def check_user_role(request):
-    profile_role = Profile.objects.get(user_id=request.user.id).role
+    profile_role = request.user.get_user_role()
     # user role has default value so it cannot null
     if(Profile.INTERVIEWEE_STATUS == profile_role):
         return render(request, 'main/interviewee_home.html')
