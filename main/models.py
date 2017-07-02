@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
 class ContactDetails(models.Model):
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100)
@@ -70,6 +69,12 @@ class Answer(models.Model):
     application_question = models.ForeignKey(ApplicationQuestion, on_delete=models.CASCADE)
     job_question = models.ForeignKey(JobQuestion, on_delete=models.CASCADE)
     answer = models.TextField(null=True, blank=True)
+
+
+def get_user_role(self):
+    return  Profile.objects.get(user_id=self.id).role
+
+User.add_to_class("get_user_role",get_user_role)
 
 
 
