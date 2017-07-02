@@ -1,18 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import ApplicationQuestion
-from .models import Profile
 import logging
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    return check_user_role(request)
 
 
 def check_user_role(request):
     user = request.user
 
-    if user is None:
+    if user is None or user.is_anonymous:
         return render(request, 'main/index.html')
     elif user.profile.is_interviewee():
         return render(request, 'main/interviewee_home.html')
