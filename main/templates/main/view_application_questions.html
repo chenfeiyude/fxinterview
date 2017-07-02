@@ -10,24 +10,10 @@
     return x;
 }</div>
 
+
 {% load static %}
-
-<style type="text/css" media="screen">
-    #editor {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-</style>
-
 <script src='{% static "main/ace-builds-master/src-noconflict/ace.js" %}' type="text/javascript" charset="utf-8"></script>
-
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/javascript");
-</script>
+<script src='{% static "main/js/view_application_questions.js" %}' type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href='{% static "main/css/view_application_questions.css" %}' type="text/css" />
 
 {% endblock %}
