@@ -11,8 +11,7 @@ def index(request):
 
 def check_user_role(request):
     user = request.user
-    # user role has default value so it cannot null
-    logging.info(user.profile.role)
+
     if user is None:
         return render(request, 'main/index.html')
     elif user.profile.is_interviewee():

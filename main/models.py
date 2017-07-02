@@ -26,17 +26,17 @@ class Profile(models.Model):
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
 
-    def is_role(self, check_role):
+    def __is_role(self, check_role):
         return self.role == check_role
 
     def is_interviewer(self):
-        return self.is_role(self.INTERVIEWER_STATUS)
+        return self.__is_role(self.INTERVIEWER_STATUS)
 
     def is_interviewee(self):
-        return self.is_role(self.INTERVIEWEE_STATUS)
+        return self.__is_role(self.INTERVIEWEE_STATUS)
 
     def is_admin(self):
-        return self.is_role(self.ADMIN_ROLE)
+        return self.__is_role(self.ADMIN_ROLE)
 
 
 class Company(models.Model):
