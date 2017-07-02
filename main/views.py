@@ -10,12 +10,17 @@ def index(request):
 
 
 def check_user_role(request):
-    profile_role = request.user.get_user_role()
+    user = request.user
     # user role has default value so it cannot null
-    if(Profile.INTERVIEWEE_STATUS == profile_role):
+    logging.info(user.profile.role)
+    if user is None:
+        return render(request, 'main/index.html')
+    elif user.profile.is_interviewee():
         return render(request, 'main/interviewee_home.html')
-    else:
+    elif user.profile.is_interviewer():
         return render(request, 'main/interviewer_home.html')
+    elif user.profile.is_admin():
+        return render(request, 'main/admin_home.html')
 
 
 def view_application_questions(request, application_question_id):

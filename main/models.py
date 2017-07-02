@@ -21,10 +21,22 @@ class Profile(models.Model):
         (INTERVIEWER_STATUS, 'interviewer'),
         (INTERVIEWEE_STATUS, 'interviewee'),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     contact_details = models.ForeignKey(ContactDetails)
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
+
+    def is_role(self, check_role):
+        return self.role == check_role
+
+    def is_interviewer(self):
+        return self.is_role(self.INTERVIEWER_STATUS)
+
+    def is_interviewee(self):
+        return self.is_role(self.INTERVIEWEE_STATUS)
+
+    def is_admin(self):
+        return self.is_role(self.ADMIN_ROLE)
 
 
 class Company(models.Model):
@@ -69,12 +81,6 @@ class Answer(models.Model):
     application_question = models.ForeignKey(ApplicationQuestion, on_delete=models.CASCADE)
     job_question = models.ForeignKey(JobQuestion, on_delete=models.CASCADE)
     answer = models.TextField(null=True, blank=True)
-
-
-def get_user_role(self):
-    return  Profile.objects.get(user_id=self.id).role
-
-User.add_to_class("get_user_role",get_user_role)
 
 
 
