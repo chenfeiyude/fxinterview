@@ -13,7 +13,7 @@ class ApplicationQuestionTest(TestCase):
         ApplicationQuestion.objects.create(interviewee_email="test@fxinterview.com", job=Job.objects.get(pk=1))
 
     def test_animals_can_speak(self):
-        """Test application question"""
+        """Test application question relations with other objects"""
         application_question = ApplicationQuestion.objects.get(interviewee_email="test@fxinterview.com")
 
         self.assertEqual(application_question.interviewee_email, 'test@fxinterview.com')
