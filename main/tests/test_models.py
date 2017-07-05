@@ -1,11 +1,11 @@
 from django.test import TestCase
 
-from .models import *
+from ..models import *
 
 # Create your tests here.
 
 
-class ApplicationQuestionTest(TestCase):
+class ApplicationQuestionTestCase(TestCase):
 
     def setUp(self):
         ContactDetails.objects.create(address1='address1', address2='address2')
@@ -17,18 +17,15 @@ class ApplicationQuestionTest(TestCase):
         JobQuestion.objects.create(job=Job.objects.get(pk=1), question=Question.objects.get(pk=1))
         JobQuestion.objects.create(job=Job.objects.get(pk=1), question=Question.objects.get(pk=2))
 
-    # def test_model_relationship(self):
-    #     """Test application question and other models's relationship"""
-    #     application_question = ApplicationQuestion.objects.get(interviewee_email="test@fxinterview.com")
-    #
-    #     self.assertEqual(application_question.interviewee_email, 'test@fxinterview.com')
-    #     self.assertEqual(application_question.job.name, 'test job')
-    #     self.assertEqual(application_question.job.company.name, 'test company')
-    #     self.assertEqual(application_question.job.company.contact.address1, 'address1')
-
-    def test_getting_questions(self):
-        """Test loading questions by application object"""
+    def test_model_relationship(self):
+        """Test application question and other models's relationship"""
         application_question = ApplicationQuestion.objects.get(interviewee_email="test@fxinterview.com")
+
+        self.assertEqual(application_question.interviewee_email, 'test@fxinterview.com')
+        self.assertEqual(application_question.job.name, 'test job')
+        self.assertEqual(application_question.job.company.name, 'test company')
+        self.assertEqual(application_question.job.company.contact.address1, 'address1')
+
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
         self.assertEqual(job_questions[0].question.name, 'test question1')
