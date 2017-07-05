@@ -28,34 +28,34 @@ MAC-OS
 1. install python3.6 official release.  
 
 2. install django by pip for coding:  
-pip3.6 install Django  
+$ pip3.6 install Django  
 doc at https://docs.djangoproject.com/en/1.11/intro/  
 
 3. create your own app with django (Already done):  
-python3.6 -m django startproject fxinterview  
-python3.6 manage.py startapp main  
+$ python3.6 -m django startproject fxinterview  
+$ python3.6 manage.py startapp main  
 
 4. create your local_settings.py based on local_settings_template.py  
 
 5. create virtual environment:  
-python3.6 -m venv /path/to/fxinterview/venv  
+$ python3.6 -m venv /path/to/fxinterview/venv  
 
 6. start venv:  
-source venv/bin/activate  
+$ source venv/bin/activate  
 
 7. install requirement libs  
-pip3.6 install -r ./requirements.txt
+$ pip3.6 install -r ./requirements.txt
 
 * Dependencies  
 1. install django in evnv:    
-pip3.6 install django  
+$ pip3.6 install django  
 
 2. install mysqlclient  
-(brew unlink mysql)  
-brew install mysql-connector-c  
-(brew unlink mysql-connector-c)  
-(brew link mysql)  
-pip3.6 install mysqlclient  
+($ brew unlink mysql)  
+$ brew install mysql-connector-c  
+($ brew unlink mysql-connector-c)  
+($ brew link mysql)  
+$ pip3.6 install mysqlclient  
 
 
 * Database configuration  
@@ -64,17 +64,24 @@ pip3.6 install mysqlclient
 2. update settings.py DATABASES to configure your mysql (do not commit)  
 
 3. migrate db  
-python3.6 manage.py migrate  
-python3.6 manage.py makemigrations interviewer  
-python3.6 manage.py sqlmigrate interviewer 0001  
-python3.6 manage.py migrate (check states)  
+$ python3.6 manage.py migrate  
+$ python3.6 manage.py makemigrations main  
+$ python3.6 manage.py sqlmigrate main 0001  
+$ python3.6 manage.py migrate (check states)  
 
 * How to run tests
-1. Test interviewer project:  
-python3.6 manage.py test interviewer 
- 
-2. Test interviewee project:  
-python3.6 manage.py test interviewee  
+1. Run testing with command:  
+$ coverage run manage.py test project_name  
+e.g. 
+$ coverage run manage.py test main  
+or running full test:  
+$ coverage run manage.py test
+
+2. Build your test report  
+$ coverage html  
+
+3. View your test report  
+$ open ./htmlcov/index.html   
 
 * Deployment instructions
 
@@ -83,16 +90,12 @@ python3.6 manage.py test interviewee
 * Writing tests  
 Every new functionality should has a related test. 
 
-1. Add your test case class into project_name/tests.py 
+1. Add your test case class into project_name/tests/test_xxx.py 
 
 2. Every test case should contain description for showing what are you testing
 
-3. Test case class name should be ClassNameTests, and test case name should be test_function_name  
-e.g. CompanyModelTests
-
-4. Run testing with command:  
-python3.6 manage.py test project_name  
-e.g. python3.6 manage.py test interviewer  
+3. Test case class name should be ClassNameTestCase, and test case name should be test_function_name  
+e.g. CompanyModelTestCase
 
 * Code review
 * Other guidelines
