@@ -5,24 +5,41 @@
 {% block content %}
 
 <div class="container">
+    <h1>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
-             <h3 class="panel-title">Question</h3>
+             <h3 class="panel-title">{{ job_question.question.name }}</h3>
         </div>
         <div class="panel-body">
-            Question body
+            <p>{{ job_question.question.description }}</p>
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h3 class="panel-title">Your Result</h3>
+    <form id="application_question_form" method="POST" action="{% url 'main:submit_answer' %}">{% csrf_token %}
+        <input id="interviewee_email" name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
+        <input id="application_question_id" name="application_question_id" type="hidden" value="{{ application_question.id }}">
+        <input id="job_question_id" name="job_question_id" type="hidden" value="{{ job_question.id }}">
+        <input id="answer_content" name="answer_content" type="hidden" value="">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 <h3 class="panel-title">Your Result</h3>
+            </div>
+
+            <div class="panel-body">
+                <div id="editor">
+                    {% if answer %}
+                        {{ answer.answer }}
+                    {% else %}
+                        // Writing your code here
+                    {% endif %}
+
+                </div>
+            </div>
         </div>
-        <div class="panel-body">
-            <div id="editor">// Writing your code here</div>
-        </div>
-    </div>
-    <div class="text-center">---End of editor---</div>
+        <div class="text-center">---End of editor---</div>
+        <input type="submit" value="Submit">
+    </form>
 </div>
 
 {% load static %}

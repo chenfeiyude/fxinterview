@@ -62,6 +62,7 @@ class Job(models.Model):
 class Question(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     updated = models.DateTimeField('question last update time', auto_now_add=True, blank=True)
 
 
@@ -82,6 +83,9 @@ class Answer(models.Model):
     application_question = models.ForeignKey(ApplicationQuestion, on_delete=models.CASCADE)
     job_question = models.ForeignKey(JobQuestion, on_delete=models.CASCADE)
     answer = models.TextField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ('application_question', 'job_question',)
 
 
 
