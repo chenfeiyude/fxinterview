@@ -1,0 +1,36 @@
+[
+  {
+    "model": "main.ContactDetails",
+    "pk": 1,
+    "fields": {
+      "address1": "No.15 Ormond House",
+      "address2": "Lyreen Manor",
+      "address3": "Maynooth",
+      "address4": "Co.kildare",
+      "email": "xuxiang1990619@gmail.com",
+      "phone": "0877071479"
+    }
+  },
+
+  {
+    "model": "main.Company",
+    "pk": 1,
+    "fields": {
+      "name": "FXInterview",
+      "description": "FxInterview test description",
+      "contact": "1",
+      "updated": "2017-07-09 19:20:38.457321"
+    }
+  },
+
+  {
+    "model": "main.Profile",
+    "pk": 1,
+    "fields": {
+      "validated": 0,
+      "role": 1,
+      "contact_details_id":1,
+      "user_id": 2
+    }
+  }
+]
