@@ -67,7 +67,10 @@ $ pip3.6 install mysqlclient
 $ python3.6 manage.py migrate  
 $ python3.6 manage.py makemigrations main  
 $ python3.6 manage.py sqlmigrate main 0001  
-$ python3.6 manage.py migrate (check states)  
+$ python3.6 manage.py migrate (check states)
+
+4. insert default data
+python3 manage.py loaddata main/default_insert_data.json 
 
 * How to run tests
 1. Run testing with command:  
