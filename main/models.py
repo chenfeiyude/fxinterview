@@ -13,6 +13,13 @@ class ContactDetails(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True)
 
 
+class Company(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    contact = models.ForeignKey(ContactDetails)
+    updated = models.DateTimeField('company last update time', auto_now_add=True, blank=True)
+
+
 class Profile(models.Model):
     ADMIN_ROLE = 1
     INTERVIEWER_STATUS = 2
@@ -26,6 +33,7 @@ class Profile(models.Model):
     contact_details = models.ForeignKey(ContactDetails)
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
     def __is_role(self, check_role):
         return self.role == check_role
@@ -38,18 +46,6 @@ class Profile(models.Model):
 
     def is_admin(self):
         return self.__is_role(self.ADMIN_ROLE)
-
-
-class Company(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
-    contact = models.ForeignKey(ContactDetails)
-    updated = models.DateTimeField('company last update time', auto_now_add=True, blank=True)
-
-
-class CompanyStaff(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    staff = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 
 class Job(models.Model):

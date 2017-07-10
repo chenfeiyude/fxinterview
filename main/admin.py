@@ -6,7 +6,6 @@ from .models import *
 admin.site.register(Profile)
 admin.site.register(Company)
 admin.site.register(ContactDetails)
-admin.site.register(CompanyStaff)
 admin.site.register(Job)
 admin.site.register(Question)
 admin.site.register(JobQuestion)
