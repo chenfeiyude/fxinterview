@@ -14,8 +14,8 @@ class ApplicationQuestionTestCase(TestCase):
         Job.objects.create(name='test job', company=Company.objects.get(name='test company'))
         ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com',
                                            job=Job.objects.get(name='test job'))
-        Question.objects.create(name='test question1')
-        Question.objects.create(name='test question2')
+        Question.objects.create(name='test question1',  company=Company.objects.get(name='test company'))
+        Question.objects.create(name='test question2',  company=Company.objects.get(name='test company'))
         JobQuestion.objects.create(job=Job.objects.get(name='test job'),
                                    question=Question.objects.get(name='test question1'))
         JobQuestion.objects.create(job=Job.objects.get(name='test job'),
