@@ -3,12 +3,13 @@ from django.views.decorators.csrf import csrf_protect
 
 from .models import ApplicationQuestion, JobQuestion, Answer
 import logging
-
+# from django.contrib.auth.decorators import login_required
 
 def index(request):
-    return check_user_role(request)
+    return render(request, 'main/index.html')
 
 
+# @login_required(login_url='/login/')
 def check_user_role(request):
     user = request.user
 

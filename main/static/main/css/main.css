@@ -1,0 +1,16 @@
+.navbar-left img{padding:1em 1em 1em 0;}
+.navbar-default .navbar-brand{margin-top:20px; font-size:3.5em; color:#005375;}
+
+h3{margin:0 0 0.5em; font-size:36px; color:#005375;}
+h4{margin:0.8em 0; font-size:26px; color:#00b544;}
+table tr:hover td{background:#c5deeb}
+table tr td:first-of-type{font-weight:bold; width:30%;}
+
+.regpanel{width:40%; margin:30px auto; }
+.regpanel h1{text-align:center;}
+.regpanel input{height:auto; font-size:30px;}
+.regpanel input.btn{}
+
+.loginform{width:40%; margin:30px auto; background:#f6f6f6; border:1px solid #e9e9e9; padding:40px;}
+.loginform h3{font-size:1.9em;}
+.loginform input.btn{width:100%;}
