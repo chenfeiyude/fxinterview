@@ -46,7 +46,7 @@ def submit_answer(request):
     answer, created = Answer.objects.update_or_create(application_question=application_question,
                                              job_question=job_question,
                                              defaults={"answer": answer_content})
-    
+
     return render(request, 'main/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_question,
                                                                     'interviewee_email': interviewee_email,
