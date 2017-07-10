@@ -1,2 +1,2 @@
 pyyaml==3.11
-coverage-4.4.1
+coverage==4.4.1
