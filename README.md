@@ -69,7 +69,7 @@ $ python3.6 manage.py makemigrations main
 $ python3.6 manage.py sqlmigrate main 0001  
 $ python3.6 manage.py migrate (check states)
 
-4. insert default data
+4. insert default data  
 python3 manage.py loaddata main/default_insert_data.json 
 
 * How to run tests
