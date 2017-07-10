@@ -3,12 +3,12 @@
     "model": "main.ContactDetails",
     "pk": 1,
     "fields": {
-      "address1": "No.15 Ormond House",
-      "address2": "Lyreen Manor",
-      "address3": "Maynooth",
-      "address4": "Co.kildare",
-      "email": "xuxiang1990619@gmail.com",
-      "phone": "0877071479"
+      "address1": "Apartment 123",
+      "address2": "Fake Street",
+      "address3": "Fake Town",
+      "address4": "Co.FakeCounty",
+      "email": "test@fxinterview.com",
+      "phone": "0871234567"
     }
   },
 
@@ -31,6 +31,116 @@
       "role": 1,
       "contact_details_id":1,
       "user_id": 2
+    }
+  },
+
+  {
+    "model": "main.CompanyStaff",
+    "pk": 1,
+    "fields": {
+      "company": 1,
+      "staff": 1
+    }
+  },
+
+  {
+    "model": "main.Job",
+    "pk": 1,
+    "fields": {
+      "name": "Fake Job1",
+      "description": "Fake Job1 Description",
+      "company" : 1,
+      "updated": "2017-07-09 19:20:38.457321"
+    }
+  },
+
+  {
+    "model": "main.Job",
+    "pk": 2,
+    "fields": {
+      "name": "Fake Job2",
+      "description": "Fake Job2 Description",
+      "company" : 1,
+      "updated": "2017-07-09 19:20:38.457321"
+    }
+  },
+
+  {
+    "model": "main.Question",
+    "pk": 1,
+    "fields": {
+      "name": "Fake Question1",
+      "description": "Fake Question1 Description",
+      "company": 1,
+      "default_template": "// Write your code1 here ",
+      "updated": "2017-07-09 19:20:38.457321"
+    }
+  },
+
+  {
+    "model": "main.Question",
+    "pk": 2,
+    "fields": {
+      "name": "Fake Question2",
+      "description": "Fake Question2 Description",
+      "company": 1,
+      "default_template": "// Write your code2 here",
+      "updated": "2017-07-09 19:20:38.457321"
+    }
+  },
+
+  {
+    "model": "main.JobQuestion",
+    "pk": 1,
+    "fields": {
+      "job": 1,
+      "question": 1
+    }
+  },
+
+   {
+    "model": "main.JobQuestion",
+    "pk": 1,
+    "fields": {
+      "job": 2,
+      "question": 1
+    }
+  },
+
+  {
+    "model": "main.JobQuestion",
+    "pk": 2,
+    "fields": {
+      "job": 2,
+      "question": 2
+    }
+  },
+
+  {
+    "model": "main.ApplicationQuestion",
+    "pk": 1,
+    "fields": {
+      "interviewee_email" : "interviewee@fxinterview.com",
+      "job": 1
+    }
+  },
+
+  {
+    "model": "main.ApplicationQuestion",
+    "pk": 2,
+    "fields": {
+      "interviewee_email" : "interviewee@fxinterview.com",
+      "job": 2
+    }
+  },
+
+   {
+    "model": "main.Answer",
+    "pk": 1,
+    "fields": {
+      "application_question" : 1,
+      "job_question": 1,
+      "answer" : "Fake answer"
     }
   }
 ]

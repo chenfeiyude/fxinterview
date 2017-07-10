@@ -70,7 +70,9 @@ $ python3.6 manage.py sqlmigrate main 0001
 $ python3.6 manage.py migrate (check states)
 
 4. insert default data  
-python3 manage.py loaddata main/default_insert_data.json 
+ 1). Create your own admin user, and test staff user  
+ 2). Load test fake data:  
+     $ python3.6 manage.py loaddata main/default_insert_data.json   
 
 * How to run tests
 1. Run testing with command:  
