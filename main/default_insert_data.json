@@ -92,7 +92,7 @@
 
    {
     "model": "main.JobQuestion",
-    "pk": 1,
+    "pk": 2,
     "fields": {
       "job": 2,
       "question": 1
@@ -101,7 +101,7 @@
 
   {
     "model": "main.JobQuestion",
-    "pk": 2,
+    "pk": 3,
     "fields": {
       "job": 2,
       "question": 2
