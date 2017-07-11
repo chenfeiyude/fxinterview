@@ -39,7 +39,7 @@ class ApplicationViewTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_submit_answer(self):
-        """Test submit answer succeed"""
+        """Test submit answer succeed, and response html content should contain the submit answer"""
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
