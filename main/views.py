@@ -15,11 +15,11 @@ def check_user_role(request):
     if user is None or user.is_anonymous:
         return render(request, 'main/index.html')
     elif user.profile.is_interviewee():
-        return render(request, 'main/interviewee_home.html')
+        return render(request, 'main/accounts/interviewee_home.html')
     elif user.profile.is_interviewer():
-        return render(request, 'main/interviewer_home.html')
+        return render(request, 'main/accounts/interviewer_home.html')
     elif user.profile.is_admin():
-        return render(request, 'main/admin_home.html')
+        return render(request, 'main/accounts/admin_home.html')
 
 
 def view_application_questions(request, application_question_id):
@@ -29,7 +29,7 @@ def view_application_questions(request, application_question_id):
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time
-    return render(request, 'main/view_application_questions.html', {'application_question': application_question,
+    return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_questions[0],
                                                                     'interviewee_email': interviewee_email})
 
@@ -47,7 +47,7 @@ def submit_answer(request):
                                              job_question=job_question,
                                              defaults={"answer": answer_content})
 
-    return render(request, 'main/view_application_questions.html', {'application_question': application_question,
+    return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_question,
                                                                     'interviewee_email': interviewee_email,
                                                                     'answer':answer})
