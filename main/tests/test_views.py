@@ -60,7 +60,10 @@ class ApplicationViewTestCase(TestCase):
         self.assertContains(resp, current_job_question.job.description)
 
     def test_next_question(self):
-        """Test clicking next question button and it should redirect to next question gui"""
+        """Test clicking next question button and it should redirect to next question gui
+        1. If it has next question, then return next question
+        2. If it does not have next question, then return current question
+        """
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
@@ -80,8 +83,22 @@ class ApplicationViewTestCase(TestCase):
         self.assertContains(resp, next_job_question.job.name)
         self.assertContains(resp, next_job_question.job.description)
 
+        current_job_question = job_questions[1]
+
+        resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
+                                      'application_question_id': application_question.id,
+                                      'job_question_id': current_job_question.id,
+                                      'submit_action': 'next'})
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, current_job_question.job.name)
+        self.assertContains(resp, current_job_question.job.description)
+
     def test_prev_question(self):
-        """Test clicking prev question button and it should redirect to prev question gui"""
+        """Test clicking prev question button and it should redirect to prev question gui
+        1. If it has prev question, then return prev question
+        2. If it does not have prev question, then return current question
+        """
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
@@ -100,3 +117,14 @@ class ApplicationViewTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, prev_job_question.job.name)
         self.assertContains(resp, prev_job_question.job.description)
+
+        current_job_question = job_questions[0]
+
+        resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
+                                      'application_question_id': application_question.id,
+                                      'job_question_id': current_job_question.id,
+                                      'submit_action': 'prev'})
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, current_job_question.job.name)
+        self.assertContains(resp, current_job_question.job.description)
