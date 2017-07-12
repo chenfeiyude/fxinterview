@@ -53,7 +53,7 @@ class ApplicationViewTestCase(TestCase):
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
                                       'answer_content': answer_content,
-                                      'submit_action': 'submit'})
+                                      'submit_action': ''})
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, answer_content)
         self.assertContains(resp, current_job_question.job.name)
@@ -77,7 +77,7 @@ class ApplicationViewTestCase(TestCase):
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
-                                      'submit_action': 'next'})
+                                      'next_action': ''})
 
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, next_job_question.job.name)
@@ -88,7 +88,7 @@ class ApplicationViewTestCase(TestCase):
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
-                                      'submit_action': 'next'})
+                                      'next_action': ''})
 
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, current_job_question.job.name)
@@ -112,7 +112,7 @@ class ApplicationViewTestCase(TestCase):
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
-                                      'submit_action': 'prev'})
+                                      'prev_action': ''})
 
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, prev_job_question.job.name)
@@ -123,7 +123,7 @@ class ApplicationViewTestCase(TestCase):
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
-                                      'submit_action': 'prev'})
+                                      'prev_action': ''})
 
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, current_job_question.job.name)
