@@ -47,7 +47,7 @@ class AuthTestCase(TestCase):
         self.assertContains(response_interviewee, 'Interviewee home page')
         self.assertContains(resp, current_job_question.job.name)
         self.assertContains(resp, current_job_question.job.description)
-        
+
 
 class ApplicationViewTestCase(TestCase):
 

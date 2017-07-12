@@ -64,6 +64,7 @@
       "name": "Fake Question1",
       "description": "Fake Question1 Description",
       "company": 1,
+      "estimated_time_m": 10,
       "default_template": "// Write your code1 here ",
       "updated": "2017-07-09 19:20:38.457321"
     }
@@ -76,6 +77,7 @@
       "name": "Fake Question2",
       "description": "Fake Question2 Description",
       "company": 1,
+      "estimated_time_m": 5,
       "default_template": "// Write your code2 here",
       "updated": "2017-07-09 19:20:38.457321"
     }
