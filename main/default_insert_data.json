@@ -115,7 +115,8 @@
     "pk": 1,
     "fields": {
       "interviewee_email" : "interviewee@fxinterview.com",
-      "job": 1
+      "job": 1,
+      "estimated_time_m": 10
     }
   },
 
@@ -124,7 +125,8 @@
     "pk": 2,
     "fields": {
       "interviewee_email" : "interviewee@fxinterview.com",
-      "job": 2
+      "job": 2,
+      "estimated_time_m": 15
     }
   },
 

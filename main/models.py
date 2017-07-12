@@ -75,6 +75,7 @@ class ApplicationQuestion(models.Model):
     deadline = models.DateTimeField('Application deadline', null=True, blank=True)
     start_time = models.DateTimeField('Start answer time', null=True, blank=True)
     end_time = models.DateTimeField('End answer time', null=True, blank=True)
+    estimated_time_m = models.IntegerField(default=0)  # this estimated time is based on questions' total estimated time
 
 
 class Answer(models.Model):
