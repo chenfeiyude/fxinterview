@@ -6,3 +6,6 @@ main/migrations/
 venv/
 log/error.log
 log/python.log
+.coverage
+htmlcov/
+main/tests/__pycache__/
