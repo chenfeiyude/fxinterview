@@ -47,8 +47,6 @@ def submit_answer(request):
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
     job_question = get_object_or_404(JobQuestion, pk=job_question_id)
 
-    logging.info(submit_action)
-
     if submit_action is not None:
         answer, created = Answer.objects.update_or_create(application_question=application_question,
                                                           job_question=job_question,
