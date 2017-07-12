@@ -2,14 +2,14 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 from .models import ApplicationQuestion, JobQuestion, Answer
 import logging
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     return render(request, 'main/index.html')
 
 
-# @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def check_user_role(request):
     user = request.user
 

@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
 class ContactDetails(models.Model):
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100)
