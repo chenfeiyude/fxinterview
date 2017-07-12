@@ -60,6 +60,7 @@ class Question(models.Model):
     description = models.TextField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     default_template = models.TextField(null=True, blank=True)
+    estimated_time_m = models.IntegerField(default=0)
     updated = models.DateTimeField('question last update time', auto_now_add=True, blank=True)
 
 

@@ -4,6 +4,7 @@ from .models import ApplicationQuestion, JobQuestion, Answer
 import logging
 # from django.contrib.auth.decorators import login_required
 
+
 def index(request):
     return render(request, 'main/index.html')
 
@@ -66,6 +67,9 @@ def submit_answer(request):
 
         logging.info('final job q id : ' + str(job_question_id))
         answer, created = Answer.objects.get_or_create(application_question=application_question, job_question=job_question)
+        if created:
+            answer.answer = job_question.question.default_template
+            answer.save()
 
     return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_question,
