@@ -45,8 +45,6 @@ class AuthTestCase(TestCase):
         response_interviewee = self.client.get(reverse('main:view_home'))
         self.assertEqual(response_interviewee.status_code, 200)
         self.assertContains(response_interviewee, 'Interviewee home page')
-        self.assertContains(resp, current_job_question.job.name)
-        self.assertContains(resp, current_job_question.job.description)
 
 
 class ApplicationViewTestCase(TestCase):
