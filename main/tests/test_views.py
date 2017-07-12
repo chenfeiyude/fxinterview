@@ -1,11 +1,10 @@
 import logging
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-
 from ..models import *
+from django.contrib.auth.models import User
 
 # Create your tests here.
-
 
 class ApplicationViewTestCase(TestCase):
 
@@ -54,3 +53,44 @@ class ApplicationViewTestCase(TestCase):
                                       'answer_content':answer_content})
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, answer_content)
+
+
+class AuthTestCase(TestCase):
+
+    def setUp(self):
+        self.url = reverse("main:login")
+        user_admin = User.objects.create_user('username1', 'test@gmail.com', 'password')
+        user_interviewer = User.objects.create_user('username2', 'test@gmail.com', 'password')
+        user_interviewee = User.objects.create_user('username3', 'test@gmail.com', 'password')
+        contact_details = ContactDetails.objects.create(address1='address1', address2='address2')
+        company = Company.objects.create(name='test company', contact=contact_details)
+        Profile.objects.create(validated=0, role=1, contact_details=contact_details, user=user_admin, company=company)
+        Profile.objects.create(validated=0, role=2, contact_details=contact_details, user=user_interviewer, company=company)
+        Profile.objects.create(validated=0, role=3, contact_details=contact_details, user=user_interviewee, company=company)
+
+
+    def test_check_user_login(self):
+        self.assertTrue(self.client.login(username='username1', password='password'))
+        self.assertFalse(self.client.login(username='wrong', password='password'))
+
+
+    def test_login_refirect(self):
+        resp_admin = self.client.post(self.url, {'username': 'username1', 'password': 'password'})
+        self.assertRedirects(resp_admin, expected_url=reverse('main:view_home'), status_code=302, target_status_code=200)
+
+
+    def test_check_ueser_role(self):
+        self.client.login(username='username1', password='password')
+        response_admin = self.client.get(reverse('main:view_home'))
+        self.assertEqual(response_admin.status_code, 200)
+        self.assertContains(response_admin, 'Admin home page')
+
+        self.client.login(username='username2', password='password')
+        response_interviewer = self.client.get(reverse('main:view_home'))
+        self.assertEqual(response_interviewer.status_code, 200)
+        self.assertContains(response_interviewer, 'Interviewer home page')
+
+        self.client.login(username='username3', password='password')
+        response_interviewee = self.client.get(reverse('main:view_home'))
+        self.assertEqual(response_interviewee.status_code, 200)
+        self.assertContains(response_interviewee, 'Interviewee home page')
