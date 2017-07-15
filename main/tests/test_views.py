@@ -1,4 +1,5 @@
 import logging
+from django.utils import timezone
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from ..models import *
@@ -78,9 +79,27 @@ class ApplicationViewTestCase(TestCase):
 
         self.assertEqual(resp.status_code, 200)
 
+    def test_start_answer(self):
+        """Test """
+        application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
+        job_questions = JobQuestion.objects.filter(job=application_question.job)
+        url = reverse("main:start_answer")
+
+        current_job_question = job_questions[0]
+
+        resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
+                                      'application_question_id': application_question.id,
+                                      'start_action': 'submit'})
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, current_job_question.job.name)
+        self.assertContains(resp, current_job_question.job.description)
+
     def test_submit_answer(self):
         """Test submit answer succeed, and response html content should contain the submit answer"""
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
+        application_question.start_time = timezone.now()
+        application_question.save()
+
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
         self.assertEqual(len(job_questions), 2)
@@ -103,6 +122,9 @@ class ApplicationViewTestCase(TestCase):
         2. If it does not have next question, then return current question
         """
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
+        application_question.start_time = timezone.now()
+        application_question.save()
+
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
         self.assertEqual(len(job_questions), 2)
@@ -138,6 +160,9 @@ class ApplicationViewTestCase(TestCase):
         2. If it does not have prev question, then return current question
         """
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
+        application_question.start_time = timezone.now()
+        application_question.save()
+
         job_questions = JobQuestion.objects.filter(job=application_question.job)
 
         self.assertEqual(len(job_questions), 2)

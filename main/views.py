@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import ApplicationQuestion, JobQuestion, Answer, Job
 import logging
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .forms import CreateJobForm
 
@@ -54,6 +55,21 @@ def view_application_questions(request, application_question_id):
     interviewee_email = request.GET.get('interviewee_email')
     logging.info(str(interviewee_email) + " is viewing application question with id " + str(application_question_id))
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
+    job_questions = get_list_or_404(JobQuestion, job=application_question.job)
+
+    # show the initial question at the first time
+    return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
+                                                                    'job_question': job_questions[0],
+                                                                    'interviewee_email': interviewee_email})
+
+
+def start_answer(request):
+    interviewee_email = request.POST.get('interviewee_email')
+    application_question_id = request.POST.get('application_question_id')
+    application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
+    if not application_question.start_time:
+        application_question.start_time = timezone.now()
+        application_question.save()
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time
