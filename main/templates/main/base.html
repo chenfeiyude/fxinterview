@@ -47,13 +47,17 @@
                             <a href="{% url 'main:view_home' %}">Home</a>
                         </li>
 
-                         <li>
-                            <a href="{% url 'main:view_jobs' %}">Jobs</a>
-                        </li>
+                        {% if user.profile.is_admin or user.profile.is_interviewer %}
 
-                        <li>
-                            <a href="{% url 'main:view_questions' %}">Questions</a>
-                        </li>
+                            <li>
+                                <a href="{% url 'main:view_jobs' %}">Jobs</a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'main:view_questions' %}">Questions</a>
+                            </li>
+
+                        {% endif %}
 
                         <li class="dropdown">
 

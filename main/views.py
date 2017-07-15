@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-
 from .models import ApplicationQuestion, JobQuestion, Answer, Job
 import logging
 from django.contrib.auth.decorators import login_required
+from .forms import CreateJobForm
 
 
 def index(request):
@@ -28,6 +28,21 @@ def view_jobs(request):
     user = request.user
     jobs = Job.objects.filter(company=user.profile.company)
     return render(request, 'main/accounts/jobs.html', {'jobs': jobs})
+
+
+@login_required(login_url='/login/')
+def create_job(request):
+    if request.method == 'POST':
+        create_job_form = CreateJobForm(request.POST)
+        if create_job_form.is_valid():
+            job = create_job_form.save(commit=False)
+            job.company = request.user.profile.company
+            job.save()
+            return view_jobs(request)
+        else:
+            return render(request, 'main/accounts/create_job.html', {'form': create_job_form})
+    else:
+        return render(request, 'main/accounts/create_job.html')
 
 
 @login_required(login_url='/login/')

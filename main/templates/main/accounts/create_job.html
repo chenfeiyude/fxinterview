@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+
+{% block title %}Create New Job{% endblock %}
+
+{% block content %}
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" action="{% url 'main:create_job' %}">
+
+        {% csrf_token %}
+
+        <h3>Create Job</h3>
+
+        <div class="form-group input-container">
+
+            <input type="text" name="name" class="form-control" placeholder="Job Name">
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            <input type="input" name="description" class="form-control" placeholder="Job Description">
+
+        </div><!-- /.input-container -->
+
+        <input type="submit" class="btn btn-primary" value="Create">
+
+    </form>
+
+{% endblock %}
