@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 # Create your tests here.
 
+
 class AuthTestCase(TestCase):
 
     def setUp(self):
@@ -20,18 +21,15 @@ class AuthTestCase(TestCase):
         Profile.objects.create(validated=0, role=2, contact_details=contact_details, user=user_interviewer, company=company)
         Profile.objects.create(validated=0, role=3, contact_details=contact_details, user=user_interviewee, company=company)
 
-
     def test_check_user_login(self):
         self.assertTrue(self.client.login(username='username1', password='password'))
         self.assertFalse(self.client.login(username='wrong', password='password'))
-
 
     def test_login_refirect(self):
         resp_admin = self.client.post(self.url, {'username': 'username1', 'password': 'password'})
         self.assertRedirects(resp_admin, expected_url=reverse('main:view_home'), status_code=302, target_status_code=200)
 
-
-    def test_check_ueser_role(self):
+    def test_check_user_role(self):
         self.client.login(username='username1', password='password')
         response_admin = self.client.get(reverse('main:view_home'))
         self.assertEqual(response_admin.status_code, 200)
