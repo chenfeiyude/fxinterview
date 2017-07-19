@@ -64,7 +64,8 @@ def view_application_questions(request, application_question_id):
         return render(request, 'main/applications/view_application_questions.html',
                       {'application_question': application_question,
                        'job_question': job_question,
-                       'interviewee_email': interviewee_email})
+                       'interviewee_email': interviewee_email,
+                       'estimated_end_time': application_question.get_estimated_end_time()})
     else:
         # show welcome page
         return render(request, 'main/applications/welcome.html',
@@ -84,7 +85,8 @@ def start_answer(request):
     # show the initial question at the first time
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_questions[0],
-                                                                    'interviewee_email': interviewee_email})
+                                                                    'interviewee_email': interviewee_email,
+                                                                    'estimated_end_time': application_question.get_estimated_end_time()})
 
 
 def submit_answer(request):
@@ -126,6 +128,7 @@ def submit_answer(request):
             answer.save()
 
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
-                                                                             'job_question': job_question,
-                                                                             'interviewee_email': interviewee_email,
-                                                                             'answer':answer})
+                                                                                 'job_question': job_question,
+                                                                                 'interviewee_email': interviewee_email,
+                                                                                 'answer':answer,
+                                                                                 'estimated_end_time': application_question.get_estimated_end_time()})

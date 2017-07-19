@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 # Create your models here.
 
@@ -76,6 +77,12 @@ class ApplicationQuestion(models.Model):
     start_time = models.DateTimeField('Start answer time', null=True, blank=True)
     end_time = models.DateTimeField('End answer time', null=True, blank=True)
     estimated_time_m = models.IntegerField(default=0)  # this estimated time is based on questions' total estimated time
+
+    def get_estimated_end_time(self):
+        estimated_end_time = None
+        if self.start_time and self.estimated_time_m:
+            estimated_end_time = self.start_time + datetime.timedelta(minutes=self.estimated_time_m)
+        return estimated_end_time.strftime('%b %d, %Y %H:%M:%S')
 
 
 class Answer(models.Model):

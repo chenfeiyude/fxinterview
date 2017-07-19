@@ -5,6 +5,7 @@
 {% block content %}
 
 <div class="container">
+
     <h1>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h1>
 
     <div class="panel panel-default">
@@ -15,17 +16,19 @@
             <p>{{ job_question.question.description }}</p>
         </div>
     </div>
-
     <form id="application_question_form" method="POST" action="{% url 'main:submit_answer' %}">
         {% csrf_token %}
         <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
         <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
         <input name="job_question_id" type="hidden" value="{{ job_question.id }}">
         <input id="answer_content" name="answer_content" type="hidden" value="">
-
+        <input id="estimated_end_time" type="hidden" value="{{ estimated_end_time }}">
         <div class="panel panel-default">
             <div class="panel-heading">
-                 <h3 class="panel-title">Your Result</h3>
+                <div class="row">
+                    <div class="col-md-6"><h3 class="panel-title">Your Result</h3></div>
+                    <div id="timer" class="col-md-6 text-right"></div>
+                </div>
             </div>
 
             <div class="panel-body">
