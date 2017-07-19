@@ -17,7 +17,8 @@
         </div>
     </div>
 
-    <form id="application_question_form" method="POST" action="{% url 'main:submit_answer' %}">{% csrf_token %}
+    <form id="application_question_form" method="POST" action="{% url 'main:submit_answer' %}">
+        {% csrf_token %}
         <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
         <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
         <input name="job_question_id" type="hidden" value="{{ job_question.id }}">
