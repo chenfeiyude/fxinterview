@@ -55,12 +55,21 @@ def view_application_questions(request, application_question_id):
     interviewee_email = request.GET.get('interviewee_email')
     logging.info(str(interviewee_email) + " is viewing application question with id " + str(application_question_id))
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
-    job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
-    # show the initial question at the first time
-    return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
-                                                                    'job_question': job_questions[0],
-                                                                    'interviewee_email': interviewee_email})
+    if application_question.start_time:
+        job_questions = get_list_or_404(JobQuestion, job=application_question.job)
+        job_question = job_questions[0]
+
+        # show the initial question at the first time
+        return render(request, 'main/applications/view_application_questions.html',
+                      {'application_question': application_question,
+                       'job_question': job_question,
+                       'interviewee_email': interviewee_email})
+    else:
+        # show welcome page
+        return render(request, 'main/applications/welcome.html',
+                      {'application_question': application_question,
+                       'interviewee_email': interviewee_email})
 
 
 def start_answer(request):
@@ -73,7 +82,7 @@ def start_answer(request):
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time
-    return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
+    return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_questions[0],
                                                                     'interviewee_email': interviewee_email})
 
@@ -116,7 +125,7 @@ def submit_answer(request):
             answer.answer = job_question.question.default_template
             answer.save()
 
-    return render(request, 'main/accounts/view_application_questions.html', {'application_question': application_question,
+    return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                              'job_question': job_question,
                                                                              'interviewee_email': interviewee_email,
                                                                              'answer':answer})

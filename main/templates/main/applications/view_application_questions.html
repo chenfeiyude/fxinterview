@@ -7,7 +7,6 @@
 <div class="container">
     <h1>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h1>
 
-    {% if application_question.start_time %}
     <div class="panel panel-default">
         <div class="panel-heading">
              <h3 class="panel-title">{{ job_question.question.name }}</h3>
@@ -39,25 +38,6 @@
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="next_action">Next</button></div>
         </div>
     </form>
-    {% else %}
-    <form id="start_application_question_form" method="POST" action="{% url 'main:start_answer' %}">{% csrf_token %}
-        <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
-        <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                 <h3 class="panel-title">Welcome to interview</h3>
-            </div>
-
-            <div class="panel-body">
-                Once you ready, please click start button.
-            </div>
-        </div>
-        <div class="btn-group btn-group-justified">
-            <div class="btn-group"><button type="submit" class="btn btn-primary" name="start_action">Start</button></div>
-        </div>
-    </form>
-    {% endif %}
 </div>
 
 {% load static %}
