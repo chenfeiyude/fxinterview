@@ -12,6 +12,8 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Updated</th>
+                    <th>Question</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +22,15 @@
                         <td>{{ job.name }}</td>
                         <td>{{ job.description }}</td>
                         <td>{{ job.updated|date:"DATE_FORMAT" }}</td>
+                        <td>
+                            {% for question in job.get_questions %}
+                                <a href="">{{ question.name }}</a><br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <button class="btn btn-info">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
