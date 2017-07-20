@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 # Create your models here.
 
 
@@ -53,6 +52,13 @@ class Job(models.Model):
     description = models.TextField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     updated = models.DateTimeField('question last update time', auto_now_add=True, blank=True)
+
+    def get_questions(self):
+        job_question_list = JobQuestion.objects.filter(job=self)
+        questions = []
+        for job_question in job_question_list:
+            questions.append(job_question.question)
+        return questions
 
 
 class Question(models.Model):
