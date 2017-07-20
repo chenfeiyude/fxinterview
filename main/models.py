@@ -34,7 +34,7 @@ class Profile(models.Model):
     contact_details = models.ForeignKey(ContactDetails)
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
 
     def __is_role(self, check_role):
         return self.role == check_role

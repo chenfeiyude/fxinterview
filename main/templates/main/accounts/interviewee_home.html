@@ -6,4 +6,35 @@
 
     <p>Interviewee home page</p>
 
+    {% if applications %}
+        <h3>My Applications</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th>Job Description</th>
+                    <th>Deadline</th>
+                    <th>Started Time</th>
+                    <th>End Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                    <tr>
+                        <td>{{ application.job.name }}</td>
+                        <td>{{ application.job.description }}</td>
+                        <td>{{ application.deadline|date:"DATE_FORMAT" }}</td>
+                        <td>{{ application.start_time|date:"DATE_FORMAT" }}</td>
+                        <td>{{ application.end_time|date:"DATE_FORMAT" }}</td>
+                        <td>
+                            <a href="{% url 'main:view_application_questions' application_question_id=application.id %}?interviewee_email={{ application.interviewee_email }}">View</a><br>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+         <h3>Not Application Found</h3>
+    {% endif %}
 {% endblock %}
