@@ -3,38 +3,24 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
-    <p>Interviewee home page</p>
-
-    {% if applications %}
+<div class="container">
+    <div class="page-header">
         <h3>My Applications</h3>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Job Name</th>
-                    <th>Job Description</th>
-                    <th>Deadline</th>
-                    <th>Started Time</th>
-                    <th>End Time</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for application in applications %}
-                    <tr>
-                        <td>{{ application.job.name }}</td>
-                        <td>{{ application.job.description }}</td>
-                        <td>{{ application.deadline|date:"DATE_FORMAT" }}</td>
-                        <td>{{ application.start_time|date:"DATE_FORMAT" }}</td>
-                        <td>{{ application.end_time|date:"DATE_FORMAT" }}</td>
-                        <td>
-                            <a href="{% url 'main:view_application_questions' application_question_id=application.id %}?interviewee_email={{ application.interviewee_email }}">View</a><br>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-         <h3>Not Application Found</h3>
+    </div>
+    {% if applications %}
+        <div class="list-group">
+            {% for application in applications %}
+                <a href="{% url 'main:view_application_questions' application_question_id=application.id %}?interviewee_email={{ application.interviewee_email }}"
+                 class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between row">
+                      <h5 class="col-md-6">{{ application.job.name }}</h5>
+                      <small class="text-muted col-md-6 text-right">{{ application.estimated_time_m }} minutes</small>
+                  </div>
+                  <p class="mb-1">{{ application.job.description }}</p>
+                  <small class="text-muted">Expected finished before {{ application.deadline|date:"DATE_FORMAT" }}</small>
+                </a>
+            {% endfor %}
+        </div>
     {% endif %}
+</div>
 {% endblock %}

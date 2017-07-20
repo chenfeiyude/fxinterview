@@ -5,7 +5,9 @@
 {% block content %}
 
 <div class="container">
-    <h1>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h1>
+    <div class="page-header">
+        <h3>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h3>
+    </div>
 
     <form id="start_application_question_form" method="POST" action="{% url 'main:start_answer' %}">{% csrf_token %}
         <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">

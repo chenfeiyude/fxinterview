@@ -43,7 +43,7 @@ class AuthTestCase(TestCase):
         self.client.login(username='username3', password='password')
         response_interviewee = self.client.get(reverse('main:view_home'))
         self.assertEqual(response_interviewee.status_code, 200)
-        self.assertContains(response_interviewee, 'Interviewee home page')
+        self.assertContains(response_interviewee, 'My Applications')
 
 
 class ApplicationViewTestCase(TestCase):
