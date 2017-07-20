@@ -52,7 +52,7 @@ class ApplicationViewTestCase(TestCase):
         ContactDetails.objects.create(address1='address1', address2='address2')
         Company.objects.create(name='test company', contact=ContactDetails.objects.get(address1='address1', address2='address2'))
         Job.objects.create(name='test job', company=Company.objects.get(name='test company'))
-        ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com', job=Job.objects.get(name='test job'))
+        ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com', job=Job.objects.get(name='test job'), estimated_time_m=10)
         Question.objects.create(name='test question1',  company=Company.objects.get(name='test company'))
         Question.objects.create(name='test question2',  company=Company.objects.get(name='test company'))
         JobQuestion.objects.create(job=Job.objects.get(name='test job'), question=Question.objects.get(name='test question1'))

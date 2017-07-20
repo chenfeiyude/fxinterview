@@ -4,6 +4,7 @@ import logging
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .forms import CreateJobForm
+from .utils.fx_string_utils import fx_format_date_b_d_y_h_m_s
 
 
 def index(request):
@@ -17,7 +18,7 @@ def check_user_role(request):
     if user is None or user.is_anonymous:
         return render(request, 'main/index.html')
     elif user.profile.is_interviewee():
-        return render(request, 'main/accounts/interviewee_home.html')
+        return interviewee_home(request)
     elif user.profile.is_interviewer():
         return render(request, 'main/accounts/interviewer_home.html')
     elif user.profile.is_admin():
@@ -61,11 +62,12 @@ def view_application_questions(request, application_question_id):
         job_question = job_questions[0]
 
         # show the initial question at the first time
+        estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
         return render(request, 'main/applications/view_application_questions.html',
                       {'application_question': application_question,
                        'job_question': job_question,
                        'interviewee_email': interviewee_email,
-                       'estimated_end_time': application_question.get_estimated_end_time()})
+                       'estimated_end_time': estimated_end_time})
     else:
         # show welcome page
         return render(request, 'main/applications/welcome.html',
@@ -83,10 +85,11 @@ def start_answer(request):
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time
+    estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_questions[0],
                                                                     'interviewee_email': interviewee_email,
-                                                                    'estimated_end_time': application_question.get_estimated_end_time()})
+                                                                    'estimated_end_time': estimated_end_time})
 
 
 def submit_answer(request):
@@ -127,8 +130,15 @@ def submit_answer(request):
             answer.answer = job_question.question.default_template
             answer.save()
 
+    estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                                  'job_question': job_question,
                                                                                  'interviewee_email': interviewee_email,
-                                                                                 'answer':answer,
-                                                                                 'estimated_end_time': application_question.get_estimated_end_time()})
+                                                                                 'answer': answer,
+                                                                                 'estimated_end_time': estimated_end_time})
+
+
+@login_required(login_url='/login/')
+def interviewee_home(request):
+
+    return render(request, 'main/accounts/interviewee_home.html')
