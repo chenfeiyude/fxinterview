@@ -48,6 +48,13 @@ def create_job(request):
 
 
 @login_required(login_url='/login/')
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    job.delete()
+    return view_jobs(request)
+
+
+@login_required(login_url='/login/')
 def view_questions(request):
     return render(request, 'main/accounts/questions.html')
 

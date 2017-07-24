@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^accounts/jobs', views.view_jobs, name='view_jobs'),
     # http://localhost:8000/accounts/create_job
     url(r'^accounts/create_job', views.create_job, name='create_job'),
+    # http://localhost:8000/accounts/delete_job
+    url(r'^accounts/delete_job/(?P<job_id>[0-9]+)$', views.delete_job, name='delete_job'),
     # http://localhost:8000/accounts/questions
     url(r'^accounts/questions', views.view_questions, name='view_questions'),
     # http://localhost:8000/application/2?interviewee_email=interviewee@fxinterview.com
@@ -28,5 +30,5 @@ urlpatterns = [
     url(r'^application/start_answer', views.start_answer, name='start_answer'),
     # http://localhost:8000/application/submit_answer
     url(r'^application/submit_answer', views.submit_answer, name='submit_answer'),
-
 ]
+
