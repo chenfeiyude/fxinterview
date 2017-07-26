@@ -111,7 +111,7 @@ def submit_answer(request):
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
     job_question = get_object_or_404(JobQuestion, pk=job_question_id)
 
-    if submit_action is not None:
+    if submit_action is not None and not application_question.is_expired():
         answer, created = Answer.objects.update_or_create(application_question=application_question,
                                                           job_question=job_question,
                                                           defaults={"answer": answer_content})
@@ -132,17 +132,15 @@ def submit_answer(request):
                     job_question = temp_question
 
         logging.info('final job q id : ' + str(job_question_id))
-        answer, created = Answer.objects.get_or_create(application_question=application_question, job_question=job_question)
-        if created:
-            answer.answer = job_question.question.default_template
-            answer.save()
+        answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
 
     estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                                  'job_question': job_question,
                                                                                  'interviewee_email': interviewee_email,
                                                                                  'answer': answer,
-                                                                                 'estimated_end_time': estimated_end_time})
+                                                                                 'estimated_end_time': estimated_end_time,
+                                                                                 'is_expired': application_question.is_expired()})
 
 
 @login_required(login_url='/login/')

@@ -33,12 +33,14 @@
             </div>
 
             <div class="panel-body">
-                <div id="editor">{% if answer %}{{ answer.answer }}{% else %}// Writing your code here{% endif %}</div>
+                <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}// Writing your code here{% endif %}</div>
             </div>
         </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="prev_action">Prev</button></div>
+            {% if not is_expired %}
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="submit_action">Submit</button></div>
+            {% endif %}
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="next_action">Next</button></div>
         </div>
     </form>
