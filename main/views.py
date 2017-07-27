@@ -74,7 +74,8 @@ def view_application_questions(request, application_question_id):
                       {'application_question': application_question,
                        'job_question': job_question,
                        'interviewee_email': interviewee_email,
-                       'estimated_end_time': estimated_end_time})
+                       'estimated_end_time': estimated_end_time,
+                       'is_expired': application_question.is_expired()})
     else:
         # show welcome page
         return render(request, 'main/applications/welcome.html',

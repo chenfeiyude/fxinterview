@@ -51,4 +51,8 @@
 <script src='{% static "main/js/view_application_questions.js" %}' type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href='{% static "main/css/view_application_questions.css" %}' type="text/css" />
 
+<script type="text/javascript" >
+    var is_expired = "{{ is_expired|safe }}";
+</script>
+
 {% endblock %}
