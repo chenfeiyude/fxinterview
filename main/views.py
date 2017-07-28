@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import ApplicationQuestion, JobQuestion, Answer, Job
+from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question
 import logging
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -40,11 +40,16 @@ def create_job(request):
             job = create_job_form.save(commit=False)
             job.company = request.user.profile.company
             job.save()
+            questions_id = request.POST.getlist('question_id')
+            for question_id in questions_id:
+                job_question = JobQuestion(job=job, question=Question.objects.get(pk=question_id))
+                job_question.save()
             return view_jobs(request)
         else:
             return render(request, 'main/accounts/create_job.html', {'form': create_job_form})
     else:
-        return render(request, 'main/accounts/create_job.html')
+        questions = Question.objects.all()
+        return render(request, 'main/accounts/create_job.html', {'questions': questions})
 
 
 @login_required(login_url='/login/')

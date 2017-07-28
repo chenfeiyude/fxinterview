@@ -14,7 +14,7 @@
 
         <div class="form-group input-container">
 
-            <input type="text" name="name" class="form-control" placeholder="Job Name">
+            <input type="input" name="name" class="form-control" placeholder="Job Name">
 
         </div><!-- /.input-container -->
 
@@ -24,8 +24,41 @@
 
         </div><!-- /.input-container -->
 
+        <div class="form-group input-container">
+
+            <label>Selected Questions:</label>
+
+            <div id="selectedQuestionDiv"></div>
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            {% if questions %}
+
+                <label>Select Questions:</label>
+
+                <select id="jobSelect" class="form-control">
+
+                    <option selected disabled>Select Questions</option>
+
+                {% for question in questions %}
+
+                    <option value="{{ question.id }}">{{ question.name }}</option>
+
+                {% endfor %}
+
+                </select>
+
+            {% endif %}
+
+        </div><!-- /.input-container -->
+
         <input type="submit" class="btn btn-primary" value="Create">
 
     </form>
+
+    {% load static %}
+    <script src='{% static "main/js/create_job.js" %}' type="text/javascript" charset="utf-8"></script>
 
 {% endblock %}
