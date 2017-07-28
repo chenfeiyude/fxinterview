@@ -33,12 +33,14 @@
             </div>
 
             <div class="panel-body">
-                <div id="editor">{% if answer %}{{ answer.answer }}{% else %}// Writing your code here{% endif %}</div>
+                <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}// Writing your code here{% endif %}</div>
             </div>
         </div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="prev_action">Prev</button></div>
+            {% if not is_expired %}
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="submit_action">Submit</button></div>
+            {% endif %}
             <div class="btn-group"><button type="submit" class="btn btn-primary" name="next_action">Next</button></div>
         </div>
     </form>
@@ -48,5 +50,9 @@
 <script src='{% static "main/ace-builds-master/src-noconflict/ace.js" %}' type="text/javascript" charset="utf-8"></script>
 <script src='{% static "main/js/view_application_questions.js" %}' type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href='{% static "main/css/view_application_questions.css" %}' type="text/css" />
+
+<script type="text/javascript" >
+    var is_expired = "{{ is_expired|safe }}";
+</script>
 
 {% endblock %}
