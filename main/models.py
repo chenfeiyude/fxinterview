@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
+from .utils import fx_timezone_utils
 
 # Create your models here.
 
@@ -94,7 +95,7 @@ class ApplicationQuestion(models.Model):
 
     def is_expired(self):
         estimated_end_time = self.get_estimated_end_time()
-        if estimated_end_time and estimated_end_time < timezone.now():
+        if estimated_end_time and estimated_end_time < fx_timezone_utils.get_local_time_now():
             return True
         return False
 

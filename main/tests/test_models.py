@@ -3,6 +3,7 @@ from django.test import TestCase
 from ..models import *
 from django.utils import timezone
 import datetime
+from ..utils import fx_timezone_utils
 
 # Create your tests here.
 
@@ -120,7 +121,7 @@ class ApplicationQuestionTestCase(FXModelTestCase):
         self.assertEqual(application_question.estimated_time_m, 0)
         self.assertIsNone(application_question.get_estimated_end_time())
 
-        now = timezone.now()
+        now = fx_timezone_utils.get_local_time_now()
         estimated_time_m = 10
         application_question.start_time = now
         application_question.estimated_time_m = estimated_time_m

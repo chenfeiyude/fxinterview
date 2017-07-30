@@ -4,8 +4,8 @@ import logging
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .forms import CreateJobForm
-from .utils.fx_string_utils import fx_format_date_b_d_y_h_m_s
-
+from .utils import fx_string_utils
+from .utils import fx_timezone_utils
 
 def index(request):
     return render(request, 'main/index.html')
@@ -74,7 +74,7 @@ def view_application_questions(request, application_question_id):
         job_question = job_questions[0]
 
         # show the initial question at the first time
-        estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
+        estimated_end_time = fx_string_utils.format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
         return render(request, 'main/applications/view_application_questions.html',
                       {'application_question': application_question,
                        'job_question': job_question,
@@ -93,12 +93,13 @@ def start_answer(request):
     application_question_id = request.POST.get('application_question_id')
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
     if not application_question.start_time:
-        application_question.start_time = timezone.now()
+        application_question.start_time = fx_timezone_utils.get_local_time_now();
+        logging.info(application_question.start_time)
         application_question.save()
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time
-    estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
+    estimated_end_time = fx_string_utils.format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_questions[0],
                                                                     'interviewee_email': interviewee_email,
@@ -127,7 +128,6 @@ def submit_answer(request):
         temp_last_id = None
         logging.info('current job q id : ' + str(job_question_id))
         for temp_question in job_questions:
-            logging.info(temp_question.id)
             if prev_action is not None and job_question_id > temp_question.id:
                 if temp_last_id is None or temp_question.id > temp_last_id:
                     temp_last_id = temp_question.id
@@ -140,7 +140,7 @@ def submit_answer(request):
         logging.info('final job q id : ' + str(job_question_id))
         answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
 
-    estimated_end_time = fx_format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
+    estimated_end_time = fx_string_utils.format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                                  'job_question': job_question,
                                                                                  'interviewee_email': interviewee_email,
