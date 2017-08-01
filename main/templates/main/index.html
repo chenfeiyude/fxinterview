@@ -16,7 +16,7 @@
         <form method="POST" action="{% url 'main:register' %}">
             {% csrf_token %}
 
-            <h4>Register New Account</h4>
+            <h4>Sign Up</h4>
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
             <!--
@@ -41,7 +41,7 @@
             <input type="hidden" name="role" class="form-control" value="{{ role }}">
             -->
 
-            <input type="submit" class="btn btn-primary" value="Register">
+            <input type="submit" class="btn btn-primary" value="Sign Up">
 
         </form>
     </div>

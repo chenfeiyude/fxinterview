@@ -11,7 +11,7 @@ class CreateJobForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    role = forms.IntegerField(error_messages={'required': 'Role is required'})
+    role = forms.IntegerField(error_messages={'required': 'Role is required'}, widget=forms.HiddenInput())
 
     class Meta:
         model = Profile

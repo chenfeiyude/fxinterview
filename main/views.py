@@ -16,11 +16,10 @@ from .utils import fx_timezone_utils
 
 def index(request):
     user_form = UserCreationForm()
-    profile_form = ProfileForm()
+    profile_form = ProfileForm(initial={'role': Profile.INTERVIEWEE_STATUS})
 
     return render(request, 'main/index.html', dict(user_form=user_form,
-                                                   profile_form=profile_form,
-                                                   role=Profile.INTERVIEWEE_STATUS))
+                                                   profile_form=profile_form))
 
 
 @login_required(login_url='/login/')
@@ -188,6 +187,5 @@ def register(request):
             return HttpResponseRedirect('/accounts/home')
         else:
             return render(request, 'main/index.html', dict(user_form=user_form,
-                                                           profile_form=profile_form,
-                                                           role=Profile.INTERVIEWEE_STATUS))
+                                                           profile_form=profile_form))
     return index(request)
