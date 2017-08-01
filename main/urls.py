@@ -10,6 +10,8 @@ app_name = 'main'
 urlpatterns = [
     # http://localhost:8000/
     url(r'^$', views.index, name='index'),
+    # http://localhost:8000/register/
+    url(r'^register/$', views.register, name='register'),
     # http://localhost:8000/login/
     url(r'^login/$', auth_views.login, {'template_name': 'main/login.html'}, name='login'),
     # http://localhost:8000/logout/

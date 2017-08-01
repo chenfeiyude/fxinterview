@@ -4,4 +4,46 @@
 
 {% block content %}
 
+{% include "main/form_error.html" %}
+
+<div class="row-fluid">
+    <div class="col-xs-8 fx-div-left">
+        <h3>Welcome to FX Interview</h3>
+
+    </div>
+
+    <div class="col-xs-4 fx-div-right">
+        <form method="POST" action="{% url 'main:register' %}">
+            {% csrf_token %}
+
+            <h4>Register New Account</h4>
+            {{ user_form }}
+            {{ profile_form }}
+            <!--
+            <div class="form-group input-container">
+
+                <input type="text" name="username" class="form-control" placeholder="Username" value="{{username}}">
+
+            </div>
+
+            <div class="form-group input-container">
+
+                <input type="password" name="password" class="form-control" placeholder="Password">
+
+            </div>
+
+            <div class="form-group input-container">
+
+                <input type="email" name="email" class="form-control" placeholder="Email">
+
+            </div>
+
+            <input type="hidden" name="role" class="form-control" value="{{ role }}">
+            -->
+
+            <input type="submit" class="btn btn-primary" value="Register">
+
+        </form>
+    </div>
+</div>
 {% endblock %}

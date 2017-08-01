@@ -1,14 +1,26 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question
+from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile
 import logging
 from django.utils import timezone
+from django import template
 from django.contrib.auth.decorators import login_required
-from .forms import CreateJobForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+
+from django.http import HttpResponseRedirect
+
+from .forms import CreateJobForm, ProfileForm
 from .utils import fx_string_utils
 from .utils import fx_timezone_utils
 
+
 def index(request):
-    return render(request, 'main/index.html')
+    user_form = UserCreationForm()
+    profile_form = ProfileForm()
+
+    return render(request, 'main/index.html', dict(user_form=user_form,
+                                                   profile_form=profile_form,
+                                                   role=Profile.INTERVIEWEE_STATUS))
 
 
 @login_required(login_url='/login/')
@@ -154,3 +166,28 @@ def interviewee_home(request):
     user = request.user
     applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
     return render(request, 'main/accounts/interviewee_home.html', {'applications': applications})
+
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST, prefix='user')
+        profile_form = ProfileForm(request.POST, prefix='profile')
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            username = user_form.cleaned_data['username']
+            password = user_form.cleaned_data['password1']
+
+            user.set_password(password)
+            user.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            new_user = authenticate(username=username, password=password)
+            login(request, new_user)
+            return HttpResponseRedirect('/accounts/home')
+        else:
+            return render(request, 'main/index.html', dict(user_form=user_form,
+                                                           profile_form=profile_form,
+                                                           role=Profile.INTERVIEWEE_STATUS))
+    return index(request)

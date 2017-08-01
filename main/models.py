@@ -33,7 +33,7 @@ class Profile(models.Model):
         (INTERVIEWEE_STATUS, 'interviewee'),
     )
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
-    contact_details = models.ForeignKey(ContactDetails)
+    contact_details = models.ForeignKey(ContactDetails, blank=True, null=True)
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
