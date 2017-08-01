@@ -17,8 +17,8 @@
             {% csrf_token %}
 
             <h4>Register New Account</h4>
-            {{ user_form }}
-            {{ profile_form }}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
             <!--
             <div class="form-group input-container">
 
