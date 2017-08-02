@@ -17,10 +17,11 @@
             {% csrf_token %}
 
             <h4>New Account</h4>
-            {{ profile_form.as_p }}
 
             {% load widget_tweaks %}
-            
+
+            {% render_field profile_form.role value=role %}
+
             <div class="form-group input-container">
                 {% render_field user_form.username class="form-control" placeholder="Username" %}
             </div>
