@@ -16,30 +16,20 @@
         <form method="POST" action="{% url 'main:register' %}">
             {% csrf_token %}
 
-            <h4>Sign Up</h4>
-            {{ user_form.as_p }}
+            <h4>New Account</h4>
             {{ profile_form.as_p }}
-            <!--
+
+            {% load widget_tweaks %}
             <div class="form-group input-container">
-
-                <input type="text" name="username" class="form-control" placeholder="Username" value="{{username}}">
-
+                {% render_field user_form.username class="form-control" placeholder="Username" %}
+            </div>
+            <div class="form-group input-container">
+                {% render_field user_form.password1 class="form-control" placeholder="Password" %}
             </div>
 
             <div class="form-group input-container">
-
-                <input type="password" name="password" class="form-control" placeholder="Password">
-
+                {% render_field user_form.password2 class="form-control" placeholder="Password Confirmation" %}
             </div>
-
-            <div class="form-group input-container">
-
-                <input type="email" name="email" class="form-control" placeholder="Email">
-
-            </div>
-
-            <input type="hidden" name="role" class="form-control" value="{{ role }}">
-            -->
 
             <input type="submit" class="btn btn-primary" value="Sign Up">
 
