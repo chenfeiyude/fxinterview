@@ -20,9 +20,11 @@
             {{ profile_form.as_p }}
 
             {% load widget_tweaks %}
+            
             <div class="form-group input-container">
                 {% render_field user_form.username class="form-control" placeholder="Username" %}
             </div>
+
             <div class="form-group input-container">
                 {% render_field user_form.password1 class="form-control" placeholder="Password" %}
             </div>
