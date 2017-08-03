@@ -9,18 +9,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.http import HttpResponseRedirect
 
-from .forms import CreateJobForm, ProfileForm
+from .forms import CreateJobForm, ProfileForm, FXCreateUserForm
 from .utils import fx_string_utils
 from .utils import fx_timezone_utils
 
 
 def index(request):
-    user_form = UserCreationForm()
-    profile_form = ProfileForm()
+    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS })
+    # profile_form = ProfileForm(initial={'role': Profile.INTERVIEWEE_STATUS })
 
-    return render(request, 'main/index.html', dict(user_form=user_form,
-                                                   profile_form=profile_form,
-                                                   role=Profile.INTERVIEWEE_STATUS))
+    return render(request, 'main/index.html', dict(form=user_form))
 
 
 @login_required(login_url='/login/')
@@ -170,24 +168,17 @@ def interviewee_home(request):
 
 def register(request):
     if request.method == 'POST':
-        user_form = UserCreationForm(request.POST, prefix='user')
-        profile_form = ProfileForm(request.POST, prefix='profile')
+        user_form = FXCreateUserForm(request.POST)
+        logging.info(user_form)
+        logging.info(user_form.is_valid())
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(commit=False)
+        if user_form.is_valid():
+            user_form.save()
             username = user_form.cleaned_data['username']
             password = user_form.cleaned_data['password1']
-
-            user.set_password(password)
-            user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
             new_user = authenticate(username=username, password=password)
             login(request, new_user)
             return HttpResponseRedirect('/accounts/home')
         else:
-            return render(request, 'main/index.html', dict(user_form=user_form,
-                                                           profile_form=profile_form,
-                                                           role=Profile.INTERVIEWEE_STATUS))
+            return render(request, 'main/index.html', dict(form=user_form))
     return index(request)

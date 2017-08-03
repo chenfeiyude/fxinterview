@@ -20,19 +20,19 @@
 
             {% load widget_tweaks %}
 
-            {% render_field profile_form.role value=role %}
-
             <div class="form-group input-container">
-                {% render_field user_form.username class="form-control" placeholder="Username" %}
+                {% render_field form.username class="form-control" placeholder="Username" %}
             </div>
 
             <div class="form-group input-container">
-                {% render_field user_form.password1 class="form-control" placeholder="Password" %}
+                {% render_field form.password1 class="form-control" placeholder="Password" %}
             </div>
 
             <div class="form-group input-container">
-                {% render_field user_form.password2 class="form-control" placeholder="Password Confirmation" %}
+                {% render_field form.password2 class="form-control" placeholder="Password Confirmation" %}
             </div>
+
+            {% render_field form.role %}
 
             <input type="submit" class="btn btn-primary" value="Sign Up">
 
