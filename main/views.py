@@ -1,15 +1,13 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.urls import reverse
+
 from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile
 import logging
-from django.utils import timezone
-from django import template
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
-
 from django.http import HttpResponseRedirect
-
-from .forms import CreateJobForm, ProfileForm, FXCreateUserForm
+from .forms import JobForm, FXCreateUserForm
 from .utils import fx_string_utils
 from .utils import fx_timezone_utils
 
@@ -44,29 +42,61 @@ def view_jobs(request):
 
 @login_required(login_url='/login/')
 def create_job(request):
+    questions = Question.objects.all()
     if request.method == 'POST':
-        create_job_form = CreateJobForm(request.POST)
+        create_job_form = JobForm(request.POST)
         if create_job_form.is_valid():
             job = create_job_form.save(commit=False)
-            job.company = request.user.profile.company
             job.save()
-            questions_id = request.POST.getlist('question_id')
-            for question_id in questions_id:
+            question_ids = request.POST.getlist('question_id')
+            for question_id in question_ids:
                 job_question = JobQuestion(job=job, question=Question.objects.get(pk=question_id))
                 job_question.save()
-            return view_jobs(request)
+            return HttpResponseRedirect(reverse('main:view_jobs'))
         else:
-            return render(request, 'main/accounts/create_job.html', {'form': create_job_form})
+            return render(request, 'main/accounts/create_job.html', {'form': create_job_form, 'questions': questions})
     else:
-        questions = Question.objects.all()
         return render(request, 'main/accounts/create_job.html', {'questions': questions})
 
 
 @login_required(login_url='/login/')
-def delete_job(request, job_id):
-    job = get_object_or_404(Job, pk=job_id)
+def edit_job(request):
+    if request.method == 'POST':
+        job = get_object_or_404(Job, pk=request.POST.get('id'))
+        update_job_form = JobForm(request.POST, instance=job)
+        if update_job_form.is_valid():
+            job = update_job_form.save()
+            question_ids = request.POST.getlist('question_id')
+            JobQuestion.objects.filter(job=job).delete()
+            for question_id in question_ids:
+                job_question = JobQuestion(job=job, question=Question.objects.get(pk=question_id))
+                job_question.save()
+            return HttpResponseRedirect(reverse('main:view_jobs'))
+        else:
+            return __configure_edit_job(request, job=job, job_form=update_job_form)
+    else:
+        job = get_object_or_404(Job, pk=request.GET.get('id'))
+        return __configure_edit_job(request, job=job)
+
+
+def __configure_edit_job(request, job, job_form=None):
+    job_questions = JobQuestion.objects.filter(job=job)
+    assigned_questions = []
+    temp_id = []
+    for job_question in job_questions:
+        question = get_object_or_404(Question, pk=job_question.question.id)
+        assigned_questions.append(question)
+        temp_id.append(question.id)
+    questions = Question.objects.all().exclude(id__in=temp_id)
+    return render(request, 'main/accounts/edit_job.html',
+                  {'form': job_form, 'job': job, 'questions': questions, 'assigned_questions': assigned_questions})
+
+
+@login_required(login_url='/login/')
+def delete_job(request):
+    job = get_object_or_404(Job, pk=request.GET.get('id'))
     job.delete()
-    return view_jobs(request)
+    return HttpResponseRedirect(reverse('main:view_jobs'))
 
 
 @login_required(login_url='/login/')

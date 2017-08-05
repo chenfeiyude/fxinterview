@@ -28,8 +28,8 @@
                             {% endfor %}
                         </td>
                         <td>
-                            <a class="btn btn-info">Edit</a>
-                            <a href="{% url 'main:delete_job' job_id=job.id%}" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'main:edit_job'%}?id={{ job.id }}" class="btn btn-info">Edit</a>
+                            <a href="{% url 'main:delete_job'%}?id={{ job.id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

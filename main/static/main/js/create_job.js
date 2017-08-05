@@ -7,7 +7,7 @@ $(document).ready(function()
         $("option:selected").remove();
 
         $('#selectedQuestionDiv').append('<div>' +
-            '<a href="">'+selectedText+'</a>' +
+            '<a href="">'+selectedText+' </a>' +
             '<input type="hidden" name="question_id" class="question_id" value="'+selectedQuestionId+'">' +
             '<input type="button" class="btn btn-danger" value="Remove" />' +
             '</div>');

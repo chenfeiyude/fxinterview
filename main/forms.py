@@ -3,13 +3,12 @@ from .models import Job, User, Profile
 from django.contrib.auth.forms import UserCreationForm
 
 
-
-class CreateJobForm(forms.ModelForm):
+class JobForm(forms.ModelForm):
     name = forms.CharField(error_messages={'required': 'Job name is required'})
 
     class Meta:
         model = Job
-        fields = ('name', 'description',)
+        fields = ('name', 'description', 'company')
 
 
 class ProfileForm(forms.ModelForm):

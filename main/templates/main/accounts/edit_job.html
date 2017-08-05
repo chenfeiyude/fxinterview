@@ -1,0 +1,82 @@
+{% extends "main/base.html" %}
+
+{% block title %}Edit Job{% endblock %}
+
+{% block content %}
+
+    {% include "main/form_error.html" %}
+
+    <form method="post" action="{% url 'main:edit_job' %}">
+
+        {% csrf_token %}
+
+        <h3>Edit Job</h3>
+
+        <input type="hidden" name="id" value="{{ job.id }}">
+        <input type="hidden" name="company" value="{{ user.profile.company.id }}">
+
+        <div class="form-group input-container">
+
+            <input type="input" name="name" class="form-control" value="{{ job.name }}">
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            <input type="input" name="description" class="form-control" value="{{ job.description }}">
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            <label>Selected Questions:</label>
+
+            <div id="selectedQuestionDiv">
+
+                {% if assigned_questions %}
+
+                    {% for assigned_question in assigned_questions %}
+                        <div>
+                            <a href="">{{ assigned_question.name }} </a>
+                            <input type="hidden" name="question_id" class="question_id" value="{{ assigned_question.id }}">
+                            <input type="button" class="btn btn-danger" value="Remove">
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+                <label>Select Questions:</label>
+
+                    <select id="jobSelect" class="form-control">
+
+                        <option selected disabled>Select Questions</option>
+
+                        {% if questions %}
+
+                            {% for question in questions %}
+
+                                <option value="{{ question.id }}">{{ question.name }}</option>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </select>
+
+        </div><!-- /.input-container -->
+
+        <input type="submit" class="btn btn-primary" value="Update">
+
+    </form>
+
+    {% load static %}
+    <script src='{% static "main/js/create_job.js" %}' type="text/javascript" charset="utf-8"></script>
+
+{% endblock %}
