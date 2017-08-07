@@ -91,7 +91,8 @@ class ApplicationQuestion(models.Model):
         estimated_end_time = None
         if self.start_time and self.estimated_time_m:
             estimated_end_time = self.start_time + datetime.timedelta(minutes=self.estimated_time_m)
-        return estimated_end_time
+
+        return timezone.localtime(estimated_end_time)
 
     def is_expired(self):
         estimated_end_time = self.get_estimated_end_time()
