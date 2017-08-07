@@ -4,13 +4,37 @@
 
 {% block content %}
 
+      {% if questions %}
+        <h3>View Questions</h3>
         <table class="table table-bordered table-striped">
-            <tbody>
+            <thead>
                 <tr>
-                    <td>Question</td>
-                    <td>question1</td>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>ETC(Minute)</th>
+                    <th>Updated</th>
+                    <th>Action</th>
                 </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %}
+                    <tr>
+                        <td>{{ question.name }}</td>
+                        <td>{{ question.description }}</td>
+                         <td>{{ question.estimated_time_m }}</td>
+                        <td>{{ question.updated|date:"DATE_FORMAT" }}</td>
+                        <td>
+                            <a href="" class="btn btn-info">Edit</a>
+                            <a href="" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
+    {% else %}
+         <h3>No Question Found</h3>
+    {% endif %}
+
+     <a href="" type="button" class="btn btn-primary">Create Question</a>
 
 {% endblock %}

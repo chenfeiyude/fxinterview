@@ -101,7 +101,9 @@ def delete_job(request):
 
 @login_required(login_url='/login/')
 def view_questions(request):
-    return render(request, 'main/accounts/questions.html')
+    user = request.user
+    questions = Question.objects.filter(company=user.profile.company)
+    return render(request, 'main/accounts/questions.html', {'questions': questions})
 
 
 def view_application_questions(request, application_question_id):
