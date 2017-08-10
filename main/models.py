@@ -112,6 +112,11 @@ class ApplicationQuestion(models.Model):
     def is_init(self):
         return self.status == self.INIT
 
+    def start(self):
+        self.start_time = fx_timezone_utils.get_local_time_now()
+        self.status = ApplicationQuestion.PENDING
+        self.save()
+
 
 class Answer(models.Model):
     application_question = models.ForeignKey(ApplicationQuestion, on_delete=models.CASCADE)

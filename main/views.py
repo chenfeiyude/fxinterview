@@ -134,10 +134,9 @@ def start_answer(request):
     interviewee_email = request.POST.get('interviewee_email')
     application_question_id = request.POST.get('application_question_id')
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
-    if not application_question.start_time:
-        application_question.start_time = fx_timezone_utils.get_local_time_now();
-        logging.info(application_question.start_time)
-        application_question.save()
+    if application_question.is_init():
+        application_question.start()
+        
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time
