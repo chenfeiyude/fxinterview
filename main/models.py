@@ -110,7 +110,7 @@ class ApplicationQuestion(models.Model):
         return False
 
     def is_init(self):
-        return self.status == self.INIT;
+        return self.status == self.INIT
 
 
 class Answer(models.Model):
