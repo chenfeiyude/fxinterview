@@ -136,7 +136,7 @@ def start_answer(request):
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
     if application_question.is_init():
         application_question.start()
-        
+
     job_questions = get_list_or_404(JobQuestion, job=application_question.job)
 
     # show the initial question at the first time

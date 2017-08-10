@@ -122,11 +122,11 @@ class ApplicationQuestionTestCase(FXModelTestCase):
         self.assertEqual(application_question.estimated_time_m, 0)
         self.assertIsNone(application_question.get_estimated_end_time())
 
-        now = fx_timezone_utils.get_local_time_now()
         estimated_time_m = 10
-        application_question.start_time = now
         application_question.estimated_time_m = estimated_time_m
-        self.assertEqual(application_question.get_estimated_end_time(), now + datetime.timedelta(minutes=estimated_time_m))
+        application_question.start()
+        self.assertFalse(application_question.is_init())
+        self.assertEqual(application_question.get_estimated_end_time(), application_question.start_time + datetime.timedelta(minutes=estimated_time_m))
         self.assertFalse(application_question.is_expired())
 
     def test_getting_questions(self):
