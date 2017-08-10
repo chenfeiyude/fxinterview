@@ -80,25 +80,37 @@ class JobQuestion(models.Model):
 
 
 class ApplicationQuestion(models.Model):
+    INIT = 1
+    PENDING = 2
+    DONE = 3
+    STATUS = (
+        (INIT, 'init'),
+        (PENDING, 'pending'),
+        (DONE, 'done'),
+    )
+
     interviewee_email = models.CharField(max_length=100)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     deadline = models.DateTimeField('Application deadline', null=True, blank=True)
     start_time = models.DateTimeField('Start answer time', null=True, blank=True)
     end_time = models.DateTimeField('End answer time', null=True, blank=True)
     estimated_time_m = models.IntegerField(default=0)  # this estimated time is based on questions' total estimated time
+    status = models.IntegerField(choices=STATUS, default=INIT)
 
     def get_estimated_end_time(self):
         estimated_end_time = None
         if self.start_time and self.estimated_time_m:
-            estimated_end_time = self.start_time + datetime.timedelta(minutes=self.estimated_time_m)
-
-        return timezone.localtime(estimated_end_time)
+            estimated_end_time = timezone.localtime(self.start_time + datetime.timedelta(minutes=self.estimated_time_m))
+        return estimated_end_time
 
     def is_expired(self):
         estimated_end_time = self.get_estimated_end_time()
         if estimated_end_time and estimated_end_time < fx_timezone_utils.get_local_time_now():
             return True
         return False
+
+    def is_init(self):
+        return self.status == self.INIT;
 
 
 class Answer(models.Model):

@@ -114,6 +114,7 @@ class ApplicationQuestionTestCase(FXModelTestCase):
         application_question = ApplicationQuestion.objects.get(interviewee_email="test@fxinterview.com")
 
         self.assertEqual(application_question.interviewee_email, 'test@fxinterview.com')
+        self.assertTrue(application_question.is_init())
         self.assertEqual(application_question.job, job)
         self.assertIsNone(application_question.deadline)
         self.assertIsNone(application_question.start_time)
