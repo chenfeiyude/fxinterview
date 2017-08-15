@@ -108,6 +108,8 @@ def view_questions(request):
 
 def view_application_questions(request, application_question_id):
     interviewee_email = request.GET.get('interviewee_email')
+    if interviewee_email is None:
+        interviewee_email = request.POST.get('interviewee_email')
     logging.info(str(interviewee_email) + " is viewing application question with id " + str(application_question_id))
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
 
@@ -188,6 +190,18 @@ def submit_answer(request):
                                                                                  'answer': answer,
                                                                                  'estimated_end_time': estimated_end_time,
                                                                                  'is_expired': application_question.is_expired()})
+
+
+def finish_answer(request):
+    interviewee_email = request.POST.get('interviewee_email')
+    application_question_id = request.POST.get('application_question_id')
+
+    application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
+
+    if not application_question.is_finished():
+        application_question.finish()
+
+    return view_application_questions(request, application_question_id)
 
 
 @login_required(login_url='/login/')
