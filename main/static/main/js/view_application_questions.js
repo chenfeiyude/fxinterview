@@ -14,10 +14,11 @@ function configure_editor() {
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
-
-    console.log(is_expired);
-    if(is_expired)
+    if(is_expired == 'True' || is_finished == 'True') {
         editor.setReadOnly(true);
+    }
+
+
 }
 
 function count_down_time(estimated_end_time) {

@@ -28,15 +28,6 @@ class QuestionForm(forms.ModelForm):
         fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m')
 
 
-class ProfileForm(forms.ModelForm):
-    role = forms.IntegerField(required=True, widget=forms.HiddenInput())
-
-    class Meta:
-        model = Profile
-        exclude = ['user']
-        fields = ('role',)
-
-
 class FXCreateUserForm(UserCreationForm):
     role = forms.IntegerField(required=True, widget=forms.HiddenInput())
 
