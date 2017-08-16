@@ -33,12 +33,14 @@ class FXCreateUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2', 'role',)
+        fields = ('username', 'password1', 'password2', 'role', 'email')
 
     def save(self, commit=True):
         new_user = super(UserCreationForm, self).save(commit=False)
         password = self.cleaned_data['password1']
+        email = self.cleaned_data['email']
         new_user.set_password(password)
+        new_user.email = email
 
         new_profile = Profile(user=new_user, role=self.cleaned_data['role'])
         if commit:
