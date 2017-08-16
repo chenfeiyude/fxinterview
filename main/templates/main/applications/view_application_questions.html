@@ -12,9 +12,7 @@
             {% csrf_token %}
             <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
             <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
-            <div class="btn-group btn-group-justified">
-                <div class="btn-group"><button type="submit" class="btn btn-primary" name="finish_action">Finish</button></div>
-            </div>
+            <button type="submit" class="btn btn-primary" name="finish_action">Finish</button>
         </form>
         {% endif %}
     </div>
@@ -62,7 +60,8 @@
 <link rel="stylesheet" href='{% static "main/css/view_application_questions.css" %}' type="text/css" />
 
 <script type="text/javascript" >
-    var is_expired = "{{ is_expired|safe }}";
+    var is_expired = "{{ application_question.is_expired|safe }}";
+    var is_finished = "{{ application_question.is_finished|safe }}";
 </script>
 
 {% endblock %}

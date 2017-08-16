@@ -116,7 +116,7 @@ def view_application_questions(request, application_question_id):
     if application_question.start_time:
         job_questions = get_list_or_404(JobQuestion, job=application_question.job)
         job_question = job_questions[0]
-
+        answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
         # show the initial question at the first time
         estimated_end_time = fx_string_utils.format_date_b_d_y_h_m_s(application_question.get_estimated_end_time())
         return render(request, 'main/applications/view_application_questions.html',
@@ -124,7 +124,7 @@ def view_application_questions(request, application_question_id):
                        'job_question': job_question,
                        'interviewee_email': interviewee_email,
                        'estimated_end_time': estimated_end_time,
-                       'is_expired': application_question.is_expired()})
+                       'answer': answer})
     else:
         # show welcome page
         return render(request, 'main/applications/welcome.html',
