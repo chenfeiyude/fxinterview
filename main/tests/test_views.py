@@ -189,3 +189,26 @@ class ApplicationViewTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, current_job_question.job.name)
         self.assertContains(resp, current_job_question.job.description)
+
+    def test_finish_answer(self):
+        """Test clicking finish answer button and it should update application status to finished and redirect to
+           view application page
+        """
+        application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
+        application_question.start_time = timezone.now()
+        application_question.save()
+        job_questions = JobQuestion.objects.filter(job=application_question.job)
+        current_job_question = job_questions[0]
+        url = reverse("main:finish_answer")
+
+        resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
+                                      'application_question_id': application_question.id,
+                                      'finish_action': 'submit'})
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, current_job_question.job.name)
+        self.assertContains(resp, current_job_question.job.description)
+
+        # after finish, should not show finish and submit button
+        self.assertNotContains(resp, 'finish_action')
+        self.assertNotContains(resp, 'submit_action')

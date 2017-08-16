@@ -129,6 +129,9 @@ class ApplicationQuestionTestCase(FXModelTestCase):
         self.assertEqual(application_question.get_estimated_end_time(), application_question.start_time + datetime.timedelta(minutes=estimated_time_m))
         self.assertFalse(application_question.is_expired())
 
+        application_question.finish()
+        self.assertTrue(application_question.is_finished())
+
     def test_getting_questions(self):
         """Test loading questions by application object"""
         application_question = ApplicationQuestion.objects.get(interviewee_email="test@fxinterview.com")
