@@ -90,6 +90,21 @@ def edit_job(request):
         return __configure_edit_job(request, job=job)
 
 
+@login_required(login_url='/login/')
+def edit_question(request):
+    if request.method == 'POST':
+        question = get_object_or_404(Question, pk=request.POST.get('id'))
+        update_question_form = QuestionForm(request.POST, instance=question)
+        if update_question_form.is_valid():
+            update_question_form.save()
+            return HttpResponseRedirect(reverse('main:view_questions'))
+        else:
+            return __configure_edit_question(request, question=question, question_form=update_question_form)
+    else:
+        question = get_object_or_404(Question, pk=request.GET.get('id'))
+        return __configure_edit_question(request, question=question)
+
+
 def __configure_edit_job(request, job, job_form=None):
     job_questions = JobQuestion.objects.filter(job=job)
     assigned_questions = []
@@ -101,6 +116,12 @@ def __configure_edit_job(request, job, job_form=None):
     questions = Question.objects.all().exclude(id__in=temp_id)
     return render(request, 'main/accounts/edit_job.html',
                   {'form': job_form, 'job': job, 'questions': questions, 'assigned_questions': assigned_questions})
+
+
+def __configure_edit_question(request, question, question_form=None):
+    return render(request, 'main/accounts/edit_question.html',
+                  {'form': question_form, 'question': question})
+
 
 
 @login_required(login_url='/login/')

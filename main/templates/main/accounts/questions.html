@@ -24,7 +24,7 @@
                          <td>{{ question.estimated_time_m }}</td>
                         <td>{{ question.updated|date:"DATE_FORMAT" }}</td>
                         <td>
-                            <a href="" class="btn btn-info">Edit</a>
+                            <a href="{% url 'main:edit_question'%}?id={{ question.id }}" class="btn btn-info">Edit</a>
                             <a href="{% url 'main:delete_question'%}?id={{ question.id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

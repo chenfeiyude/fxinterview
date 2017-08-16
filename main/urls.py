@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^accounts/create_question', views.create_question, name='create_question'),
     # http://localhost:8000/accounts/edit_job
     url(r'^accounts/edit_job', views.edit_job, name='edit_job'),
+    # http://localhost:8000/accounts/edit_question
+    url(r'^accounts/edit_question', views.edit_question, name='edit_question'),
     # http://localhost:8000/accounts/delete_job
     url(r'^accounts/delete_job', views.delete_job, name='delete_job'),
     # http://localhost:8000/accounts/delete_question
