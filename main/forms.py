@@ -11,16 +11,7 @@ class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ('name', 'description', 'company')
-
-
-class ProfileForm(forms.ModelForm):
-    role = forms.IntegerField(required=True, widget=forms.HiddenInput())
-
-    class Meta:
-        model = Profile
-        exclude = ['user']
-        fields = ('role',)
-
+        
 
 class FXCreateUserForm(UserCreationForm):
     role = forms.IntegerField(required=True, widget=forms.HiddenInput())
