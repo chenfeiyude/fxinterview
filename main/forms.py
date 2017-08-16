@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job, User, Profile
+from .models import Job, User, Profile, Question
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -11,6 +11,21 @@ class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ('name', 'description', 'company')
+
+
+class QuestionForm(forms.ModelForm):
+    name = forms.CharField(error_messages={'required': 'Question name is required'})
+
+    description = forms.CharField(required=False, max_length=200,
+                                  error_messages={'max_length': 'Ensure Description has at most 200 characters'})
+
+    default_template = forms.CharField(required=False)
+
+    estimated_time_m = forms.IntegerField(required=False)
+
+    class Meta:
+        model = Question
+        fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m')
 
 
 class ProfileForm(forms.ModelForm):

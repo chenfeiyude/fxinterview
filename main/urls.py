@@ -22,10 +22,14 @@ urlpatterns = [
     url(r'^accounts/jobs', views.view_jobs, name='view_jobs'),
     # http://localhost:8000/accounts/create_job
     url(r'^accounts/create_job', views.create_job, name='create_job'),
+    # http://localhost:8000/accounts/create_question
+    url(r'^accounts/create_question', views.create_question, name='create_question'),
     # http://localhost:8000/accounts/edit_job
     url(r'^accounts/edit_job', views.edit_job, name='edit_job'),
     # http://localhost:8000/accounts/delete_job
     url(r'^accounts/delete_job', views.delete_job, name='delete_job'),
+    # http://localhost:8000/accounts/delete_question
+    url(r'^accounts/delete_question', views.delete_question, name='delete_question'),
     # http://localhost:8000/accounts/questions
     url(r'^accounts/questions', views.view_questions, name='view_questions'),
     # http://localhost:8000/application/2?interviewee_email=interviewee@fxinterview.com

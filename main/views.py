@@ -1,15 +1,12 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.urls import reverse
-
 from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile
 import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from .forms import JobForm, FXCreateUserForm
+from .forms import JobForm, FXCreateUserForm, QuestionForm
 from .utils import fx_string_utils
-from .utils import fx_timezone_utils
 
 
 def index(request):
@@ -60,6 +57,20 @@ def create_job(request):
 
 
 @login_required(login_url='/login/')
+def create_question(request):
+    if request.method == 'POST':
+        create_question_form = QuestionForm(request.POST)
+        if create_question_form.is_valid():
+            question = create_question_form.save(commit=False)
+            question.save()
+            return HttpResponseRedirect(reverse('main:view_questions'))
+        else:
+            return render(request, 'main/accounts/create_question.html', {'form': create_question_form})
+    else:
+        return render(request, 'main/accounts/create_question.html')
+
+
+@login_required(login_url='/login/')
 def edit_job(request):
     if request.method == 'POST':
         job = get_object_or_404(Job, pk=request.POST.get('id'))
@@ -97,6 +108,13 @@ def delete_job(request):
     job = get_object_or_404(Job, pk=request.GET.get('id'))
     job.delete()
     return HttpResponseRedirect(reverse('main:view_jobs'))
+
+
+@login_required(login_url='/login/')
+def delete_question(request):
+    question = get_object_or_404(Question, pk=request.GET.get('id'))
+    question.delete()
+    return HttpResponseRedirect(reverse('main:view_questions'))
 
 
 @login_required(login_url='/login/')

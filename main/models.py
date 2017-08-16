@@ -66,7 +66,7 @@ class Job(models.Model):
 
 
 class Question(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(unique=True, max_length=100)
     description = models.TextField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     default_template = models.TextField(null=True, blank=True)

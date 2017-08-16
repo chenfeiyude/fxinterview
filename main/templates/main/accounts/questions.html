@@ -25,7 +25,7 @@
                         <td>{{ question.updated|date:"DATE_FORMAT" }}</td>
                         <td>
                             <a href="" class="btn btn-info">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'main:delete_question'%}?id={{ question.id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -35,6 +35,6 @@
          <h3>No Question Found</h3>
     {% endif %}
 
-     <a href="" type="button" class="btn btn-primary">Create Question</a>
+     <a href="{% url 'main:create_question' %}" type="button" class="btn btn-primary">Create Question</a>
 
 {% endblock %}
