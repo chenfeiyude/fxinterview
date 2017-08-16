@@ -29,6 +29,7 @@ class QuestionForm(forms.ModelForm):
 
 
 class FXCreateUserForm(UserCreationForm):
+    email = forms.EmailField(required=True)
     role = forms.IntegerField(required=True, widget=forms.HiddenInput())
 
     class Meta:
