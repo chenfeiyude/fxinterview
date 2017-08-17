@@ -52,10 +52,13 @@ class Profile(models.Model):
 
 
 class Job(models.Model):
-    name = models.CharField(unique=True, max_length=100)
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     updated = models.DateTimeField('question last update time', auto_now_add=True, blank=True)
+
+    class Meta:
+        unique_together = ('name', 'company',)
 
     def get_questions(self):
         job_question_list = JobQuestion.objects.filter(job=self)
@@ -66,12 +69,15 @@ class Job(models.Model):
 
 
 class Question(models.Model):
-    name = models.CharField(unique=True, max_length=100)
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     default_template = models.TextField(null=True, blank=True)
     estimated_time_m = models.IntegerField(default=0)
     updated = models.DateTimeField('question last update time', auto_now_add=True, blank=True)
+
+    class Meta:
+        unique_together = ('name', 'company',)
 
 
 class JobQuestion(models.Model):

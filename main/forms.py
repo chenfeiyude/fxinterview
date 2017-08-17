@@ -12,6 +12,24 @@ class JobForm(forms.ModelForm):
         model = Job
         fields = ('name', 'description', 'company')
 
+    def clean(self):
+        cleaned_data = super(JobForm, self).clean()
+        name = cleaned_data.get('name')
+        company = cleaned_data.get('company')
+
+        if name and company:
+            try:
+                Job.objects.get(
+                    name=name,
+                    company=company,
+                )
+            except Job.DoesNotExist:
+                pass
+            else:
+                raise forms.ValidationError({'name': ["Question name already exists", ]})
+
+        return self.cleaned_data
+
 
 class QuestionForm(forms.ModelForm):
     name = forms.CharField(error_messages={'required': 'Question name is required'})
@@ -26,6 +44,24 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m')
+
+    def clean(self):
+        cleaned_data = super(QuestionForm, self).clean()
+        name = cleaned_data.get('name')
+        company = cleaned_data.get('company')
+
+        if name and company:
+            try:
+                Question.objects.get(
+                    name=name,
+                    company=company,
+                )
+            except Question.DoesNotExist:
+                pass
+            else:
+                raise forms.ValidationError({'name': ["Question name already exists", ]})
+
+        return self.cleaned_data
 
 
 class FXCreateUserForm(UserCreationForm):
