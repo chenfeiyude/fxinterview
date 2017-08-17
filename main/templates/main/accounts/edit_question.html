@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+
+{% block title %}Edit Question{% endblock %}
+
+{% block content %}
+
+    {% include "main/form_error.html" %}
+
+    <form method="post" action="{% url 'main:edit_question' %}">
+
+        {% csrf_token %}
+
+        <h3>Edit Question</h3>
+
+        <input type="hidden" name="id" value="{{ question.id }}">
+        <input type="hidden" id="estimated_time_input" value="">
+        <input type="hidden" name="company" value="{{ user.profile.company.id }}">
+
+        <div class="form-group input-container">
+
+            <input type="input" name="name" class="form-control" value="{{ question.name }}">
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            <input type="input" name="description" class="form-control" value="{{ question.description }}">
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            <label for="comment">Default Template:</label>
+
+            <textarea class="form-control" name="default_template" rows="10" id="comment">{{ question.default_template }}</textarea>
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+            <label>Estimated Time (Minute):</label><br>
+            <input type="number" name="estimated_time_m" class="form-control" value="{{ question.estimated_time_m }}">
+        </div><!-- /.input-container -->
+
+        <input type="submit" class="btn btn-primary" value="Update">
+
+    </form>
+
+{% endblock %}
