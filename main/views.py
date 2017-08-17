@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from .forms import JobForm, FXCreateUserForm, QuestionForm
 from .utils import fx_string_utils
+from .compiler import fx_python_compiler
 
 
 def index(request):
@@ -196,14 +197,22 @@ def submit_answer(request):
     submit_action = request.POST.get('submit_action')
     prev_action = request.POST.get('prev_action')
     next_action = request.POST.get('next_action')
+    run_action = request.POST.get('run_action')
 
     application_question = get_object_or_404(ApplicationQuestion, pk=application_question_id, interviewee_email=interviewee_email)
     job_question = get_object_or_404(JobQuestion, pk=job_question_id)
 
-    if submit_action is not None and not application_question.is_expired():
-        answer, created = Answer.objects.update_or_create(application_question=application_question,
-                                                          job_question=job_question,
-                                                          defaults={"answer": answer_content})
+    run_results = None
+    if submit_action is not None or run_action is not None:
+        if not application_question.is_expired():
+            answer, created = Answer.objects.update_or_create(application_question=application_question,
+                                                              job_question=job_question,
+                                                              defaults={"answer": answer_content})
+        else:
+            answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
+
+        if run_action is not None:
+            run_results = fx_python_compiler.main(answer_content)
     else:
         job_question_id = int(job_question_id)
         job_questions = get_list_or_404(JobQuestion, job=application_question.job)
@@ -227,6 +236,7 @@ def submit_answer(request):
                                                                                  'job_question': job_question,
                                                                                  'interviewee_email': interviewee_email,
                                                                                  'answer': answer,
+                                                                                 'run_results': run_results,
                                                                                  'estimated_end_time': estimated_end_time,
                                                                                  'is_expired': application_question.is_expired()})
 
