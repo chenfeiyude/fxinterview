@@ -212,7 +212,7 @@ def submit_answer(request):
             answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
 
         if run_action is not None:
-            run_results = fx_python_compiler.main(answer_content)
+            run_results = fx_python_compiler.run_code(answer_content)
     else:
         job_question_id = int(job_question_id)
         job_questions = get_list_or_404(JobQuestion, job=application_question.job)

@@ -1,3 +1,4 @@
+import logging
 
 
 def format_date(date, date_format):
@@ -10,3 +11,13 @@ def format_date(date, date_format):
 
 def format_date_b_d_y_h_m_s(date):
     return format_date(date, '%b %d, %Y %H:%M:%S')
+
+
+def decode_utf_8(data):
+    decoded_data = data
+    if data:
+        try:
+            decoded_data = data.decode('utf-8')
+        except UnicodeDecodeError as e:
+            logging.error('Decode to utf-8 failed: %s' % e)
+    return decoded_data

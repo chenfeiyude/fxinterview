@@ -1,11 +1,12 @@
 import os, sys, subprocess, tempfile, time
+import logging
+from ..utils import fx_file_utils, fx_string_utils
 
-# create temp file
-TempFile = tempfile.mkdtemp(suffix='_test', prefix='python_')
 # file name
-FileNum = int(time.time() * 1000)
+file_num = int(time.time() * 1000)
+
 # python compiler
-EXEC = sys.executable
+py_exec = sys.executable
 
 
 # python version
@@ -16,50 +17,33 @@ def get_version():
 
 
 # python file name
-def get_pyname():
-    global FileNum
-    return 'test_%d' % FileNum
+def get_py_name():
+    global file_num
+    return 'test_%d' % file_num
 
 
-# get code and write into file
-def write_file(pyname, code):
-    fpath = os.path.join(TempFile, '%s.py' % pyname)
-    with open(fpath, 'w', encoding='utf-8') as f:
-        f.write(code)
-    print('file path: %s' % fpath)
-    return fpath
-
-
-# decode file
-def decode(s):
-    try:
-        return s.decode('utf-8')
-    except UnicodeDecodeError:
-        return s.decode('gbk')
-
-
-def main(code):
-    r = dict()
-    r["version"] = get_version()
-    pyname = get_pyname()
-    fpath = write_file(pyname, code)
+def run_code(code):
+    result = dict()
+    result["version"] = get_version()
+    py_name = get_py_name()
+    file_path = fx_file_utils.write_py_file(fx_file_utils.make_temp_dir(), py_name, code)
     try:
         # subprocess.check_output waiting sub process, and return output results
         # stderr is type of standard output
-        outdata = decode(subprocess.check_output([EXEC, fpath], stderr=subprocess.STDOUT, timeout=5))
+        out_data = fx_string_utils.decode_utf_8(subprocess.check_output([py_exec, file_path], stderr=subprocess.STDOUT, timeout=5))
     except subprocess.CalledProcessError as e:
         # return error data
-        r["code"] = 'Error'
-        r["output"] = decode(e.output)
-        return r
+        result["code"] = 'Error'
+        result["output"] = fx_string_utils.decode_utf_8(e.output)
+        return result
     else:
         # return success data
-        r['output'] = outdata
-        r["code"] = "Success"
-        return r
+        result['output'] = out_data
+        result["code"] = "Success"
+        return result
     finally:
         # delete temp file
         try:
-            os.remove(fpath)
+            os.remove(file_path)
         except Exception as e:
-            exit(1)
+            logging.error('Remove file failed: %s' % e)
