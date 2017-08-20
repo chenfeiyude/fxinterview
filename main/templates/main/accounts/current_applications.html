@@ -26,7 +26,7 @@
                         <td>{{ application.get_status_display  }}</td>
                            <td>
                             <a href="{% url 'main:view_application_questions' application.id%}?interviewee_email={{ application.interviewee_email }}"
-                               class="btn btn-danger">View</a>
+                               class="btn btn-info">View</a>
                         </td>
                     </tr>
                 {% endfor %}
