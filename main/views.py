@@ -26,15 +26,18 @@ def check_user_role(request):
     elif user.profile.is_interviewee():
         return interviewee_home(request)
     elif user.profile.is_interviewer():
-        return render(request, 'main/accounts/interviewer_home.html')
+        return __render_interviewer_admin_page(request, 'main/accounts/interviewer_home.html')
     elif user.profile.is_admin():
-        user = request.user
-        applications = []
-        jobs = Job.objects.filter(company=user.profile.company)
-        for job in jobs:
-            logging.info(job.name)
-            applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
-        return render(request, 'main/accounts/admin_home.html', {'applications': applications})
+        return __render_interviewer_admin_page(request, 'main/accounts/admin_home.html')
+
+
+def __render_interviewer_admin_page(request, url):
+    user = request.user
+    applications = []
+    jobs = Job.objects.filter(company=user.profile.company)
+    for job in jobs:
+        applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
+    return render(request, url, {'applications': applications})
 
 
 @login_required(login_url='/login/')
