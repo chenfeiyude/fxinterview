@@ -17,15 +17,7 @@ class JobForm(forms.ModelForm):
         name = cleaned_data.get('name')
         company = cleaned_data.get('company')
 
-        if name and company:
-            try:
-                Job.objects.get(
-                    name=name,
-                    company=company,
-                )
-            except Job.DoesNotExist:
-                pass
-            else:
+        if name and company and Job.objects.exclude(pk=self.instance.pk).filter(name=name, company=company).exists():
                 raise forms.ValidationError({'name': ["Question name already exists", ]})
 
         return self.cleaned_data
@@ -50,16 +42,8 @@ class QuestionForm(forms.ModelForm):
         name = cleaned_data.get('name')
         company = cleaned_data.get('company')
 
-        if name and company:
-            try:
-                Question.objects.get(
-                    name=name,
-                    company=company,
-                )
-            except Question.DoesNotExist:
-                pass
-            else:
-                raise forms.ValidationError({'name': ["Question name already exists", ]})
+        if name and company and Question.objects.exclude(pk=self.instance.pk).filter(name=name, company=company).exists():
+            raise forms.ValidationError({'name': ["Question name already exists", ]})
 
         return self.cleaned_data
 
