@@ -28,7 +28,13 @@ def check_user_role(request):
     elif user.profile.is_interviewer():
         return render(request, 'main/accounts/interviewer_home.html')
     elif user.profile.is_admin():
-        return render(request, 'main/accounts/admin_home.html')
+        user = request.user
+        applications = []
+        jobs = Job.objects.filter(company=user.profile.company)
+        for job in jobs:
+            logging.info(job.name)
+            applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
+        return render(request, 'main/accounts/admin_home.html', {'applications': applications})
 
 
 @login_required(login_url='/login/')
@@ -122,7 +128,6 @@ def __configure_edit_job(request, job, job_form=None):
 def __configure_edit_question(request, question, question_form=None):
     return render(request, 'main/accounts/edit_question.html',
                   {'form': question_form, 'question': question})
-
 
 
 @login_required(login_url='/login/')

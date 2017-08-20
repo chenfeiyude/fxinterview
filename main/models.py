@@ -90,9 +90,9 @@ class ApplicationQuestion(models.Model):
     PENDING = 2
     DONE = 3
     STATUS = (
-        (INIT, 'init'),
-        (PENDING, 'pending'),
-        (DONE, 'done'),
+        (INIT, 'Init'),
+        (PENDING, 'Pending'),
+        (DONE, 'Done'),
     )
 
     interviewee_email = models.CharField(max_length=100)

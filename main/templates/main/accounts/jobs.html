@@ -24,7 +24,7 @@
                         <td>{{ job.updated|date:"DATE_FORMAT" }}</td>
                         <td>
                             {% for question in job.get_questions %}
-                                <a href="">{{ question.name }}</a><br>
+                                <a href="{% url 'main:edit_question'%}?id={{ question.id }}">{{ question.name }}</a><br>
                             {% endfor %}
                         </td>
                         <td>
