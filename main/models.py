@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
-from .utils import fx_timezone_utils
+from .utils import fx_timezone_utils, fx_constants
 
 # Create your models here.
 
@@ -136,7 +136,7 @@ class Answer(models.Model):
     application_question = models.ForeignKey(ApplicationQuestion, on_delete=models.CASCADE)
     job_question = models.ForeignKey(JobQuestion, on_delete=models.CASCADE)
     answer = models.TextField(null=True, blank=True)
-
+    selected_language = models.TextField(null=False, blank=False, default=fx_constants.LANGUAGE_PYTHON)
     class Meta:
         unique_together = ('application_question', 'job_question',)
 

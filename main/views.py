@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from .forms import JobForm, FXCreateUserForm, QuestionForm
-from .utils import fx_string_utils
+from .utils import fx_string_utils, fx_constants
 from .compiler import fx_python_compiler
 
 
@@ -172,7 +172,8 @@ def view_application_questions(request, application_question_id):
                        'job_question': job_question,
                        'interviewee_email': interviewee_email,
                        'estimated_end_time': estimated_end_time,
-                       'answer': answer})
+                       'answer': answer,
+                       'support_languages': fx_constants.SUPPORT_LANGUAGES})
     else:
         # show welcome page
         return render(request, 'main/applications/welcome.html',
@@ -194,7 +195,8 @@ def start_answer(request):
     return render(request, 'main/applications/view_application_questions.html', {'application_question': application_question,
                                                                     'job_question': job_questions[0],
                                                                     'interviewee_email': interviewee_email,
-                                                                    'estimated_end_time': estimated_end_time})
+                                                                    'estimated_end_time': estimated_end_time,
+                                                                    'support_languages': fx_constants.SUPPORT_LANGUAGES})
 
 
 def submit_answer(request):
@@ -202,6 +204,7 @@ def submit_answer(request):
     application_question_id = request.POST.get('application_question_id')
     job_question_id = request.POST.get('job_question_id')
     answer_content = request.POST.get('answer_content')
+    selected_language = request.POST.get('selected_language')
     submit_action = request.POST.get('submit_action')
     prev_action = request.POST.get('prev_action')
     next_action = request.POST.get('next_action')
@@ -215,7 +218,8 @@ def submit_answer(request):
         if not application_question.is_expired():
             answer, created = Answer.objects.update_or_create(application_question=application_question,
                                                               job_question=job_question,
-                                                              defaults={"answer": answer_content})
+                                                              defaults={"answer": answer_content,
+                                                                        "selected_language": selected_language})
         else:
             answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
 
@@ -246,6 +250,7 @@ def submit_answer(request):
                                                                                  'answer': answer,
                                                                                  'run_results': run_results,
                                                                                  'estimated_end_time': estimated_end_time,
+                                                                                 'support_languages': fx_constants.SUPPORT_LANGUAGES,
                                                                                  'is_expired': application_question.is_expired()})
 
 

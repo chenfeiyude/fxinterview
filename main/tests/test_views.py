@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from ..models import *
 from django.contrib.auth.models import User
+from ..utils import fx_constants
 
 # Create your tests here.
 
@@ -104,10 +105,12 @@ class ApplicationViewTestCase(TestCase):
 
         current_job_question = job_questions[0]
         answer_content = 'fake answer content'
+        selected_language = fx_constants.LANGUAGE_PYTHON
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
                                       'answer_content': answer_content,
+                                      'selected_language': selected_language,
                                       'submit_action': 'submit'})
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, answer_content)
@@ -129,10 +132,12 @@ class ApplicationViewTestCase(TestCase):
 
         current_job_question = job_questions[0]
         next_job_question = job_questions[1]
+        selected_language = fx_constants.LANGUAGE_PYTHON
 
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
+                                      'selected_language': selected_language,
                                       'submit_action': 'next'})
 
         self.assertEqual(resp.status_code, 200)
@@ -144,6 +149,7 @@ class ApplicationViewTestCase(TestCase):
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
+                                      'selected_language': selected_language,
                                       'submit_action': 'next'})
 
         self.assertEqual(resp.status_code, 200)
@@ -168,9 +174,12 @@ class ApplicationViewTestCase(TestCase):
         current_job_question = job_questions[1]
         prev_job_question = job_questions[0]
 
+        selected_language = fx_constants.LANGUAGE_PYTHON
+
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
+                                      'selected_language': selected_language,
                                       'submit_action': 'prev'})
 
         self.assertEqual(resp.status_code, 200)
@@ -182,6 +191,7 @@ class ApplicationViewTestCase(TestCase):
         resp = self.client.post(url, {'interviewee_email': application_question.interviewee_email,
                                       'application_question_id': application_question.id,
                                       'job_question_id': current_job_question.id,
+                                      'selected_language': selected_language,
                                       'submit_action': 'prev'})
 
         self.assertEqual(resp.status_code, 200)
