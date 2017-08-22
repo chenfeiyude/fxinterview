@@ -18,10 +18,9 @@ def write_file(file_dir, py_name, code):
 
 def get_java_path():
     java_path = fx_string_utils.decode_utf_8(subprocess.check_output(['whereis', 'java'])).replace('\n', '')
-    logging.info(java_path)
     return java_path
+
 
 def get_javac_path():
     javac_path = fx_string_utils.decode_utf_8(subprocess.check_output(['whereis','javac'])).replace('\n', '')
-    logging.info(javac_path)
     return javac_path
