@@ -1,4 +1,3 @@
-import os, sys, logging
 from django.test import TestCase
 from ..compiler import fx_python_compiler, fx_java_compiler
 
@@ -12,6 +11,7 @@ class FXPythonCompilerTestCase(TestCase):
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
         self.assertEqual(results['output'], "2\n")
+
 
 class FXJavaCompilerTestCase(TestCase):
 
