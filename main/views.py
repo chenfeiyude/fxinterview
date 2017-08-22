@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from .forms import JobForm, FXCreateUserForm, QuestionForm
 from .utils import fx_string_utils, fx_constants
-from .compiler import fx_python_compiler
+from .compiler.fx_compilers import FX_COMPILER
 
 
 def index(request):
@@ -224,7 +224,9 @@ def submit_answer(request):
             answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
 
         if run_action is not None:
-            run_results = fx_python_compiler.run_code(answer_content)
+
+            # run_results = fx_python_compiler.run_code(answer_content)
+            run_results = FX_COMPILER[selected_language].run_code(answer_content)
     else:
         job_question_id = int(job_question_id)
         job_questions = get_list_or_404(JobQuestion, job=application_question.job)
