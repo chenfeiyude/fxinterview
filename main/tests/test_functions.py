@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..compiler import fx_python_compiler, fx_java_compiler, fx_js_compiler
+from ..code_executor import fx_python_executor, fx_java_executor, fx_js_executor
 import logging
 
 class FXPythonCompilerTestCase(TestCase):
@@ -12,7 +12,7 @@ def hello():
 
 hello()
         """
-        results = fx_python_compiler.run_code(code)
+        results = fx_python_executor.run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
         self.assertEqual(results['output'], "Hello World\n")
@@ -29,7 +29,7 @@ class FXJavaCompilerTestCase(TestCase):
             }
         }
         """
-        results = fx_java_compiler.run_code(code)
+        results = fx_java_executor.run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
         self.assertEqual(results['output'], "Hello World\n")
@@ -45,7 +45,7 @@ class FXJSCompilerTestCase(TestCase):
             return test;
         }
         """
-        results = fx_js_compiler.run_code(code)
+        results = fx_js_executor.run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
 

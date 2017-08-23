@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from .forms import JobForm, FXCreateUserForm, QuestionForm
 from .utils import fx_string_utils, fx_constants
-from .compiler.fx_compilers import FX_COMPILER
+from .code_executor.fx_executors import FX_COMPILER
 
 
 def index(request):
