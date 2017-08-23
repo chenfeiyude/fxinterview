@@ -32,12 +32,12 @@ class AuthTestCase(TestCase):
         self.client.login(username='username1', password='password')
         response_admin = self.client.get(reverse('main:view_home'))
         self.assertEqual(response_admin.status_code, 200)
-        self.assertContains(response_admin, 'Admin home page')
+        self.assertContains(response_admin, 'Home')
 
         self.client.login(username='username2', password='password')
         response_interviewer = self.client.get(reverse('main:view_home'))
         self.assertEqual(response_interviewer.status_code, 200)
-        self.assertContains(response_interviewer, 'Interviewer home page')
+        self.assertContains(response_interviewer, 'Home')
 
         self.client.login(username='username3', password='password')
         response_interviewee = self.client.get(reverse('main:view_home'))
