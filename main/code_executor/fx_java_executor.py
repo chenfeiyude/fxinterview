@@ -3,7 +3,7 @@ import logging
 from ..utils import fx_file_utils, fx_string_utils, fx_constants
 
 
-bash_file = '%s/main/compiler/run_java.sh'% os.getcwd()
+bash_file = '%s/main/code_executor/run_java.sh'% os.getcwd()
 
 # java file name
 def get_file_name(code):

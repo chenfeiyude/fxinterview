@@ -17,12 +17,7 @@ def run_code(code):
     try:
         # subprocess.check_output waiting sub process, and return output results
         # stderr is type of standard output
-        # out_data = fx_string_utils.decode_utf_8(subprocess.check_output(['php', file_path], stderr=subprocess.STDOUT, timeout=5))
-
-        proc = subprocess.Popen("php %s" % file_path, shell=True, stdout=subprocess.PIPE)
-        out_data = proc.stdout.read()
-
-        logging.info(out_data)
+        out_data = fx_string_utils.decode_utf_8(subprocess.check_output(['php', file_path], stderr=subprocess.STDOUT, timeout=5))
     except subprocess.CalledProcessError as e:
         # return error data
         result["code"] = 'Error'
