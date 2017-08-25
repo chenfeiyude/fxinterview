@@ -226,7 +226,11 @@ def submit_answer(request):
         if run_action is not None:
 
             # run_results = fx_python_compiler.run_code(answer_content)
-            run_results = FX_COMPILER[selected_language].run_code(answer_content)
+            if selected_language in FX_COMPILER:
+                run_results = FX_COMPILER[selected_language].run_code(answer_content)
+            else:
+                run_results = {fx_constants.KEY_CODE: fx_constants.KEY_CODE_ERROR,
+                               fx_constants.KEY_OUTPUT: 'Language not supported'}
     else:
         job_question_id = int(job_question_id)
         job_questions = get_list_or_404(JobQuestion, job=application_question.job)

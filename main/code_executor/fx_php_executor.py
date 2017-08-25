@@ -1,5 +1,5 @@
 import os, subprocess, time, logging
-from ..utils import fx_file_utils, fx_string_utils
+from ..utils import fx_file_utils, fx_string_utils, fx_constants
 
 # file name
 file_num = int(time.time() * 1000)
@@ -20,13 +20,13 @@ def run_code(code):
         out_data = fx_string_utils.decode_utf_8(subprocess.check_output(['php', file_path], stderr=subprocess.STDOUT, timeout=5))
     except subprocess.CalledProcessError as e:
         # return error data
-        result["code"] = 'Error'
-        result["output"] = fx_string_utils.decode_utf_8(e.output)
+        result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_ERROR
+        result[fx_constants.KEY_OUTPUT] = fx_string_utils.decode_utf_8(e.output)
         return result
     else:
         # return success data
-        result['output'] = out_data
-        result["code"] = "Success"
+        result[fx_constants.KEY_OUTPUT] = out_data
+        result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_SUCCESS
         return result
     finally:
         # delete temp file
