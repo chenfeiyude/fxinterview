@@ -44,7 +44,7 @@
                     {% if user.is_authenticated %}
 
                         <li>
-                            <a href="{% url 'main:view_home' %}">Home</a>
+                            <a href="{% url 'main:view_home' %}"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;Home</a>
                         </li>
 
                         {% if user.profile.is_admin or user.profile.is_interviewer %}
@@ -68,11 +68,11 @@
                             <ul class="dropdown-menu">
 
                                 <li>
-                                    <a href="#">Profile</a>
+                                    <a href="#"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
                                 </li>
 
                                 <li>
-                                    <a href="{% url 'main:logout' %}">Logout</a>
+                                    <a href="{% url 'main:logout' %}"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp;Logout</a>
                                 </li>
 
                             </ul>
@@ -82,11 +82,11 @@
                     {% else %}
 
                         <li>
-                            <a href="{% url 'main:index' %}">Home</a>
+                            <a href="{% url 'main:index' %}"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;Home</a>
                         </li>
 
                         <li>
-                            <a href="{% url 'main:login' %}">Login</a>
+                            <a href="{% url 'main:login' %}"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>&nbsp;Login</a>
                         </li>
 
                     {% endif %}

@@ -2,6 +2,7 @@ from django.test import TestCase
 from ..code_executor import fx_python_executor, fx_java_executor, fx_js_executor, fx_php_executor
 import logging
 
+
 class FXPythonCompilerTestCase(TestCase):
 
     def test_run_code(self):

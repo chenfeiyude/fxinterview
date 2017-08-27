@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+
     var selected_language = $("#selected_language");
     configure_editor(selected_language);
 
