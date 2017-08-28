@@ -27,15 +27,14 @@ def run_code(code):
         # subprocess.check_output waiting sub process, and return output results
         # stderr is type of standard output
         out_data = fx_string_utils.decode_utf_8(subprocess.check_output([fx_constants.PYTHON_EXEC, file_path], stderr=subprocess.STDOUT, timeout=5))
+        # return success data
+        result[fx_constants.KEY_OUTPUT] = out_data
+        result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_SUCCESS
+        return result
     except subprocess.CalledProcessError as e:
         # return error data
         result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_ERROR
         result[fx_constants.KEY_OUTPUT] = fx_string_utils.decode_utf_8(e.output)
-        return result
-    else:
-        # return success data
-        result[fx_constants.KEY_OUTPUT] = out_data
-        result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_SUCCESS
         return result
     finally:
         # delete temp file
