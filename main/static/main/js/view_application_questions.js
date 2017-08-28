@@ -14,23 +14,20 @@ $(document).ready(function(){
         configure_editor($(this));
     });
 
-    count_down_time();
+    count_down_time(estimated_end_time);
 });
 
 function configure_editor(selected_language) {
-    console.log(selected_language);
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/" + selected_language.val());
     if(is_expired == 'True' || is_finished == 'True') {
         editor.setReadOnly(true);
     }
-
-
 }
 
 function count_down_time(estimated_end_time) {
-    var estimated_end_time = $("#estimated_end_time").val();
+//    var estimated_end_time = $("#estimated_end_time").val();
 
     // Set the date we're counting down to
     var countDownDate = new Date(estimated_end_time).getTime();
@@ -55,7 +52,7 @@ function count_down_time(estimated_end_time) {
         // If the count down is finished, write some text
         if (distance < 0) {
             clearInterval(x);
-            $("#timer").html("EXPIRED");
+            $("#timer").html('<i class="fa fa-lock fa-fw" aria-hidden="true"></i>&nbsp;EXPIRED');
         }
     }, 1000);
 }

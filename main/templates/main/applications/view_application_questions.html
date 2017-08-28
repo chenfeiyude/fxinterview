@@ -31,7 +31,6 @@
         <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
         <input name="job_question_id" type="hidden" value="{{ job_question.id }}">
         <input id="answer_content" name="answer_content" type="hidden" value="">
-        <input id="estimated_end_time" type="hidden" value="{{ estimated_end_time }}">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
@@ -98,6 +97,7 @@
 <script type="text/javascript" >
     var is_expired = "{{ application_question.is_expired|safe }}";
     var is_finished = "{{ application_question.is_finished|safe }}";
+    var estimated_end_time = "{{ estimated_end_time|safe }}";
 </script>
 
 {% endblock %}
