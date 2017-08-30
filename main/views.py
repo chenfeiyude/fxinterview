@@ -275,7 +275,7 @@ def finish_answer(request):
 @login_required(login_url='/login/')
 def interviewee_home(request):
     user = request.user
-    applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
+    applications = ApplicationQuestion.objects.filter(interviewee_email=user.email).order_by('-created')
     return render(request, 'main/accounts/interviewee_home.html', {'applications': applications})
 
 
