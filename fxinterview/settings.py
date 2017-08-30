@@ -125,3 +125,10 @@ logging.config.dictConfig(yaml.load(open('./log/logging.conf')))
 
 # info_log_file = logging.getLogger('info_file')
 # info_log_file.info("Info FILE")
+
+# Email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fxinterview@gmail.com'
+EMAIL_HOST_PASSWORD = 'sk1tten1'
+EMAIL_PORT = 587

@@ -50,11 +50,11 @@
                         {% if user.profile.is_admin or user.profile.is_interviewer %}
 
                             <li>
-                                <a href="{% url 'main:view_jobs' %}">Jobs</a>
+                                <a href="{% url 'main:view_jobs' %}"><i class="fa fa-chain-broken" aria-hidden="true"></i> Jobs</a>
                             </li>
 
                             <li>
-                                <a href="{% url 'main:view_questions' %}">Questions</a>
+                                <a href="{% url 'main:view_questions' %}"><i class="fa fa-question-circle" aria-hidden="true"></i> Questions</a>
                             </li>
 
                         {% endif %}
