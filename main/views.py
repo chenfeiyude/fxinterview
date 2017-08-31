@@ -5,7 +5,7 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from .forms import JobForm, FXCreateUserForm, QuestionForm
+from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm
 from .utils import fx_string_utils, fx_constants
 from .code_executor.fx_executors import FX_COMPILER
 
@@ -295,3 +295,22 @@ def register(request):
         else:
             return render(request, 'main/index.html', dict(form=user_form))
     return index(request)
+
+
+@login_required(login_url='/login/')
+def view_profile(request):
+    user = request.user
+    form = FXUpdateUserForm()
+    return render(request, 'main/accounts/view_profile.html', {'user': user, 'form':form})
+
+
+@login_required(login_url='/login/')
+def update_profile(request):
+    user = request.user
+    form = FXUpdateUserForm(request.POST, instance=request.user)
+    if form.is_valid():
+        form.save()
+    else:
+        logging.info(form.errors)
+
+    return render(request, 'main/accounts/view_profile.html', {'user': user, 'form': form})

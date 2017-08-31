@@ -70,3 +70,26 @@ class FXCreateUserForm(UserCreationForm):
             new_profile.save()
 
         return new_user
+
+
+class FXUpdateUserForm(forms.ModelForm):
+    username = forms.CharField(required=True, widget=forms.HiddenInput())
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+    def save(self, commit=True):
+        user = super(FXUpdateUserForm, self).save(commit=False)
+
+        user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+
+        if commit:
+            user.save()
+
+        return user

@@ -34,6 +34,10 @@ urlpatterns = [
     url(r'^accounts/delete_question', views.delete_question, name='delete_question'),
     # http://localhost:8000/accounts/questions
     url(r'^accounts/questions', views.view_questions, name='view_questions'),
+    # http://localhost:8000/accounts/view_profile
+    url(r'^accounts/view_profile', views.view_profile, name='view_profile'),
+    # http://localhost:8000/accounts/update_profile
+    url(r'^accounts/update_profile', views.update_profile, name='update_profile'),
     # http://localhost:8000/application/2?interviewee_email=interviewee@fxinterview.com
     url(r'^application/(?P<application_question_id>[0-9]+)$', views.view_application_questions, name='view_application_questions'),
     # http://localhost:8000/application/start_answer$
