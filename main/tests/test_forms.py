@@ -12,8 +12,6 @@ class FormTest(TestCase):
                                       email='test@fxinterview.com', phone='0871234567')
         Company.objects.create(name='test_company', description='test description', contact=contact)
 
-
-
     def test_job_forms_valid(self):
         company = Company.objects.get(name='test_company')
         valid_form_data = {'name': 'fake job 1', 'description': 'fake description 1', 'company': company.id}
@@ -43,7 +41,6 @@ class FormTest(TestCase):
                            'email': 'test@fxinterview.com'}
         form = FXUpdateUserForm(data=form_data)
         self.assertTrue(form.is_valid())
-
 
     def test_update_form_invalid(self):
         form_data = {'username': '',
