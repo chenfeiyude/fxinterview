@@ -18,17 +18,17 @@
                 {% load widget_tweaks %}
 
                 <div class="form-group input-container input-group">
-                     <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                     <span class="input-group-addon">First Name</span>
                     {% render_field form.first_name class="form-control" placeholder="First Name" value=user.first_name %}
                 </div>
 
                 <div class="form-group input-container input-group">
-                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                    <span class="input-group-addon">Last Name</span>
                     {% render_field form.last_name class="form-control" placeholder="Last Name" value=user.last_name%}
                 </div>
 
                 <div class="form-group input-container input-group">
-                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i>Email</span>
                     {% render_field form.email class="form-control" placeholder="Email address" value=user.email%}
                 </div>
 
