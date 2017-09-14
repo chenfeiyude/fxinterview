@@ -30,6 +30,8 @@
                         <td>
                             <a href="{% url 'main:edit_job'%}?id={{ job.id }}" class="btn btn-info">Edit</a>
                             <a href="{% url 'main:delete_job'%}?id={{ job.id }}" class="btn btn-danger">Delete</a>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#email_job_modal">Email</button>
+                            <input name="job_id" type="hidden" value="{{ job.id }}">
                         </td>
                     </tr>
                 {% endfor %}
@@ -40,5 +42,10 @@
     {% endif %}
 
      <a href="{% url 'main:create_job' %}" type="button" class="btn btn-primary">Create Job</a>
+
+     {% include "main/accounts/email_job_modal.html" %}
+
+    {% load static %}
+    <script src='{% static "main/js/email_job_modal.js" %}' type="text/javascript" charset="utf-8"></script>
 
 {% endblock %}

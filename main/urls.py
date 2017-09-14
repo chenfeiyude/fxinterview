@@ -38,6 +38,8 @@ urlpatterns = [
     url(r'^accounts/view_profile', views.view_profile, name='view_profile'),
     # http://localhost:8000/accounts/update_profile
     url(r'^accounts/update_profile', views.update_profile, name='update_profile'),
+    # http://localhost:8000/accounts/send_job_invitation
+    url(r'^accounts/send_job_invitation', views.send_job_invitation, name='send_job_invitation'),
     # http://localhost:8000/application/2?interviewee_email=interviewee@fxinterview.com
     url(r'^application/(?P<application_question_id>[0-9]+)$', views.view_application_questions, name='view_application_questions'),
     # http://localhost:8000/application/start_answer$
@@ -46,5 +48,6 @@ urlpatterns = [
     url(r'^application/submit_answer', views.submit_answer, name='submit_answer'),
     # http://localhost:8000/application/finish_answer
     url(r'^application/finish_answer', views.finish_answer, name='finish_answer'),
+
 ]
 

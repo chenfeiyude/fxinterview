@@ -314,3 +314,8 @@ def update_profile(request):
         logging.info(form.errors)
 
     return render(request, 'main/accounts/view_profile.html', {'user': user, 'form': form})
+
+
+@login_required(login_url='/login/')
+def send_job_invitation(request):
+    interviewee_email = request.POST.get('interviewee_email')
