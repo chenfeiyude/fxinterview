@@ -317,6 +317,7 @@ def update_profile(request):
 
 
 def test_code(request):
+    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS})
     answer_content = request.POST.get('answer_content')
     selected_language = request.POST.get('selected_language')
     logging.info(selected_language)
@@ -331,5 +332,6 @@ def test_code(request):
     return render(request, 'main/index.html',
                   {'run_results': run_results,
                    'selected_language': selected_language,
-                   'support_languages': fx_constants.SUPPORT_LANGUAGES
+                   'support_languages': fx_constants.SUPPORT_LANGUAGES,
+                   'form': user_form
                    })
