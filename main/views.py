@@ -320,8 +320,6 @@ def test_code(request):
     user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS})
     answer_content = request.POST.get('answer_content')
     selected_language = request.POST.get('selected_language')
-    logging.info(selected_language)
-    logging.info(answer_content)
 
     if selected_language in FX_COMPILER:
         run_results = FX_COMPILER[selected_language].run_code(answer_content)
