@@ -14,7 +14,7 @@ def index(request):
     user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS })
     # profile_form = ProfileForm(initial={'role': Profile.INTERVIEWEE_STATUS })
 
-    return render(request, 'main/index.html', dict(form=user_form))
+    return render(request, 'main/index.html', {'form': user_form, 'support_languages': fx_constants.SUPPORT_LANGUAGES })
 
 
 @login_required(login_url='/login/')
@@ -314,3 +314,22 @@ def update_profile(request):
         logging.info(form.errors)
 
     return render(request, 'main/accounts/view_profile.html', {'user': user, 'form': form})
+
+
+def test_code(request):
+    answer_content = request.POST.get('answer_content')
+    selected_language = request.POST.get('selected_language')
+    logging.info(selected_language)
+    logging.info(answer_content)
+
+    if selected_language in FX_COMPILER:
+        run_results = FX_COMPILER[selected_language].run_code(answer_content)
+    else:
+        run_results = {fx_constants.KEY_CODE: fx_constants.KEY_CODE_ERROR,
+                       fx_constants.KEY_OUTPUT: 'Language not supported'}
+
+    return render(request, 'main/index.html',
+                  {'run_results': run_results,
+                   'selected_language': selected_language,
+                   'support_languages': fx_constants.SUPPORT_LANGUAGES
+                   })
