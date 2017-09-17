@@ -8,13 +8,14 @@ from django.http import HttpResponseRedirect
 from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm
 from .utils import fx_string_utils, fx_constants
 from .code_executor.fx_executors import FX_COMPILER
+from .utils import email_utils
 
 
 def index(request):
     user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS })
     # profile_form = ProfileForm(initial={'role': Profile.INTERVIEWEE_STATUS })
 
-    return render(request, 'main/index.html', dict(form=user_form))
+    return render(request, 'main/index.html', {'form': user_form, 'support_languages': fx_constants.SUPPORT_LANGUAGES })
 
 
 @login_required(login_url='/login/')
@@ -319,3 +320,41 @@ def update_profile(request):
 @login_required(login_url='/login/')
 def send_job_invitation(request):
     interviewee_email = request.POST.get('interviewee_email')
+    email_job_id = request.POST.get('email_job_id')
+    expire_date = None
+    if request.POST.get('expire_date'):
+        expire_date = request.POST.get('expire_date')
+    job = get_object_or_404(Job, pk=email_job_id)
+    application_question = ApplicationQuestion.objects.create(interviewee_email=interviewee_email,
+                                                              end_time=expire_date,
+                                                              job=job)
+    application_question.save()
+    logging.info(fx_string_utils.get_domain_url(request))
+    full_url = fx_string_utils.get_domain_url(request) + '/application/' + str(application_question.id) + '?interviewee_email=' + interviewee_email
+    email_utils.send_email("Job Invitation ("+job.name+")",
+                           "Congratulation, you got an job invitation, please visit "+full_url,
+                           interviewee_email)
+    user = request.user
+    jobs = Job.objects.filter(company=user.profile.company)
+    return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
+                                                       'success_message': 'An invitation email has been sent to '
+                                                                          + interviewee_email})
+
+
+def test_code(request):
+    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS})
+    answer_content = request.POST.get('answer_content')
+    selected_language = request.POST.get('selected_language')
+
+    if selected_language in FX_COMPILER:
+        run_results = FX_COMPILER[selected_language].run_code(answer_content)
+    else:
+        run_results = {fx_constants.KEY_CODE: fx_constants.KEY_CODE_ERROR,
+                       fx_constants.KEY_OUTPUT: 'Language not supported'}
+
+    return render(request, 'main/index.html',
+                  {'run_results': run_results,
+                   'selected_language': selected_language,
+                   'support_languages': fx_constants.SUPPORT_LANGUAGES,
+                   'form': user_form
+                   })

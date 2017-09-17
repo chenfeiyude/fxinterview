@@ -102,7 +102,7 @@ class ApplicationQuestion(models.Model):
     end_time = models.DateTimeField('End answer time', null=True, blank=True)
     estimated_time_m = models.IntegerField(default=0)  # this estimated time is based on questions' total estimated time
     status = models.IntegerField(choices=STATUS, default=INIT)
-    created = models.DateTimeField('Application created time', default=datetime.datetime.now, blank=True)
+    created = models.DateTimeField('Application created time', auto_now_add=True, blank=True)
 
     def get_estimated_end_time(self):
         estimated_end_time = None
@@ -138,6 +138,7 @@ class Answer(models.Model):
     job_question = models.ForeignKey(JobQuestion, on_delete=models.CASCADE)
     answer = models.TextField(null=True, blank=True)
     selected_language = models.TextField(null=False, blank=False, default=fx_constants.LANGUAGE_PYTHON)
+
     class Meta:
         unique_together = ('application_question', 'job_question',)
 

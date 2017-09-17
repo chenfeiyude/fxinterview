@@ -10,6 +10,52 @@
     <div class="col-xs-8 fx-div-left">
         <h3>Welcome to FX Interview</h3>
 
+        <form id="test_code_form" method="POST" action="{% url 'main:test_code' %}">
+            {% csrf_token %}
+            <input id="answer_content" name="answer_content" type="hidden" value="">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="panel-title">
+                                Your Result
+                                <select id="selected_language" name="selected_language">
+                                {% for support_language in support_languages %}
+                                <option {% if support_language == selected_language %} selected {% endif %} value = {{ support_language }}>
+                                    {{ support_language }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div id="editor" >public class hello {
+    public static void main(String []args) {
+        System.out.println("Hello World");
+    }
+}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                     <h3 class="panel-title">Output</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{{ run_results.output }}</p>
+                </div>
+            </div>
+            <div class="btn-group pull-right">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" name="run_action" data-toggle="tooltip" title="Run">
+                        <i class="fa fa-play" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <div class="col-xs-4 fx-div-right">
@@ -47,4 +93,11 @@
         </form>
     </div>
 </div>
+
+
+{% load static %}
+<script src='{% static "main/ace-builds-master/src-noconflict/ace.js" %}' type="text/javascript" charset="utf-8"></script>
+<script src='{% static "main/js/index.js" %}' type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href='{% static "main/css/index.css" %}' type="text/css" />
+
 {% endblock %}

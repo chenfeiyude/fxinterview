@@ -1,4 +1,5 @@
 import logging
+from django.contrib.sites.shortcuts import get_current_site
 
 
 def format_date(date, date_format):
@@ -21,3 +22,7 @@ def decode_utf_8(data):
         except UnicodeDecodeError as e:
             logging.error('Decode to utf-8 failed: %s' % e)
     return decoded_data
+
+
+def get_domain_url(request):
+    return ''.join(['http://', get_current_site(request).domain])

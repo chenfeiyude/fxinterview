@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..forms import JobForm, QuestionForm
+from ..forms import JobForm, QuestionForm, FXUpdateUserForm
 from ..models import *
 
 
@@ -33,3 +33,19 @@ class FormTest(TestCase):
         in_valid_form_data = {'name': '', 'description': 'fake description 1', 'company': '1'}
         in_valid__form = QuestionForm(data=in_valid_form_data)
         self.assertFalse(in_valid__form.is_valid())
+
+    def test_update_form_valid(self):
+        form_data = {'username': 'test@fxinterview.com',
+                           'first_name': 'fake first name',
+                           'last_name': 'fake last name',
+                           'email': 'test@fxinterview.com'}
+        form = FXUpdateUserForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_update_form_invalid(self):
+        form_data = {'username': '',
+                           'first_name': 'fake first name',
+                           'last_name': 'fake last name',
+                           'email': 'test@fxinterview.com'}
+        form = FXUpdateUserForm(data=form_data)
+        self.assertFalse(form.is_valid())

@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^application/submit_answer', views.submit_answer, name='submit_answer'),
     # http://localhost:8000/application/finish_answer
     url(r'^application/finish_answer', views.finish_answer, name='finish_answer'),
-
+    # http://localhost:8000/test_code
+    url(r'^test_code', views.test_code, name='test_code'),
 ]
 
