@@ -6,6 +6,8 @@ $(document).ready(function()
         $('#interviewee_email_input').val('');
         $(' #email_job_id').val(job_id);
         $(' #datepicker').val('');
+        $(' #eta_input').val('');
+
     });
 
     $( "#datepicker" ).datepicker({
@@ -21,17 +23,27 @@ $(document).ready(function()
     $('#job_invitation_form').submit(function (e)
     {
         var interviewee_email = $('#interviewee_email_input').val();
+        var estimated_time = $('#eta_input').val();
 
         if(interviewee_email == '')
         {
             alert("Please type in interviewee email");
             e.preventDefault();
-
+            return;
         }
-        else if(!isValidEmailAddress(interviewee_email))
+
+        if(!isValidEmailAddress(interviewee_email))
         {
              alert("Please type in a valid email address");
              e.preventDefault();
+             return;
+        }
+
+        if(estimated_time == '')
+        {
+            alert("Please type in estimated time of completion, must be numeric");
+            e.preventDefault();
+            return;
         }
     });
 

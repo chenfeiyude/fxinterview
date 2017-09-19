@@ -38,7 +38,7 @@
 
         <div class="form-group input-container">
             <label>Estimated Time (Minute):</label><br>
-            <input type="number" name="estimated_time_m" class="form-control" value="{{ question.estimated_time_m }}">
+            <input type="number" name="estimated_time_m"  min="0" class="form-control" value="{{ question.estimated_time_m }}">
         </div><!-- /.input-container -->
 
         <input type="submit" class="btn btn-primary" value="Update">

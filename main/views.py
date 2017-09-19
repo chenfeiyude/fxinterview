@@ -321,12 +321,30 @@ def update_profile(request):
 def send_job_invitation(request):
     interviewee_email = request.POST.get('interviewee_email')
     email_job_id = request.POST.get('email_job_id')
+    estimated_time = request.POST.get('estimated_time')
+
+    jobs = Job.objects.filter(company=request.user.profile.company)
+
+    # Those are already being checked on front side but we still need to double check it here
+    if not estimated_time or not interviewee_email:
+        return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
+                                                           'danger_message': 'Email delivery failed, invalid request'})
+    try:
+        number = int(estimated_time)
+        if number < 0:
+            return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
+                                                               'danger_message': 'Email delivery failed, invalid request'})
+    except ValueError:
+        return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
+                                                           'danger_message': 'Email delivery failed, invalid request'})
+
     expire_date = None
     if request.POST.get('expire_date'):
         expire_date = request.POST.get('expire_date')
     job = get_object_or_404(Job, pk=email_job_id)
     application_question = ApplicationQuestion.objects.create(interviewee_email=interviewee_email,
                                                               end_time=expire_date,
+                                                              estimated_time_m=estimated_time,
                                                               job=job)
     application_question.save()
     logging.info(fx_string_utils.get_domain_url(request))
@@ -334,8 +352,7 @@ def send_job_invitation(request):
     email_utils.send_email("Job Invitation ("+job.name+")",
                            "Congratulation, you got an job invitation, please visit "+full_url,
                            interviewee_email)
-    user = request.user
-    jobs = Job.objects.filter(company=user.profile.company)
+
     return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
                                                        'success_message': 'An invitation email has been sent to '
                                                                           + interviewee_email})
