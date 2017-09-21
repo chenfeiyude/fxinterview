@@ -6,8 +6,6 @@ $(document).ready(function()
         $('#interviewee_email_input').val('');
         $(' #email_job_id').val(job_id);
         $(' #datepicker').val('');
-        $(' #eta_input').val('');
-
     });
 
     $( "#datepicker" ).datepicker({
@@ -37,13 +35,6 @@ $(document).ready(function()
              alert("Please type in a valid email address");
              e.preventDefault();
              return;
-        }
-
-        if(estimated_time == '')
-        {
-            alert("Please type in estimated time of completion, must be numeric");
-            e.preventDefault();
-            return;
         }
     });
 
