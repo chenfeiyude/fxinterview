@@ -1,6 +1,7 @@
 from django import forms
 from .models import Job, User, Profile, Question
 from django.contrib.auth.forms import UserCreationForm
+import logging
 
 
 class JobForm(forms.ModelForm):
@@ -77,17 +78,21 @@ class FXUpdateUserForm(forms.ModelForm):
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     email = forms.EmailField(required=True)
+    password = forms.CharField(required=False, widget=forms.PasswordInput())
+    password2 = forms.CharField(required=False, widget=forms.PasswordInput())
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password')
 
     def save(self, commit=True):
         user = super(FXUpdateUserForm, self).save(commit=False)
-
+        logging.info(user.password)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        password = self.cleaned_data['password']
+        user.set_password(password)
 
         if commit:
             user.save()
