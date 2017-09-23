@@ -7,8 +7,10 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm
 from .utils import fx_string_utils, fx_constants
+from .utils import fx_request_parameters
 from .code_executor.fx_executors import FX_COMPILER
 from .utils import email_utils
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
@@ -32,19 +34,47 @@ def check_user_role(request):
         return __render_interviewer_admin_page(request, 'main/accounts/admin_home.html')
 
 
+@login_required(login_url='/login/')
+def interviewee_home(request):
+    user = request.user
+    applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
+    page = request.GET.get(fx_request_parameters.page)
+    applications = __get_pagination_list(applications, page)
+    return render(request, 'main/accounts/interviewee_home.html', {'applications': applications, 'user': user})
+
+
 def __render_interviewer_admin_page(request, url):
     user = request.user
+    page = request.GET.get(fx_request_parameters.page)
     applications = []
     jobs = Job.objects.filter(company=user.profile.company)
     for job in jobs:
         applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
+
+    applications = __get_pagination_list(applications, page)
+
     return render(request, url, {'applications': applications, 'user': user})
+
+
+def __get_pagination_list(original_list, page):
+    paginator = Paginator(original_list, fx_constants.DEFAULT_PER_PAGE)
+    try:
+        pagination_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        pagination_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        pagination_list = paginator.page(paginator.num_pages)
+    return pagination_list
 
 
 @login_required(login_url='/login/')
 def view_jobs(request):
     user = request.user
     jobs = Job.objects.filter(company=user.profile.company)
+    page = request.GET.get(fx_request_parameters.page)
+    jobs = __get_pagination_list(jobs, page)
     return render(request, 'main/accounts/jobs.html', {'jobs': jobs})
 
 
@@ -152,6 +182,8 @@ def delete_question(request):
 def view_questions(request):
     user = request.user
     questions = Question.objects.filter(company=user.profile.company)
+    page = request.GET.get(fx_request_parameters.page)
+    questions = __get_pagination_list(questions, page)
     return render(request, 'main/accounts/questions.html', {'questions': questions})
 
 
@@ -271,13 +303,6 @@ def finish_answer(request):
         application_question.finish()
 
     return view_application_questions(request, application_question_id)
-
-
-@login_required(login_url='/login/')
-def interviewee_home(request):
-    user = request.user
-    applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
-    return render(request, 'main/accounts/interviewee_home.html', {'applications': applications, 'user': user})
 
 
 def register(request):

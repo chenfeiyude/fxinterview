@@ -26,3 +26,7 @@ KEY_OUTPUT = 'output'
 KEY_CODE_ERROR = 'Error'
 KEY_CODE_SUCCESS = 'Success'
 
+# DEFAULT_PER_PAGE = 25
+
+# set to 2 for testing now
+DEFAULT_PER_PAGE = 2

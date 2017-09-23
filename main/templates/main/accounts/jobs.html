@@ -6,8 +6,8 @@
 
     {% include "main/alerts.html" %}
 
+    <h3 class="panel-title">View Jobs</h3>
     {% if jobs %}
-        <h3>View Jobs</h3>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -39,13 +39,17 @@
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-         <h3>No Job Found</h3>
     {% endif %}
 
-     <a href="{% url 'main:create_job' %}" type="button" class="btn btn-primary">Create Job</a>
+    {% include "main/includes/pagination_div.html" with pagination_list=jobs only %}
 
-     {% include "main/accounts/email_job_modal.html" %}
+    <div class="panel">
+        <div class="panel-body">
+            <a href="{% url 'main:create_job' %}" type="button" class="btn btn-primary">Create Job</a>
+        </div>
+    </div>
+
+    {% include "main/accounts/email_job_modal.html" %}
 
     {% load static %}
     <script src='{% static "main/js/email_job_modal.js" %}' type="text/javascript" charset="utf-8"></script>
