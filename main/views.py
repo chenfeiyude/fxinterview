@@ -38,7 +38,7 @@ def __render_interviewer_admin_page(request, url):
     jobs = Job.objects.filter(company=user.profile.company)
     for job in jobs:
         applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
-    return render(request, url, {'applications': applications})
+    return render(request, url, {'applications': applications, 'user': user})
 
 
 @login_required(login_url='/login/')
@@ -276,8 +276,8 @@ def finish_answer(request):
 @login_required(login_url='/login/')
 def interviewee_home(request):
     user = request.user
-    applications = ApplicationQuestion.objects.filter(interviewee_email=user.email).order_by('-created')
-    return render(request, 'main/accounts/interviewee_home.html', {'applications': applications})
+    applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
+    return render(request, 'main/accounts/interviewee_home.html', {'applications': applications, 'user': user})
 
 
 def register(request):

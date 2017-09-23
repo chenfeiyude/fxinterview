@@ -104,6 +104,9 @@ class ApplicationQuestion(models.Model):
     status = models.IntegerField(choices=STATUS, default=INIT)
     created = models.DateTimeField('Application created time', auto_now_add=True, blank=True)
 
+    class Meta:
+        ordering = ('-created',)
+
     def get_estimated_end_time(self):
         estimated_end_time = None
         if self.start_time and self.estimated_time_m:

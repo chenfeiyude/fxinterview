@@ -3,7 +3,10 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
-    {% include "main/accounts/current_applications.html" %}
-
+<div class="container">
+    <div class="page-header">
+        <h3>Applications</h3>
+    </div>
+    {% include "main/accounts/application_list.html" %}
+</div>
 {% endblock %}

@@ -7,22 +7,6 @@
     <div class="page-header">
         <h3>My Applications</h3>
     </div>
-    {% if applications %}
-        <div class="list-group">
-            {% for application in applications %}
-                <a href="{% url 'main:view_application_questions' application_question_id=application.id %}?interviewee_email={{ application.interviewee_email }}"
-                 class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between row">
-                        <h5 class="col-md-6">{{ application.job.name }} - {{ application.created|date:"DATE_FORMAT" }}</h5>
-                        <small class="text-muted col-md-6 text-right">Required finish in {{ application.estimated_time_m }} minutes</small>
-                    </div>
-                    <p class="mb-1">{{ application.job.description }}</p>
-                    {% if application.deadline %}
-                    <small class="text-muted">Expected finished before {{ application.deadline|date:"DATE_FORMAT" }}</small>
-                    {% endif %}
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
+    {% include "main/accounts/application_list.html" %}
 </div>
 {% endblock %}
