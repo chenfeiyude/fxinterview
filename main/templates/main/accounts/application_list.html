@@ -19,11 +19,9 @@
                 {% if application.deadline %}
                 <small class="text-muted">Expected finished before {{ application.deadline|date:"DATE_FORMAT" }}</small>
                 {% endif %}
-                <small class="text-muted">
-                    {% if not user.profile.is_interviewee %}
-                        Status - {{ application.get_status_display }}
-                    {% endif %}
-                </small>
+                {% if not user.profile.is_interviewee %}
+                <small class="text-muted">Status - {{ application.get_status_display }}</small>
+                {% endif %}
             </a>
         {% endfor %}
     </div>
