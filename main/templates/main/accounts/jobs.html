@@ -4,9 +4,9 @@
 
 {% block content %}
 
-    {% include "main/alerts.html" %}
+    {% include "main/includes/alerts.html" %}
 
-    <h3 class="panel-title">View Jobs</h3>
+    <h3>View Jobs</h3>
     {% if jobs %}
         <table class="table table-bordered table-striped">
             <thead>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    {% include "main/accounts/email_job_modal.html" %}
+    {% include "main/includes/email_job_modal.html" %}
 
     {% load static %}
     <script src='{% static "main/js/email_job_modal.js" %}' type="text/javascript" charset="utf-8"></script>
