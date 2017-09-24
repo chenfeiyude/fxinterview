@@ -6,16 +6,12 @@
 
 <div class="container">
     <div class="page-header">
-        <h3>View Jobs</h3>
+        <h3>Jobs
+            <a href="{% url 'main:create_job' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+        </h3>
     </div>
 
     {% include "main/includes/alerts.html" %}
-
-    <div class="panel">
-        <div class="panel-body">
-            <a href="{% url 'main:create_job' %}" type="button" class="btn btn-primary">Create Job</a>
-        </div>
-    </div>
 
     {% if jobs %}
         <table class="table table-striped">

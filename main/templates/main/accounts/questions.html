@@ -6,15 +6,12 @@
 
 <div class="container">
     <div class="page-header">
-        <h3>View Questions</h3>
+        <h3>
+            Questions
+            <a href="{% url 'main:create_question' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+        </h3>
     </div>
-
-    <div class="panel">
-        <div class="panel-body">
-            <a href="{% url 'main:create_question' %}" type="button" class="btn btn-primary">Create Question</a>
-        </div>
-    </div>
-
+    
     {% if questions %}
         <table class="table table-striped">
             <thead>
