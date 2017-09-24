@@ -21,7 +21,6 @@ $(document).ready(function()
     $('#job_invitation_form').submit(function (e)
     {
         var interviewee_email = $('#interviewee_email_input').val();
-        var estimated_time = $('#eta_input').val();
 
         if(interviewee_email == '')
         {
