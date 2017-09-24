@@ -18,7 +18,7 @@
     </div>
 
     {% if jobs %}
-        <table class="table table-bordered table-striped">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -35,20 +35,63 @@
                         <td>{{ job.description }}</td>
                         <td>{{ job.updated|date:"DATE_FORMAT" }}</td>
                         <td>
-                            {% for question in job.get_questions %}
-                                <a href="{% url 'main:edit_question'%}?id={{ question.id }}">{{ question.name }}</a><br>
-                            {% endfor %}
+
+                            <div class="btn-group open">
+                                <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Questions</a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                     {% for question in job.get_questions %}
+                                        <li>
+                                        <a href="{% url 'main:edit_question'%}?id={{ question.id }}">
+                                            <i class="fa fa-question-circle-o" aria-hidden="true"></i>{{ question.name }}
+                                        </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </td>
                         <td>
-                            <a href="{% url 'main:edit_job'%}?id={{ job.id }}" class="btn btn-info">Edit</a>
-                            <a href="{% url 'main:delete_job'%}?id={{ job.id }}" class="btn btn-danger">Delete</a>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#email_job_modal">Email</button>
+                            <a href="{% url 'main:edit_job'%}?id={{ job.id }}" >
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                            <a href="{% url 'main:delete_job'%}?id={{ job.id }}">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" data-toggle="modal" data-target="#email_job_modal">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            </a>
                             <input name="job_id" type="hidden" value="{{ job.id }}">
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+    <!--
+        <div class="list-group">
+            {% for job in jobs %}
+                <a href="{% url 'main:edit_job'%}?id={{ job.id }}"
+                 class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between row">
+                        <h5 class="col-md-6">{{ job.name }} - {{ job.updated|date:"DATE_FORMAT" }}</h5>
+
+                        <small class="text-muted col-md-6 text-right">
+
+                        </small>
+
+                    </div>
+                    <p class="mb-1">{{ job.description }}</p>
+
+
+                </a>
+                <small class="text-muted"><a href="{% url 'main:delete_job'%}?id={{ job.id }}">delete</a></small>
+                <small class="text-muted"><a href="#" data-toggle="modal" data-target="#email_job_modal">email</a></small>
+                <input name="job_id" type="hidden" value="{{ job.id }}">
+            {% endfor %}
+        </div>
+        -->
     {% endif %}
 
     {% include "main/includes/pagination_div.html" with pagination_list=jobs page_range=page_range %}
