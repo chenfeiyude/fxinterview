@@ -4,9 +4,19 @@
 
 {% block content %}
 
+<div class="container">
+    <div class="page-header">
+        <h3>View Jobs</h3>
+    </div>
+
     {% include "main/includes/alerts.html" %}
 
-    <h3>View Jobs</h3>
+    <div class="panel">
+        <div class="panel-body">
+            <a href="{% url 'main:create_job' %}" type="button" class="btn btn-primary">Create Job</a>
+        </div>
+    </div>
+
     {% if jobs %}
         <table class="table table-bordered table-striped">
             <thead>
@@ -41,17 +51,11 @@
         </table>
     {% endif %}
 
-    {% include "main/includes/pagination_div.html" with pagination_list=jobs only %}
-
-    <div class="panel">
-        <div class="panel-body">
-            <a href="{% url 'main:create_job' %}" type="button" class="btn btn-primary">Create Job</a>
-        </div>
-    </div>
+    {% include "main/includes/pagination_div.html" with pagination_list=jobs page_range=page_range %}
 
     {% include "main/includes/email_job_modal.html" %}
 
     {% load static %}
     <script src='{% static "main/js/email_job_modal.js" %}' type="text/javascript" charset="utf-8"></script>
-
+</div>
 {% endblock %}

@@ -40,7 +40,9 @@ def interviewee_home(request):
     applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
     page = request.GET.get(fx_request_parameters.page)
     applications = __get_pagination_list(applications, page)
-    return render(request, 'main/accounts/interviewee_home.html', {'applications': applications, 'user': user})
+    return render(request, 'main/accounts/interviewee_home.html', {'applications': applications,
+                                                                   'user': user,
+                                                                   'page_range': applications.paginator.page_range})
 
 
 def __render_interviewer_admin_page(request, url):
@@ -52,8 +54,11 @@ def __render_interviewer_admin_page(request, url):
         applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
 
     applications = __get_pagination_list(applications, page)
-
-    return render(request, url, {'applications': applications, 'user': user})
+    for i in applications.paginator.page_range:
+        logging.info(i)
+    return render(request, url, {'applications': applications,
+                                 'user': user,
+                                 'page_range': applications.paginator.page_range})
 
 
 def __get_pagination_list(original_list, page):
@@ -75,7 +80,8 @@ def view_jobs(request):
     jobs = Job.objects.filter(company=user.profile.company)
     page = request.GET.get(fx_request_parameters.page)
     jobs = __get_pagination_list(jobs, page)
-    return render(request, 'main/accounts/jobs.html', {'jobs': jobs})
+    return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
+                                 'page_range': jobs.paginator.page_range})
 
 
 @login_required(login_url='/login/')
@@ -184,7 +190,8 @@ def view_questions(request):
     questions = Question.objects.filter(company=user.profile.company)
     page = request.GET.get(fx_request_parameters.page)
     questions = __get_pagination_list(questions, page)
-    return render(request, 'main/accounts/questions.html', {'questions': questions})
+    return render(request, 'main/accounts/questions.html', {'questions': questions,
+                                                            'page_range': questions.paginator.page_range})
 
 
 def view_application_questions(request, application_question_id):

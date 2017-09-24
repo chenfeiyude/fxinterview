@@ -4,8 +4,17 @@
 
 {% block content %}
 
+<div class="container">
+    <div class="page-header">
+        <h3>View Questions</h3>
+    </div>
 
-    <h3>View Questions</h3>
+    <div class="panel">
+        <div class="panel-body">
+            <a href="{% url 'main:create_question' %}" type="button" class="btn btn-primary">Create Question</a>
+        </div>
+    </div>
+
     {% if questions %}
         <table class="table table-bordered table-striped">
             <thead>
@@ -34,12 +43,6 @@
         </table>
     {% endif %}
 
-    {% include "main/includes/pagination_div.html" with pagination_list=questions only %}
-
-    <div class="panel">
-        <div class="panel-body">
-            <a href="{% url 'main:create_question' %}" type="button" class="btn btn-primary">Create Question</a>
-        </div>
-    </div>
-
+    {% include "main/includes/pagination_div.html" with pagination_list=questions page_range=page_range %}
+</div>
 {% endblock %}
