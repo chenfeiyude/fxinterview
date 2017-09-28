@@ -34,7 +34,9 @@ function configure_editor(selected_language)
         editor.setValue('console.log("Hello World");');
 
     else if(language == 'php')
-        editor.setValue('echo "Hello world!";');
+        editor.setValue('<?php\n' +
+            '    echo "Hello World";\n' +
+            '?>');
 
     else if(language == 'c_cpp')
         editor.setValue('#include <iostream.h>\n' +
