@@ -28,14 +28,6 @@
 
         <div class="form-group input-container">
 
-            <label>Selected Questions:</label>
-
-            <div id="selectedQuestionDiv"></div>
-
-        </div><!-- /.input-container -->
-
-        <div class="form-group input-container">
-
             {% if questions %}
 
                 <label>Select Questions:</label>
@@ -44,15 +36,23 @@
 
                     <option selected disabled>Select Questions</option>
 
-                {% for question in questions %}
+                    {% for question in questions %}
 
-                    <option value="{{ question.id }}">{{ question.name }}</option>
+                        <option value="{{ question.id }}">{{ question.name }}</option>
 
-                {% endfor %}
+                    {% endfor %}
 
                 </select>
 
             {% endif %}
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
+            <label>Selected Questions:</label>
+
+            <div id="selectedQuestionDiv"></div>
 
         </div><!-- /.input-container -->
 
@@ -62,5 +62,5 @@
 
     {% load static %}
     <script src='{% static "main/js/create_job.js" %}' type="text/javascript" charset="utf-8"></script>
-
+    <link rel="stylesheet" href='{% static "main/css/create_job.css" %}' type="text/css" />
 {% endblock %}

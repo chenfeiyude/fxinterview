@@ -23,7 +23,6 @@ def index(request):
 @login_required(login_url='/login/')
 def check_user_role(request):
     user = request.user
-
     if user is None or user.is_anonymous:
         return render(request, 'main/index.html')
     elif user.profile.is_interviewee():
@@ -54,8 +53,6 @@ def __render_interviewer_admin_page(request, url):
         applications.extend(ApplicationQuestion.objects.filter(job_id=job.id))
 
     applications = __get_pagination_list(applications, page)
-    for i in applications.paginator.page_range:
-        logging.info(i)
     return render(request, url, {'applications': applications,
                                  'user': user,
                                  'page_range': applications.paginator.page_range})

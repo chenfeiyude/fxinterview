@@ -29,6 +29,28 @@
 
         <div class="form-group input-container">
 
+            <label>Select Questions:</label>
+
+            <select id="jobSelect" class="form-control">
+
+                <option selected disabled>Select Questions</option>
+
+                {% if questions %}
+
+                    {% for question in questions %}
+
+                        <option value="{{ question.id }}">{{ question.name }}</option>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </select>
+
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
+
             <label>Selected Questions:</label>
 
             <div id="selectedQuestionDiv">
@@ -36,7 +58,7 @@
                 {% if assigned_questions %}
 
                     {% for assigned_question in assigned_questions %}
-                        <div>
+                        <div class="selectedQuestion">
                             <a href="">{{ assigned_question.name }} </a>
                             <input type="hidden" name="question_id" class="question_id" value="{{ assigned_question.id }}">
                             <input type="button" class="btn btn-danger" value="Remove">
@@ -50,33 +72,11 @@
 
         </div><!-- /.input-container -->
 
-        <div class="form-group input-container">
-
-                <label>Select Questions:</label>
-
-                    <select id="jobSelect" class="form-control">
-
-                        <option selected disabled>Select Questions</option>
-
-                        {% if questions %}
-
-                            {% for question in questions %}
-
-                                <option value="{{ question.id }}">{{ question.name }}</option>
-
-                            {% endfor %}
-
-                        {% endif %}
-
-                    </select>
-
-        </div><!-- /.input-container -->
-
         <input type="submit" class="btn btn-primary" value="Update">
 
     </form>
 
     {% load static %}
     <script src='{% static "main/js/create_job.js" %}' type="text/javascript" charset="utf-8"></script>
-
+    <link rel="stylesheet" href='{% static "main/css/create_job.css" %}' type="text/css" />
 {% endblock %}
