@@ -15,8 +15,37 @@ $(document).ready(function(){
     });
 });
 
-function configure_editor(selected_language) {
+function configure_editor(selected_language)
+{
+    var language = selected_language.val()
     var editor = ace.edit("editor");
+
+    if(language == 'java')
+        editor.setValue('public class hello {\n' +
+            '    public static void main(String []args) {\n' +
+            '        System.out.println("Hello World");\n' +
+            '    }\n' +
+            '}')
+
+    else if(language == 'python')
+        editor.setValue('print("Hello World")');
+
+    else if(language == 'javascript')
+        editor.setValue('console.log("Hello World");');
+
+    else if(language == 'php')
+        editor.setValue('<?php\n' +
+            '    echo "Hello World";\n' +
+            '?>');
+
+    else if(language == 'c_cpp')
+        editor.setValue('#include <iostream.h>\n' +
+            'main()\n' +
+            '{\n' +
+            '    cout << "Hello World!";\n' +
+            '    return 0;\n' +
+            '}');
+
     editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/" + selected_language.val());
+    editor.getSession().setMode("ace/mode/" + language);
 }

@@ -351,7 +351,7 @@ def update_profile(request):
 
 @login_required(login_url='/login/')
 def send_job_invitation(request):
-    interviewee_email = request.POST.get('interviewee_email')
+    interviewee_email = request.POST.get('interviewee_email').lower()
     email_job_id = request.POST.get('email_job_id')
 
     expire_date = None
