@@ -31,11 +31,13 @@
                     <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i>Email</span>
                     {% render_field form.email class="form-control" placeholder="Email address" value=user.email%}
                 </div>
-                
+
                 {% render_field form.username value=user.username %}
 
-                <input type="submit" class="btn btn-primary" value="Update">
-
+                <p>
+                    <input type="submit" class="btn btn-primary" value="Update">
+                    <a class="btn btn-primary" href="{% url 'password_change' %}">Change password</a>
+                </p>
             </form>
         </div>
     </div>

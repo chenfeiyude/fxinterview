@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from . import views
 from django.contrib.auth import views as auth_views
@@ -12,10 +12,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # http://localhost:8000/register/
     url(r'^register/$', views.register, name='register'),
-    # http://localhost:8000/login/
-    url(r'^login/$', auth_views.login, {'template_name': 'main/login.html'}, name='login'),
-    # http://localhost:8000/logout/
-    url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     # http://localhost:8000/accounts/home
     url(r'^accounts/home', views.check_user_role, name='view_home'),
     # http://localhost:8000/accounts/jobs

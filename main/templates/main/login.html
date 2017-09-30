@@ -16,24 +16,24 @@
 
     {% endif %}
 
-     <form name="auth.login" method="post" action="{% url 'main:login' %}" class="loginform">
+     <form name="auth.login" method="post" action="{% url 'login' %}" class="loginform">
 
-      {% csrf_token %}
+         {% csrf_token %}
 
-      <h3>Login to Your Account</h3>
+         <h3>Login to Your Account</h3>
 
-      <div class="form-group input-container input-group">
-            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input type="text" name="username" class="form-control" placeholder="Username" value="{{username}}">
-      </div><!-- /.input-container -->
+         <div class="form-group input-container input-group">
+             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+             <input type="text" name="username" class="form-control" placeholder="Username" value="{{username}}">
+         </div><!-- /.input-container -->
 
-      <div class="form-group input-container input-group">
-            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-            <input type="password" name="password" class="form-control" placeholder="Password">
-      </div><!-- /.input-container -->
+         <div class="form-group input-container input-group">
+             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+             <input type="password" name="password" class="form-control" placeholder="Password">
+         </div><!-- /.input-container -->
 
-      <input type="submit" class="btn btn-primary" value="Login">
-
-  </form>
+         <input type="submit" class="btn btn-primary" value="Login">
+         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    </form>
 
 {% endblock %}
