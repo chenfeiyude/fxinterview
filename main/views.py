@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.urls import reverse
-from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile
+from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile, User
 import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -331,7 +331,14 @@ def register(request):
 def view_profile(request):
     user = request.user
     form = FXUpdateUserForm()
-    return render(request, 'main/accounts/view_profile.html', {'user': user, 'form':form})
+
+    interviewers = []
+    company = request.user.profile.company
+    profiles = Profile.objects.filter(company=company)
+    for profile in profiles:
+        interviewers.append(profile.user)
+
+    return render(request, 'main/accounts/view_profile.html', {'user': user, 'form': form, 'interviewers': interviewers})
 
 
 @login_required(login_url='/login/')
