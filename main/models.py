@@ -32,6 +32,7 @@ class Profile(models.Model):
         (INTERVIEWER_STATUS, 'interviewer'),
         (INTERVIEWEE_STATUS, 'interviewee'),
     )
+
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     contact_details = models.ForeignKey(ContactDetails, blank=True, null=True)
     validated = models.BooleanField(default=False)
