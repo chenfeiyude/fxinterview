@@ -51,7 +51,7 @@
             </div>
 
             <div class="panel-body">
-                <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}// Writing your code here{% endif %}</div>
+                <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}{{ job_question.question.default_template }}{% endif %}</div>
             </div>
         </div>
         <div class="panel panel-default">

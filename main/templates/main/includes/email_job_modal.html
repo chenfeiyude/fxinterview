@@ -7,13 +7,20 @@
           <h4 class="modal-title">Job Invitation </h4>
         </div>
         <div class="modal-body">
-            <form id="job_invitation_form" method="post" action="{% url 'main:send_job_invitation' %}">
+            <form id="job_invitation_form" data-toggle="validator" role="form" method="post" action="{% url 'main:send_job_invitation' %}">
                 {% csrf_token %}
-                <p><b>Send Job Invitation Email to:</b></p>
-                <input id="interviewee_email_input" type="input" name="interviewee_email" class="form-control" placeholder="xxx@fxinterview.ie">
-                <br>
-                <p><b>Expire Date(Optional):</b></p>
-                <input name="expire_date" type="text" class="form-control" id="datepicker">
+                <div class="form-group">
+                    <label for="interviewee_email" class="control-label">Send Job Invitation Email to:</label>
+                    <input id="interviewee_email" type="email" name="interviewee_email" class="form-control" placeholder="xxx@fxinterview.ie" required>
+                    <div class="help-block with-errors"></div>
+                </div><!-- /.input-container -->
+
+                  <div class="form-group">
+                    <label for="datepicker" class="control-label">Expire Date(Optional):</label>
+                    <input name="expire_date" type="text" class="form-control" id="datepicker">
+                    <div class="help-block with-errors"></div>
+                </div><!-- /.input-container -->
+
                 <input id="email_job_id" name="email_job_id" type="hidden">
             </form>
         </div>

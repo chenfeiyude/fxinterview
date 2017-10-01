@@ -6,7 +6,7 @@
 
     {% include "main/includes/form_error.html" %}
 
-    <form method="post" action="{% url 'main:edit_question' %}">
+    <form method="post" data-toggle="validator" role="form" action="{% url 'main:edit_question' %}">
 
         {% csrf_token %}
 
@@ -16,29 +16,27 @@
         <input type="hidden" id="estimated_time_input" value="">
         <input type="hidden" name="company" value="{{ user.profile.company.id }}">
 
-        <div class="form-group input-container">
-
-            <input type="input" name="name" class="form-control" value="{{ question.name }}">
-
+        <div class="form-group">
+            <label for="question_name" class="control-label">Question Name</label>
+            <input id="question_name" type="input" name="name" class="form-control" value="{{ question.name }}" required>
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">
-
-            <input type="input" name="description" class="form-control" value="{{ question.description }}">
-
+            <label for="job_description" class="control-label">Question Description</label>
+            <textarea id="job_description" class="form-control" name="description" rows="12" required>{{ question.description }}</textarea>
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">
-
             <label for="comment">Default Template:</label>
-
             <textarea class="form-control" name="default_template" rows="10" id="comment">{{ question.default_template }}</textarea>
-
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">
-            <label>Estimated Time (Minute):</label><br>
-            <input type="number" name="estimated_time_m"  min="0" class="form-control" value="{{ question.estimated_time_m }}">
+            <label for="estimated_time" class="control-label">Estimated Time (Minute):</label>
+            <input id="estimated_time" type="number" name="estimated_time_m"  min="0" step="1" class="form-control" value="{{ question.estimated_time_m }}">
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
         <input type="submit" class="btn btn-primary" value="Update">

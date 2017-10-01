@@ -331,14 +331,7 @@ def register(request):
 def view_profile(request):
     user = request.user
     form = FXUpdateUserForm()
-
-    interviewers = []
-    company = request.user.profile.company
-    profiles = Profile.objects.filter(company=company)
-    for profile in profiles:
-        interviewers.append(profile.user)
-
-    return render(request, 'main/accounts/view_profile.html', {'user': user, 'form': form, 'interviewers': interviewers})
+    return __configure_profile(request, user, form)
 
 
 @login_required(login_url='/login/')
@@ -350,12 +343,24 @@ def update_profile(request):
     else:
         logging.info(form.errors)
 
-    return render(request, 'main/accounts/view_profile.html', {'user': user, 'form': form})
+    return __configure_profile(request, user, form)
+
+
+def __configure_profile(request, user, form):
+    interviewers = []
+    company = request.user.profile.company
+    profiles = Profile.objects.filter(company=company)
+    for profile in profiles:
+        if user.username != profile.user.username:
+            interviewers.append(profile.user)
+
+    return render(request, 'main/accounts/view_profile.html',
+                  {'user': user, 'form': form, 'interviewers': interviewers})
 
 
 @login_required(login_url='/login/')
 def send_job_invitation(request):
-    interviewee_email = request.POST.get('interviewee_email').lower()
+    interviewee_email = request.POST.get('interviewee_email')
     email_job_id = request.POST.get('email_job_id')
 
     expire_date = None

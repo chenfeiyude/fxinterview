@@ -63,9 +63,9 @@
                     {% for interviewer in interviewers %}
                         <tr>
                             <td>{{ interviewer.username }}</td>
-                            <td>{{ interviewer.first_name }}</td>
-                            <td>{{ interviewer.last_name }}</td>
-                            <td>{{ interviewer.email }}</td>
+                            <td><input type="input" name="first_name" class="form-control" value="{{ interviewer.first_name }}"></td>
+                            <td><input type="input" name="last_name" class="form-control" value="{{ interviewer.last_name }}"></td>
+                            <td><input type="input" name="email" class="form-control" value="{{ interviewer.email }}"></td>
                             <td>{{ interviewer.is_active }}</td>
                             <td>{{ interviewer.last_login }}</td>
                         </tr>

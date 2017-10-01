@@ -6,8 +6,7 @@ import logging
 
 class JobForm(forms.ModelForm):
     name = forms.CharField(error_messages={'required': 'Job name is required'})
-    description = forms.CharField(required=False, max_length=200,
-                                  error_messages={'max_length': 'Ensure Description has at most 200 characters'})
+    description = forms.CharField(required=False)
 
     class Meta:
         model = Job
@@ -27,8 +26,7 @@ class JobForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     name = forms.CharField(error_messages={'required': 'Question name is required'})
 
-    description = forms.CharField(required=False, max_length=200,
-                                  error_messages={'max_length': 'Ensure Description has at most 200 characters'})
+    description = forms.CharField(required=False)
 
     default_template = forms.CharField(required=False)
 

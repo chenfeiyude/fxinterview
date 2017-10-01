@@ -6,7 +6,7 @@
 
     {% include "main/includes/form_error.html" %}
 
-    <form method="post" action="{% url 'main:edit_job' %}">
+    <form method="post" data-toggle="validator" role="form" action="{% url 'main:edit_job' %}">
 
         {% csrf_token %}
 
@@ -15,16 +15,16 @@
         <input type="hidden" name="id" value="{{ job.id }}">
         <input type="hidden" name="company" value="{{ user.profile.company.id }}">
 
-        <div class="form-group input-container">
-
-            <input type="input" name="name" class="form-control" value="{{ job.name }}">
-
+        <div class="form-group">
+            <label for="job_name" class="control-label">Job Name</label>
+            <input id="job_name" type="input" name="name" class="form-control" placeholder="Java Developer" value="{{ job.name }}" required>
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">
-
-            <input type="input" name="description" class="form-control" value="{{ job.description }}">
-
+            <label for="job_description" class="control-label">Job Description</label>
+            <textarea id="job_description" class="form-control" name="description" rows="12">{{ job.description }}</textarea>
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">

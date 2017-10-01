@@ -6,7 +6,7 @@
 
     {% include "main/includes/form_error.html" %}
 
-    <form method="post" action="{% url 'main:create_question' %}">
+    <form method="post" data-toggle="validator" role="form" action="{% url 'main:create_question' %}">
 
         {% csrf_token %}
 
@@ -14,32 +14,29 @@
 
         <input type="hidden" name="company" value="{{ user.profile.company.id }}">
 
-        <div class="form-group input-container">
-
-            <input type="input" name="name" class="form-control" placeholder="Question Name">
-
+        <div class="form-group">
+            <label for="question_name" class="control-label">Question Name</label>
+            <input id="question_name" type="input" name="name" class="form-control" placeholder="Order ArrayList" required>
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
-        <div class="form-group input-container">
-
-            <input type="input" name="description" class="form-control" placeholder="Question Description">
-
+         <div class="form-group input-container">
+            <label for="job_description" class="control-label">Question Description</label>
+            <textarea id="job_description" class="form-control" name="description" rows="12" required></textarea>
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">
 
             <label for="comment">Default Template:</label>
-
             <textarea class="form-control" name="default_template" rows="10" id="comment">// Write your code1 here</textarea>
 
         </div><!-- /.input-container -->
 
-        <div class="form-group input-container">
-
-            <label>Estimated Time (Minute):</label><br>
-
-            <input type="number" name="estimated_time_m"  min="0" class="form-control">
-
+          <div class="form-group input-container">
+            <label for="estimated_time" class="control-label">Estimated Time (Minute):</label>
+            <input id="estimated_time" type="number" name="estimated_time_m"  min="0" step="1" class="form-control">
+            <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 
 
