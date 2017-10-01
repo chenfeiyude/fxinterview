@@ -7,19 +7,19 @@ $(document).ready(function()
         $("option:selected").remove();
 
         $('#selectedQuestionDiv').append('<div class="selectedQuestion">' +
-            '<a href="">'+selectedText+' </a>' +
+            '<li class="list-group-item">'+selectedText+' <span class="badge">' +
+            '<i class="fa fa-trash-o" aria-hidden="true"></i></span></li>' +
             '<input type="hidden" name="question_id" class="question_id" value="'+selectedQuestionId+'">' +
-            '<input type="button" class="btn btn-danger" value="Remove" />' +
             '</div>');
-
         $("#jobSelect").prop('selectedIndex',0);
     });
 
-    $('#selectedQuestionDiv').on('click', 'input.btn', function()
+    $('#selectedQuestionDiv').on('click', 'li', function()
     {
         $(this).parent().remove();
-        var selectedText = $(this).siblings('a').text();
+        var selectedText = $(this).text();
         var selectedQuestionId = $(this).siblings('.question_id').val();
+
         $('#jobSelect').append('<option value="'+selectedQuestionId+'">'+selectedText+'</option>');
     });
 });

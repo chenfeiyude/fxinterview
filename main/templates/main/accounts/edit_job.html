@@ -53,15 +53,16 @@
 
             <label>Selected Questions:</label>
 
-            <div id="selectedQuestionDiv">
+            <div id="selectedQuestionDiv" class="list-group">
 
                 {% if assigned_questions %}
 
                     {% for assigned_question in assigned_questions %}
                         <div class="selectedQuestion">
-                            <a href="">{{ assigned_question.name }} </a>
+                            <li class="list-group-item">{{ assigned_question.name }}
+                                <span class="badge"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                            </li>
                             <input type="hidden" name="question_id" class="question_id" value="{{ assigned_question.id }}">
-                            <input type="button" class="btn btn-danger" value="Remove">
                         </div>
 
                     {% endfor %}
@@ -78,5 +79,4 @@
 
     {% load static %}
     <script src='{% static "main/js/create_job.js" %}' type="text/javascript" charset="utf-8"></script>
-    <link rel="stylesheet" href='{% static "main/css/create_job.css" %}' type="text/css" />
 {% endblock %}
