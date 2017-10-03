@@ -348,11 +348,12 @@ def update_profile(request):
 
 def __configure_profile(request, user, form):
     interviewers = []
-    company = request.user.profile.company
-    profiles = Profile.objects.filter(company=company)
-    for profile in profiles:
-        if user.username != profile.user.username:
-            interviewers.append(profile.user)
+    if user.profile.is_admin():
+        company = request.user.profile.company
+        profiles = Profile.objects.filter(company=company)
+        for profile in profiles:
+            if user.username != profile.user.username:
+                interviewers.append(profile.user)
 
     return render(request, 'main/accounts/view_profile.html',
                   {'user': user, 'form': form, 'interviewers': interviewers})
