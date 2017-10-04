@@ -29,7 +29,7 @@
                         <td>{{ question.name }}</td>
                         <td>{{ question.description }}</td>
                         <td>{{ question.estimated_time_m }}</td>
-                        <td>{{ question.updated|date:"DATE_FORMAT" }}</td>
+                        <td>{{ question.updated|date:"Y-m-d H:i" }}</td>
                         <td>
                             <a href="{% url 'main:edit_question'%}?id={{ question.id }}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

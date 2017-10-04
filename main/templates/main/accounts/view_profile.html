@@ -67,7 +67,7 @@
                             <td><input type="input" name="last_name" class="form-control" value="{{ interviewer.last_name }}"></td>
                             <td><input type="input" name="email" class="form-control" value="{{ interviewer.email }}"></td>
                             <td>{{ interviewer.is_active }}</td>
-                            <td>{{ interviewer.last_login }}</td>
+                            <td>{{ interviewer.last_login |date:"Y-m-d H:i"}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
