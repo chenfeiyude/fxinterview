@@ -1,14 +1,13 @@
 {% extends "./base.html" %}
+{% load i18n %}
 
-{% block title %}FX-Interview{% endblock %}
+{% block title %}{% trans 'FX-Interview' %}{% endblock %}
 
 {% block content %}
 
-{% include "main/includes/form_error.html" %}
-
 <div class="row-fluid">
     <div class="col-xs-8 fx-div-left">
-        <h3>Welcome to FX Interview</h3>
+        <h3>{% trans 'Welcome to FX Interview' %}§</h3>
 
         <form id="test_code_form" method="POST" action="{% url 'main:test_code' %}">
             {% csrf_token %}
@@ -37,7 +36,7 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                     <h3 class="panel-title">Output</h3>
+                     <h3 class="panel-title">{% trans 'Output' %}</h3>
                 </div>
                 <div class="panel-body">
                     <p>{{ run_results.output }}</p>
@@ -57,15 +56,14 @@
         <form data-toggle="validator" role="form" method="POST" action="{% url 'main:register' %}">
             {% csrf_token %}
 
-            <h4>New Account</h4>
+            <h4>{% trans 'New Account' %}</h4>
 
             {% load widget_tweaks %}
 
             <div class="form-group">
                 <div class="input-container input-group">
                      <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                    {% render_field form.username class="form-control" placeholder="Username" %}
-
+                    {% render_field form.username class="form-control" placeholder="{% trans 'Username' %}" %}
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
@@ -73,7 +71,7 @@
             <div class="form-group">
                 <div class="input-container input-group">
                     <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                    {% render_field form.password1 class="form-control" placeholder="Password" %}
+                    {% render_field form.password1 class="form-control" placeholder="{% trans 'Password' %}" %}
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
@@ -81,7 +79,7 @@
             <div class="form-group">
                 <div class="input-container input-group">
                     <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                    {% render_field form.password2 class="form-control" placeholder="Password Confirmation" %}
+                    {% render_field form.password2 class="form-control" placeholder="{% trans 'Password Confirmation' %}" %}
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
@@ -89,7 +87,7 @@
             <div class="form-group">
                 <div class="input-container input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                    {% render_field form.email class="form-control" placeholder="Email address" %}
+                    {% render_field form.email class="form-control" placeholder="{% trans 'Email address' %}" %}
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
