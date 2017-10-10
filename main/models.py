@@ -28,7 +28,7 @@ class Profile(models.Model):
     INTERVIEWER_STATUS = 2
     INTERVIEWEE_STATUS = 3
     ROLE_CHOICES = (
-        (ADMIN_ROLE, 'admin'),
+        (ADMIN_ROLE, 'Admin'),
         (INTERVIEWER_STATUS, 'interviewer'),
         (INTERVIEWEE_STATUS, 'interviewee'),
     )

@@ -5,7 +5,7 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm
+from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm, ProfileForm
 from .utils import fx_string_utils, fx_constants
 from .utils import fx_request_parameters
 from .code_executor.fx_executors import FX_COMPILER
@@ -344,6 +344,31 @@ def update_profile(request):
         logging.info(form.errors)
 
     return __configure_profile(request, user, form)
+
+
+@login_required(login_url='/login/')
+def edit_interviewer(request):
+
+    if request.method == 'POST':
+        interviewer = get_object_or_404(User, pk=request.POST.get('id'))
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            interviewer.first_name = data['first_name']
+            interviewer.last_name = data['last_name']
+            interviewer.email = data['email']
+            interviewer.profile.role = data['role']
+            if data['is_active'] == 'true':
+                interviewer.is_active = True
+            else:
+                interviewer.is_active = False
+
+            interviewer.save()
+
+        return render(request, 'main/accounts/edit_interviewer.html', {'interviewer': interviewer, 'form': form})
+    else:
+        interviewer = get_object_or_404(User, pk=request.GET.get('id'))
+        return render(request, 'main/accounts/edit_interviewer.html', {'interviewer': interviewer})
 
 
 def __configure_profile(request, user, form):

@@ -1,0 +1,67 @@
+{% extends "main/base.html" %}
+
+{% block title %}Management{% endblock %}
+
+{% block content %}
+
+    {% include "main/includes/form_error.html" %}
+
+    <form method="post" data-toggle="validator" role="form" action="{% url 'main:edit_interviewer' %}">
+
+        {% csrf_token %}
+
+        <h3>Edit Interviewer</h3>
+
+        <input type="hidden" name="id" value="{{ interviewer.id }}">
+
+        <div class="form-group">
+            <label for="username" class="control-label">Username</label>
+            <input id="username" type="input" disabled class="form-control" placeholder="Username" value="{{ interviewer.username }}">
+        </div><!-- /.input-container -->
+
+        <div class="form-group">
+            <label for="first_name" class="control-label">First Name</label>
+            <input id="first_name" type="input" name="first_name" class="form-control" placeholder="Firstname" value="{{ interviewer.first_name }}" required>
+            <div class="help-block with-errors"></div>
+        </div><!-- /.input-container -->
+
+        <div class="form-group">
+            <label for="last_name" class="control-label">Last Name</label>
+            <input id="last_name" type="input" name="last_name" class="form-control" placeholder="Lastname" value="{{ interviewer.last_name }}" required>
+            <div class="help-block with-errors"></div>
+        </div><!-- /.input-container -->
+
+        <div class="form-group">
+            <label for="email" class="control-label">Email</label>
+            <input id="email" type="email" name="email" class="form-control" placeholder="Email Address" data-error="That email address is invalid" value="{{ interviewer.email }}" required>
+            <div class="help-block with-errors"></div>
+        </div><!-- /.input-container -->
+
+         <div class="form-group">
+             <label for="role" class="control-label">Role</label>
+             <select id="role" name="role" class="form-control">
+                 <option value="1">Admin</option>
+                 <option value="2">Interviewer</option>
+             </select>
+        </div><!-- /.input-container -->
+
+        <div class="form-group">
+            <label for="is_active" class="control-label">Active</label>
+            <input id="is_active" name="is_active" value="true" type="checkbox">
+            <input id="hidden_is_active" name="is_active" value="false" type="hidden">
+        </div><!-- /.input-container -->
+
+
+        <input type="submit" class="btn btn-primary" value="Update">
+
+    </form>
+
+{% load static %}
+
+<script type="text/javascript" >
+    var interviewer_role = "{{ interviewer.profile.role|safe }}";
+    var is_active = "{{ interviewer.is_active }}"
+</script>
+<script src='{% static "main/js/edit_interviewer.js" %}' type="text/javascript" charset="utf-8"></script>
+
+{% endblock %}

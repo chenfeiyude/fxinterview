@@ -91,3 +91,13 @@ class FXUpdateUserForm(forms.ModelForm):
             user.save()
 
         return user
+
+
+class ProfileForm(forms.Form):
+    first_name = forms.CharField(error_messages={'required': 'First Name is required'})
+    last_name = forms.CharField(error_messages={'required': 'Last Name is required'})
+    email = forms.CharField(error_messages={'required': 'Email is required'})
+    role = forms.CharField(error_messages={'required': 'Role is required'})
+    is_active = forms.CharField(error_messages={'required': 'Active is required'})
+
+

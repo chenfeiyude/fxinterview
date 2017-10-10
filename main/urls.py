@@ -34,6 +34,8 @@ urlpatterns = [
     url(r'^accounts/view_profile', views.view_profile, name='view_profile'),
     # http://localhost:8000/accounts/update_profile
     url(r'^accounts/update_profile', views.update_profile, name='update_profile'),
+    # http://localhost:8000/accounts/edit_interviewer
+    url(r'^accounts/edit_interviewer', views.edit_interviewer, name='edit_interviewer'),
     # http://localhost:8000/accounts/send_job_invitation
     url(r'^accounts/send_job_invitation', views.send_job_invitation, name='send_job_invitation'),
     # http://localhost:8000/application/2?interviewee_email=interviewee@fxinterview.com
