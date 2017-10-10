@@ -4,90 +4,89 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="page-header">
-        <h3>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h3>
-        {% if not application_question.is_expired and not application_question.is_finished %}
-        <form method="POST" action="{% url 'main:finish_answer' %}">
-            {% csrf_token %}
-            <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
-            <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
-            <button type="submit" class="btn btn-primary" name="finish_action">Finish</button>
-        </form>
-        {% endif %}
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h3 class="panel-title">{{ job_question.question.name }}</h3>
-        </div>
-        <div class="panel-body">
-            <p>{{ job_question.question.description }}</p>
-        </div>
-    </div>
-    <form id="application_question_form" method="POST" action="{% url 'main:submit_answer' %}">
+<div class="page-header">
+    <h3>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h3>
+    {% if not application_question.is_expired and not application_question.is_finished %}
+    <form method="POST" action="{% url 'main:finish_answer' %}">
         {% csrf_token %}
         <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
         <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
-        <input name="job_question_id" type="hidden" value="{{ job_question.id }}">
-        <input id="answer_content" name="answer_content" type="hidden" value="">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="panel-title">
-                            <i class="fa fa-code" aria-hidden="true"></i>
-                            <select id="selected_language" name="selected_language">
-                            {% for support_language in support_languages %}
-                            <option {% if support_language == answer.selected_language %} selected {% endif %} value = {{ support_language }}>
-                                {{ support_language }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                        </h3>
-                    </div>
-                    <div id="timer" class="col-md-6 text-right"></div>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}{{ job_question.question.default_template }}{% endif %}</div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                 <h3 class="panel-title">Output</h3>
-            </div>
-            <div class="panel-body">
-                <p>{{ run_results.output }}</p>
-            </div>
-        </div>
-        <div class="btn-group pull-right">
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary" name="prev_action" data-toggle="tooltip" title="Previous">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                </button>
-            </div>
-            {% if not application_question.is_expired and not application_question.is_finished %}
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary" name="submit_action" data-toggle="tooltip" title="Save">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                </button>
-            </div>
-            {% endif %}
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary" name="run_action" data-toggle="tooltip" title="Run">
-                    <i class="fa fa-play" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class="btn-group">
-                <button type="submit" class="btn btn-primary" name="next_action" data-toggle="tooltip" title="Next">
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary" name="finish_action">Finish</button>
     </form>
+    {% endif %}
 </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+         <h3 class="panel-title">{{ job_question.question.name }}</h3>
+    </div>
+    <div class="panel-body">
+        <p>{{ job_question.question.description }}</p>
+    </div>
+</div>
+
+<form id="application_question_form" method="POST" action="{% url 'main:submit_answer' %}">
+    {% csrf_token %}
+    <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
+    <input name="application_question_id" type="hidden" value="{{ application_question.id }}">
+    <input name="job_question_id" type="hidden" value="{{ job_question.id }}">
+    <input id="answer_content" name="answer_content" type="hidden" value="">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="panel-title">
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                        <select id="selected_language" name="selected_language">
+                        {% for support_language in support_languages %}
+                        <option {% if support_language == answer.selected_language %} selected {% endif %} value = {{ support_language }}>
+                            {{ support_language }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    </h3>
+                </div>
+                <div id="timer" class="col-md-6 text-right"></div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}{{ job_question.question.default_template }}{% endif %}</div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <h3 class="panel-title">Output</h3>
+        </div>
+        <div class="panel-body">
+            <p>{{ run_results.output }}</p>
+        </div>
+    </div>
+    <div class="btn-group pull-right">
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary" name="prev_action" data-toggle="tooltip" title="Previous">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </button>
+        </div>
+        {% if not application_question.is_expired and not application_question.is_finished %}
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary" name="submit_action" data-toggle="tooltip" title="Save">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
+        </div>
+        {% endif %}
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary" name="run_action" data-toggle="tooltip" title="Run">
+                <i class="fa fa-play" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary" name="next_action" data-toggle="tooltip" title="Next">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</form>
 
 {% load static %}
 <script src='{% static "main/ace-builds-master/src-noconflict/ace.js" %}' type="text/javascript" charset="utf-8"></script>
