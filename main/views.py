@@ -365,7 +365,10 @@ def edit_interviewer(request):
 
             interviewer.save()
 
-        return render(request, 'main/accounts/edit_interviewer.html', {'interviewer': interviewer, 'form': form})
+        return render(request, 'main/accounts/edit_interviewer.html', {'interviewer': interviewer,
+                                                                       'form': form,
+                                                                       'success_message': interviewer.username + ' has been updated successfully',
+                                                                       })
     else:
         interviewer = get_object_or_404(User, pk=request.GET.get('id'))
         return render(request, 'main/accounts/edit_interviewer.html', {'interviewer': interviewer})
