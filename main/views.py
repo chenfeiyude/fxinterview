@@ -37,7 +37,6 @@ def check_user_role(request):
 
 @login_required(login_url='/login/')
 def interviewee_home(request):
-    raise SuspiciousOperation('test !!!!!')
     user = request.user
     applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
     page = request.GET.get(fx_request_parameters.page)

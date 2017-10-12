@@ -46,3 +46,9 @@ urlpatterns = [
     # url(r'^password_reset/complete/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     url(r'^password_reset/complete/$', auth_views.password_reset_complete, {'template_name': 'main/registration/password_reset_complete.html'}, name='password_reset_complete'),
 ]
+
+handler400 = 'main.views.error_400'
+handler401 = 'main.views.error_401'
+handler403 = 'main.views.error_403'
+handler404 = 'main.views.error_404'
+handler500 = 'main.views.error_500'

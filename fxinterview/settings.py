@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l3#nmrq8d%(!gzpr9-u*!#=0pnr))3)!pvo3tc2rdw6xt)_0xu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 LOGIN_REDIRECT_URL = '/accounts/home'
 
@@ -132,3 +132,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'fxinterview@gmail.com'
 EMAIL_HOST_PASSWORD = 'sk1tten1'
 EMAIL_PORT = 587
+
