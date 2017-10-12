@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'FXInterview - Internal Error' %}{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>{% trans 'Internal Server Error' %}</h1>
+</div>
+<div class="page-body">
+    <p>{% trans 'The server encountered an internal error or misconfiguration and was unable to complete your request.' %}</p>
+</div>
+
+{% endblock %}

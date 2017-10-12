@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'FXInterview - Bad Request' %}{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>{% trans 'Bad Request' %}</h1>
+</div>
+<div class="page-body">
+    <p>{{ exception }}</p>
+</div>
+
+{% endblock %}

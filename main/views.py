@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, render_to_response
+from django.template import RequestContext
 from django.urls import reverse
 from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile, User
 import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import *
+from django.core.exceptions import *
 from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm, ProfileForm
 from .utils import fx_string_utils, fx_constants
 from .utils import fx_request_parameters
@@ -35,6 +37,7 @@ def check_user_role(request):
 
 @login_required(login_url='/login/')
 def interviewee_home(request):
+    raise SuspiciousOperation('test !!!!!')
     user = request.user
     applications = ApplicationQuestion.objects.filter(interviewee_email=user.email)
     page = request.GET.get(fx_request_parameters.page)
@@ -436,3 +439,24 @@ def test_code(request):
                    'support_languages': fx_constants.SUPPORT_LANGUAGES,
                    'form': user_form
                    })
+
+
+def error_400(request):
+    logging.info(request)
+    return render_to_response('main/errors/400.html', status=400)
+
+
+def error_401(request):
+    return render_to_response('main/errors/401.html', status=401)
+
+
+def error_403(request):
+    return render_to_response('main/errors/403.html', status=403)
+
+
+def error_404(request):
+    return render_to_response('main/errors/404.html', status=404)
+
+
+def error_500(request):
+    return render_to_response('main/errors/500.html', status=500)

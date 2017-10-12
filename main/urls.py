@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 # e.g you can call {% url 'main.view_application_questions' xxx.id %} instead of hard code url in html
 
 app_name = 'main'
+
 urlpatterns = [
     # http://localhost:8000/
     url(r'^$', views.index, name='index'),
@@ -48,5 +49,6 @@ urlpatterns = [
     url(r'^application/finish_answer', views.finish_answer, name='finish_answer'),
     # http://localhost:8000/test_code
     url(r'^test_code', views.test_code, name='test_code'),
+
 ]
 

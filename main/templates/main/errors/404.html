@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'FXInterview - Page Not Found' %}{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>{% trans 'Page Not Found' %}</h1>
+</div>
+<div class="page-body">
+    <p>{% trans "We couldn't find the page you requested. We did, however, find this program." %}</p>
+    <p>{% trans 'Please back to the home page and try again.' %}</p>
+</div>
+
+{% endblock %}
