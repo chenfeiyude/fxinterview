@@ -10,10 +10,10 @@ from ..utils import fx_constants
 class AuthTestCase(TestCase):
 
     def setUp(self):
-        self.url = reverse("main:login")
-        user_admin = User.objects.create_user('username1', 'test@gmail.com', 'password')
-        user_interviewer = User.objects.create_user('username2', 'test@gmail.com', 'password')
-        user_interviewee = User.objects.create_user('username3', 'test@gmail.com', 'password')
+        self.url = reverse('login')
+        user_admin = User.objects.create_user('username1', 'test@fxinterview.com', 'password')
+        user_interviewer = User.objects.create_user('username2', 'test@fxinterview.com', 'password')
+        user_interviewee = User.objects.create_user('username3', 'test@fxinterview.com', 'password')
         contact_details = ContactDetails.objects.create(address1='address1', address2='address2')
         company = Company.objects.create(name='test company', contact=contact_details)
         Profile.objects.create(validated=0, role=1, contact_details=contact_details, user=user_admin, company=company)
@@ -42,21 +42,23 @@ class AuthTestCase(TestCase):
         self.client.login(username='username3', password='password')
         response_interviewee = self.client.get(reverse('main:view_home'))
         self.assertEqual(response_interviewee.status_code, 200)
-        self.assertContains(response_interviewee, 'My Applications')
+        self.assertContains(response_interviewee, 'Applications')
 
 
 class ApplicationViewTestCase(TestCase):
 
     def setUp(self):
-        ContactDetails.objects.create(address1='address1', address2='address2')
-        Company.objects.create(name='test company', contact=ContactDetails.objects.get(address1='address1', address2='address2'))
-        Job.objects.create(name='test job', company=Company.objects.get(name='test company'))
-        ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com', job=Job.objects.get(name='test job'), estimated_time_m=10)
-        Question.objects.create(name='test question1',  company=Company.objects.get(name='test company'))
-        Question.objects.create(name='test question2',  company=Company.objects.get(name='test company'))
-        JobQuestion.objects.create(job=Job.objects.get(name='test job'), question=Question.objects.get(name='test question1'))
-        JobQuestion.objects.create(job=Job.objects.get(name='test job'), question=Question.objects.get(name='test question2'))
+        contact_details = ContactDetails.objects.create(address1='address1', address2='address2')
+        company = Company.objects.create(name='test company', contact=contact_details)
 
+        job = Job.objects.create(name='test job', company=company)
+        ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com',
+                                           job=job, estimated_time_m=10)
+        question1 = Question.objects.create(name='test question1', company=company)
+        question2 = Question.objects.create(name='test question2', company=company)
+        JobQuestion.objects.create(job=job, question=question1)
+        JobQuestion.objects.create(job=job, question=question2)
+        
     def test_not_found_application(self):
         """Test if no email sent and the view return 404 not found error"""
         application_question = ApplicationQuestion.objects.get(interviewee_email='test@fxinterview.com')
@@ -220,3 +222,30 @@ class ApplicationViewTestCase(TestCase):
         # after finish, should not show finish and submit button
         self.assertNotContains(resp, 'finish_action')
         self.assertNotContains(resp, 'submit_action')
+
+
+class IntervieweeAccountTestCase(TestCase):
+
+    def setUp(self):
+        self.url = reverse('login')
+        user_interviewee = User.objects.create_user('username3', 'test@fxinterview.com', 'password')
+        contact_details = ContactDetails.objects.create(address1='address1', address2='address2')
+        company = Company.objects.create(name='test company', contact=contact_details)
+        Profile.objects.create(validated=0, role=3, contact_details=contact_details, user=user_interviewee,
+                               company=company)
+
+        job = Job.objects.create(name='test job', company=company)
+        ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com',
+                                           job=job, estimated_time_m=10)
+        question1 = Question.objects.create(name='test question1', company=company)
+        question2 = Question.objects.create(name='test question2', company=company)
+        JobQuestion.objects.create(job=job, question=question1)
+        JobQuestion.objects.create(job=job, question=question2)
+
+    def test_view_profile(self):
+        """Test view profile page
+        """
+        self.client.login(username='username3', password='password')
+        response_interviewee = self.client.get(reverse('main:view_home'))
+        self.assertEqual(response_interviewee.status_code, 200)
+        self.assertContains(response_interviewee, 'Applications')

@@ -34,6 +34,7 @@ def run_code(code):
         return result
     except subprocess.CalledProcessError as e:
         # return error data
+        logging.error(e.output)
         result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_ERROR
         result[fx_constants.KEY_OUTPUT] = 'Line' + fx_string_utils.decode_utf_8(e.output).split('.java')[1]
         return result
