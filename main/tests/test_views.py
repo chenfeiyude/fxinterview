@@ -246,6 +246,12 @@ class IntervieweeAccountTestCase(TestCase):
         """Test view profile page
         """
         self.client.login(username='username3', password='password')
-        response_interviewee = self.client.get(reverse('main:view_home'))
-        self.assertEqual(response_interviewee.status_code, 200)
-        self.assertContains(response_interviewee, 'Applications')
+        interviewee = User.objects.filter(username= 'username3').first()
+        view_profile = self.client.get(reverse('main:view_profile'))
+        self.assertEqual(view_profile.status_code, 200)
+        self.assertContains(view_profile, 'First Name')
+        self.assertContains(view_profile, 'Last Name')
+        self.assertContains(view_profile, interviewee.username)
+        self.assertContains(view_profile, interviewee.first_name)
+        self.assertContains(view_profile, interviewee.last_name)
+        self.assertContains(view_profile, interviewee.email)
