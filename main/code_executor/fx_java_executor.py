@@ -36,7 +36,10 @@ def run_code(code):
         # return error data
         logging.error(e.output)
         result[fx_constants.KEY_CODE] = fx_constants.KEY_CODE_ERROR
-        result[fx_constants.KEY_OUTPUT] = 'Line' + fx_string_utils.decode_utf_8(e.output).split('.java')[1]
+        error_output = fx_string_utils.decode_utf_8(e.output)
+        if '.java' in error_output:
+            error_output = 'Line' + error_output.split('.java')[1]
+        result[fx_constants.KEY_OUTPUT] = error_output
         return result
     finally:
         # delete temp file
