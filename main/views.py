@@ -337,6 +337,20 @@ def view_profile(request):
 
 
 @login_required(login_url='/login/')
+def view_manage_interviewers(request):
+    user = request.user
+    interviewers = []
+    if user.profile.is_admin():
+        company = request.user.profile.company
+        profiles = Profile.objects.filter(company=company)
+        for profile in profiles:
+            if user.username != profile.user.username:
+                interviewers.append(profile.user)
+    return render(request, 'main/accounts/view_manage_interviewers.html',
+                  {'user': user, 'interviewers': interviewers})
+
+
+@login_required(login_url='/login/')
 def update_profile(request):
     user = request.user
     form = FXUpdateUserForm(request.POST, instance=request.user)
@@ -360,12 +374,14 @@ def edit_interviewer(request):
             interviewer.last_name = data['last_name']
             interviewer.email = data['email']
             interviewer.profile.role = data['role']
-            if data['is_active'] == 'true':
+
+            if data['is_active'] == 'True':
                 interviewer.is_active = True
             else:
                 interviewer.is_active = False
 
             interviewer.save()
+            interviewer.profile.save()
 
         return render(request, 'main/accounts/edit_interviewer.html', {'interviewer': interviewer,
                                                                        'form': form,
@@ -377,16 +393,8 @@ def edit_interviewer(request):
 
 
 def __configure_profile(request, user, form):
-    interviewers = []
-    if user.profile.is_admin():
-        company = request.user.profile.company
-        profiles = Profile.objects.filter(company=company)
-        for profile in profiles:
-            if user.username != profile.user.username:
-                interviewers.append(profile.user)
-
     return render(request, 'main/accounts/view_profile.html',
-                  {'user': user, 'form': form, 'interviewers': interviewers})
+                  {'user': user, 'form': form})
 
 
 @login_required(login_url='/login/')

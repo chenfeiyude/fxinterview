@@ -31,7 +31,10 @@ function configure_editor(selected_language)
         editor.setValue('print("Hello World")');
 
     else if(language == 'javascript')
-        editor.setValue('console.log("Hello World");');
+        editor.setValue('function hello(){\n' +
+            '   var test = "Hello World";\n' +
+            '   return test;\n' +
+            '}');
 
     else if(language == 'php')
         editor.setValue('<?php\n' +

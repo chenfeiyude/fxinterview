@@ -79,6 +79,14 @@
                                     <a href="{% url 'main:view_profile' %}"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Profile</a>
                                 </li>
 
+                                {% if user.profile.is_admin %}
+
+                                    <li>
+                                        <a href="{% url 'main:view_manage_interviewers' %}"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Interviewers</a>
+                                    </li>
+
+                                {% endif %}
+
                                 <li>
                                     <a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> Logout</a>
                                 </li>

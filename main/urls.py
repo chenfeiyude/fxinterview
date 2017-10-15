@@ -33,6 +33,8 @@ urlpatterns = [
     url(r'^accounts/questions', views.view_questions, name='view_questions'),
     # http://localhost:8000/accounts/view_profile
     url(r'^accounts/view_profile', views.view_profile, name='view_profile'),
+    # http://localhost:8000/accounts/view_profile
+    url(r'^accounts/view_manage_interviewers', views.view_manage_interviewers, name='view_manage_interviewers'),
     # http://localhost:8000/accounts/update_profile
     url(r'^accounts/update_profile', views.update_profile, name='update_profile'),
     # http://localhost:8000/accounts/edit_interviewer

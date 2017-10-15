@@ -5,6 +5,7 @@
 {% block content %}
 
     {% include "main/includes/form_error.html" %}
+    {% include "main/includes/alerts.html" %}
 
     <form method="post" data-toggle="validator" role="form" action="{% url 'main:edit_interviewer' %}">
 
@@ -46,9 +47,9 @@
         </div><!-- /.input-container -->
 
         <div class="form-group">
-            <label for="is_active" class="control-label">Active</label>
-            <input id="is_active" name="is_active" value="true" type="checkbox">
-            <input id="hidden_is_active" name="is_active" value="false" type="hidden">
+            <label for="is_active_checkbox" class="control-label">Active</label>
+            <input id="is_active_checkbox" type="checkbox">
+            <input id="hidden_is_active" name="is_active" value="False" type="hidden">
         </div><!-- /.input-container -->
 
 

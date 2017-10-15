@@ -45,56 +45,6 @@
     </div>
 </div>
 
-{% if interviewers %}
- <div class="panel panel-default">
-    <div class="panel-heading">
-         <h3 class="panel-title">Manage Interviewers</h3>
-    </div>
-    <div class="panel-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Activited</th>
-                    <th>Last Login</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for interviewer in interviewers %}
-                    <tr>
-                        <td>{{ interviewer.username }}</td>
-                        <td>{{ interviewer.email }}</td>
-                        <td>
-                            {% if interviewer.profile.role == 1 %}
-                               Admin
-                             {% else %}
-                                Interviewer
-                            {% endif %}
-                        </td>
-                        <td>
-                             {% if interviewer.is_active %}
-                               Yes
-                             {% else %}
-                               No
-                            {% endif %}
-                        </td>
-                        <td>{{ interviewer.last_login |date:"Y-m-d H:i"}}</td>
-                        <td>
-                            <a href="{% url 'main:edit_interviewer'%}?id={{ interviewer.id }}">
-                                <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                             </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
- </div>
-{% endif %}
-
 {% load static %}
 <script src='{% static "main/js/view_profile.js" %}' type="text/javascript" charset="utf-8"></script>
 {% endblock %}
