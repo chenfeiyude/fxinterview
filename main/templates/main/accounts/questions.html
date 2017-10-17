@@ -27,7 +27,7 @@
                 {% for question in questions %}
                     <tr>
                         <td>{{ question.name }}</td>
-                        <td>{{ question.description }}</td>
+                        <td class="ellipsis">{{ question.description }}</td>
                         <td>{{ question.estimated_time_m }}</td>
                         <td>{{ question.updated|date:"Y-m-d H:i" }}</td>
                         <td>
@@ -46,4 +46,7 @@
 
     {% include "main/includes/pagination_div.html" with pagination_list=questions page_range=page_range %}
 </div>
+
+{% load static %}
+<link rel="stylesheet" href='{% static "main/css/job.css" %}' type="text/css" />
 {% endblock %}
