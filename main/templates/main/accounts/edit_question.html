@@ -34,6 +34,16 @@
         </div><!-- /.input-container -->
 
         <div class="form-group input-container">
+            <label for="question_type" class="control-label">Question Type</label>
+                <select id="question_type" name="question_type" class="form-control">
+                    {% for question_type in question_types %}
+                         <option value="{{ question_type.type }}">{{ question_type.display_name }} | {{ question_type.description }}</option>
+                    {% endfor %}
+                </select>
+            <div class="help-block with-errors"></div>
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
             <label for="estimated_time" class="control-label">Estimated Time (Minute):</label>
             <input id="estimated_time" type="number" name="estimated_time_m"  min="0" step="1" class="form-control" value="{{ question.estimated_time_m }}">
             <div class="help-block with-errors"></div>
@@ -42,5 +52,11 @@
         <input type="submit" class="btn btn-primary" value="Update">
 
     </form>
+
+ {% load static %}
+<script type="text/javascript" >
+    var question_type = "{{ question.question_type.id|safe }}";
+</script>
+<script src='{% static "main/js/edit_question.js" %}' type="text/javascript" charset="utf-8"></script>
 
 {% endblock %}

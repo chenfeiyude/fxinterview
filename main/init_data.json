@@ -1,0 +1,21 @@
+[
+  {
+    "model": "main.QuestionType",
+    "pk": 1,
+    "fields": {
+      "type": 1,
+      "display_name": "General Question",
+      "description": "General text question"
+    }
+  },
+
+  {
+    "model": "main.QuestionType",
+    "pk": 2,
+    "fields": {
+      "type" : 2,
+      "display_name": "Coding Question",
+      "description" : "IT question, coding is required"
+    }
+  }
+]

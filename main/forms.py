@@ -1,11 +1,11 @@
 from django import forms
-from .models import Job, User, Profile, Question
+from .models import Job, User, Profile, Question, QuestionType
 from django.contrib.auth.forms import UserCreationForm
-import logging
 
 
 class JobForm(forms.ModelForm):
-    name = forms.CharField(error_messages={'required': 'Job name is required'})
+    name = forms.CharField(max_length=100, error_messages={'required': 'Job name is required',
+                                                           'max_length': 'Job name is too long.'})
     description = forms.CharField(required=False)
 
     class Meta:
@@ -24,17 +24,20 @@ class JobForm(forms.ModelForm):
 
 
 class QuestionForm(forms.ModelForm):
-    name = forms.CharField(error_messages={'required': 'Question name is required'})
+    name = forms.CharField(max_length=100, error_messages={'required': 'Question name is required',
+                                                           'max_length': 'Question name is too long.'})
 
     description = forms.CharField(required=False)
 
     default_template = forms.CharField(required=False)
 
-    estimated_time_m = forms.IntegerField(required=False)
+    estimated_time_m = forms.IntegerField(required=True, error_messages={'required': 'ETC is required, default set to 0'})
+
+    question_type = forms.ModelChoiceField(queryset=QuestionType.objects.all())
 
     class Meta:
         model = Question
-        fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m')
+        fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m', 'question_type')
 
     def clean(self):
         cleaned_data = super(QuestionForm, self).clean()

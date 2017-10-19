@@ -54,8 +54,10 @@ class ApplicationViewTestCase(TestCase):
         job = Job.objects.create(name='test job', company=company)
         ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com',
                                            job=job, estimated_time_m=10)
-        question1 = Question.objects.create(name='test question1', company=company)
-        question2 = Question.objects.create(name='test question2', company=company)
+        question_type = QuestionType.objects.create(type=1, display_name='General Question',
+                                                    description='General text question')
+        question1 = Question.objects.create(name='test question1', company=company, question_type=question_type)
+        question2 = Question.objects.create(name='test question2', company=company, question_type=question_type)
         JobQuestion.objects.create(job=job, question=question1)
         JobQuestion.objects.create(job=job, question=question2)
         
@@ -237,8 +239,9 @@ class IntervieweeAccountTestCase(TestCase):
         job = Job.objects.create(name='test job', company=company)
         ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com',
                                            job=job, estimated_time_m=10)
-        question1 = Question.objects.create(name='test question1', company=company)
-        question2 = Question.objects.create(name='test question2', company=company)
+        question_type = QuestionType.objects.create(type=1, display_name='General Question', description='General text question')
+        question1 = Question.objects.create(name='test question1', company=company, question_type=question_type)
+        question2 = Question.objects.create(name='test question2', company=company, question_type=question_type)
         JobQuestion.objects.create(job=job, question=question1)
         JobQuestion.objects.create(job=job, question=question2)
 

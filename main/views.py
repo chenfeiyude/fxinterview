@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, render_to_response
 from django.template import RequestContext
 from django.urls import reverse
-from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile, User
+from .models import ApplicationQuestion, JobQuestion, Answer, Job, Question, Profile, User, QuestionType
 import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -16,8 +16,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
-    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS })
-    # profile_form = ProfileForm(initial={'role': Profile.INTERVIEWEE_STATUS })
+    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_ROLE })
+    # profile_form = ProfileForm(initial={'role': Profile.INTERVIEWEE_ROLE })
 
     return render(request, 'main/index.html', {'form': user_form, 'support_languages': fx_constants.SUPPORT_LANGUAGES })
 
@@ -104,6 +104,7 @@ def create_job(request):
 
 @login_required(login_url='/login/')
 def create_question(request):
+    question_types = QuestionType.objects.all()
     if request.method == 'POST':
         create_question_form = QuestionForm(request.POST)
         if create_question_form.is_valid():
@@ -111,9 +112,9 @@ def create_question(request):
             question.save()
             return HttpResponseRedirect(reverse('main:view_questions'))
         else:
-            return render(request, 'main/accounts/create_question.html', {'form': create_question_form})
+            return render(request, 'main/accounts/create_question.html', {'form': create_question_form, 'question_types': question_types})
     else:
-        return render(request, 'main/accounts/create_question.html')
+        return render(request, 'main/accounts/create_question.html', {'question_types': question_types})
 
 
 @login_required(login_url='/login/')
@@ -165,8 +166,9 @@ def __configure_edit_job(request, job, job_form=None):
 
 
 def __configure_edit_question(request, question, question_form=None):
+    question_types = QuestionType.objects.all()
     return render(request, 'main/accounts/edit_question.html',
-                  {'form': question_form, 'question': question})
+                  {'form': question_form, 'question': question, 'question_types': question_types})
 
 
 @login_required(login_url='/login/')
@@ -433,7 +435,7 @@ def send_job_invitation(request):
 
 
 def test_code(request):
-    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_STATUS})
+    user_form = FXCreateUserForm(initial={'role': Profile.INTERVIEWEE_ROLE})
     answer_content = request.POST.get('answer_content')
     selected_language = request.POST.get('selected_language')
 

@@ -18,6 +18,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Question Type</th>
                     <th>ETC(Minute)</th>
                     <th>Updated</th>
                     <th>Action</th>
@@ -28,6 +29,7 @@
                     <tr>
                         <td>{{ question.name }}</td>
                         <td class="ellipsis">{{ question.description }}</td>
+                        <td>{{ question.question_type.display_name }}</td>
                         <td>{{ question.estimated_time_m }}</td>
                         <td>{{ question.updated|date:"Y-m-d H:i" }}</td>
                         <td>

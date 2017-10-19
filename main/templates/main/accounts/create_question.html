@@ -33,9 +33,19 @@
 
         </div><!-- /.input-container -->
 
-          <div class="form-group input-container">
+         <div class="form-group input-container">
+            <label for="question_type" class="control-label">Question Type</label>
+                <select id="question_type" name="question_type" class="form-control">
+                    {% for question_type in question_types %}
+                         <option value="{{ question_type.type }}">{{ question_type.display_name }} | {{ question_type.description }}</option>
+                    {% endfor %}
+                </select>
+            <div class="help-block with-errors"></div>
+        </div><!-- /.input-container -->
+
+        <div class="form-group input-container">
             <label for="estimated_time" class="control-label">Estimated Time (Minute):</label>
-            <input id="estimated_time" type="number" name="estimated_time_m"  min="0" step="1" class="form-control">
+            <input id="estimated_time" type="number" name="estimated_time_m" value="0"  min="0" step="1" class="form-control">
             <div class="help-block with-errors"></div>
         </div><!-- /.input-container -->
 

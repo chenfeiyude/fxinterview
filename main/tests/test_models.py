@@ -16,10 +16,12 @@ class FXModelTestCase(TestCase):
                                       email='test@fxinterview.com', phone='0871234567')
         company = Company.objects.create(name='test_company', description='test description', contact=contact)
         job = Job.objects.create(name='test_job', description='test description', company=company)
+        question_type = QuestionType.objects.create(type=1, display_name='General Question',
+                                                    description='General text question')
         question1 = Question.objects.create(name='test_question1', company=company,
                                 description='test description', estimated_time_m=10,
-                                default_template='default template')
-        question2 = Question.objects.create(name='test_question2', company=company)
+                                default_template='default template', question_type=question_type)
+        question2 = Question.objects.create(name='test_question2', company=company, question_type=question_type)
         job_question1 = JobQuestion.objects.create(job=job, question=question1)
         job_question2 = JobQuestion.objects.create(job=job, question=question2)
         application_question = ApplicationQuestion.objects.create(interviewee_email='test@fxinterview.com',

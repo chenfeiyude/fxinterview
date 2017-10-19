@@ -25,12 +25,12 @@ class Company(models.Model):
 
 class Profile(models.Model):
     ADMIN_ROLE = 1
-    INTERVIEWER_STATUS = 2
-    INTERVIEWEE_STATUS = 3
+    INTERVIEWER_ROLE = 2
+    INTERVIEWEE_ROLE = 3
     ROLE_CHOICES = (
         (ADMIN_ROLE, 'Admin'),
-        (INTERVIEWER_STATUS, 'interviewer'),
-        (INTERVIEWEE_STATUS, 'interviewee'),
+        (INTERVIEWER_ROLE, 'interviewer'),
+        (INTERVIEWEE_ROLE, 'interviewee'),
     )
 
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
@@ -43,10 +43,10 @@ class Profile(models.Model):
         return self.role == check_role
 
     def is_interviewer(self):
-        return self.__is_role(self.INTERVIEWER_STATUS)
+        return self.__is_role(self.INTERVIEWER_ROLE)
 
     def is_interviewee(self):
-        return self.__is_role(self.INTERVIEWEE_STATUS)
+        return self.__is_role(self.INTERVIEWEE_ROLE)
 
     def is_admin(self):
         return self.__is_role(self.ADMIN_ROLE)
@@ -69,6 +69,28 @@ class Job(models.Model):
         return questions
 
 
+class QuestionType(models.Model):
+    GENERAL_TYPE = 1
+    CODING_TYPE = 2
+    QUESTION_TYPE_CHOICES = (
+        (GENERAL_TYPE, 'General'),
+        (CODING_TYPE, 'Coding'),
+    )
+
+    type = models.IntegerField(choices=QUESTION_TYPE_CHOICES, default=GENERAL_TYPE)
+    display_name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+
+    def __is_question_type(self, check_question_type):
+        return self.type == check_question_type
+
+    def is_general_type(self):
+        return self.__is_question_type(self.GENERAL_TYPE)
+
+    def is_coding_type(self):
+        return self.__is_question_type(self.CODING_TYPE)
+
+
 class Question(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
@@ -76,6 +98,7 @@ class Question(models.Model):
     default_template = models.TextField(null=True, blank=True)
     estimated_time_m = models.IntegerField(default=0)
     updated = models.DateTimeField('question last update time', auto_now_add=True, blank=True)
+    question_type = models.ForeignKey(QuestionType, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('name', 'company',)
