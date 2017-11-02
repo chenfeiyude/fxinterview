@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('main.urls')),
     url(r'^', include('registration.urls')),
+    url(r'^', include('job_applications.urls')),
 ]
 
 handler400 = 'main.views.error_400'

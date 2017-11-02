@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'main.apps.MainConfig',
     'registration.apps.RegistrationConfig',
+    'job_applications.apps.JobApplicationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

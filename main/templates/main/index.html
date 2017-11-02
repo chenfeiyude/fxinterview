@@ -53,7 +53,7 @@
     </div>
 
     <div class="col-xs-4 fx-div-right">
-        <form data-toggle="validator" role="form" method="POST" action="{% url 'main:register' %}">
+        <form data-toggle="validator" role="form" method="POST" action="{% url 'register' %}">
             {% csrf_token %}
 
             <h4>{% trans 'New Account' %}</h4>
@@ -102,7 +102,7 @@
 
 
 {% load static %}
-<script src='{% static "main/ace-builds-master/src-noconflict/ace.js" %}' type="text/javascript" charset="utf-8"></script>
+<script src='{% static "job_applications/ace-builds-master/src-noconflict/ace.js" %}' type="text/javascript" charset="utf-8"></script>
 <script src='{% static "main/js/index.js" %}' type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href='{% static "main/css/index.css" %}' type="text/css" />
 

@@ -9,7 +9,7 @@
     <h3>{{ application_question.job.company.name }} - {{ application_question.job.name }}</h3>
 </div>
 
-<form id="start_application_question_form" method="POST" action="{% url 'main:start_answer' %}">
+<form id="start_application_question_form" method="POST" action="{% url 'job_applications:start_answer' %}">
     {% csrf_token %}
     <input name="interviewee_email" type="hidden" value="{{ interviewee_email }}">
     <input name="application_question_id" type="hidden" value="{{ application_question.id }}">

@@ -1,7 +1,7 @@
 {% if applications %}
     <div class="list-group">
         {% for application in applications %}
-            <a href="{% url 'main:view_application_questions' application_question_id=application.id %}?interviewee_email={{ application.interviewee_email }}"
+            <a href="{% url 'job_applications:view_application_questions' application_question_id=application.id %}?interviewee_email={{ application.interviewee_email }}"
              class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between row">
                     <h5 class="col-md-6">{{ application.job.name }} - {{ application.created|date:"DATE_FORMAT" }}</h5>

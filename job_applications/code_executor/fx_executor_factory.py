@@ -1,5 +1,5 @@
 from . import fx_java_executor, fx_python_executor, fx_js_executor, fx_php_executor
-from ..utils import fx_constants
+from main.utils import fx_constants
 from enum import Enum
 
 

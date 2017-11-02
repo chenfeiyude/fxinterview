@@ -11,8 +11,6 @@ app_name = 'main'
 urlpatterns = [
     # http://localhost:8000/
     url(r'^$', views.index, name='index'),
-    # http://localhost:8000/register/
-    url(r'^register/$', views.register, name='register'),
     # http://localhost:8000/accounts/home
     url(r'^accounts/home', views.check_user_role, name='view_home'),
     # http://localhost:8000/accounts/jobs
@@ -41,14 +39,6 @@ urlpatterns = [
     url(r'^accounts/edit_interviewer', views.edit_interviewer, name='edit_interviewer'),
     # http://localhost:8000/accounts/send_job_invitation
     url(r'^accounts/send_job_invitation', views.send_job_invitation, name='send_job_invitation'),
-    # http://localhost:8000/application/2?interviewee_email=interviewee@fxinterview.com
-    url(r'^application/(?P<application_question_id>[0-9]+)$', views.view_application_questions, name='view_application_questions'),
-    # http://localhost:8000/application/start_answer$
-    url(r'^application/start_answer', views.start_answer, name='start_answer'),
-    # http://localhost:8000/application/submit_answer
-    url(r'^application/submit_answer', views.submit_answer, name='submit_answer'),
-    # http://localhost:8000/application/finish_answer
-    url(r'^application/finish_answer', views.finish_answer, name='finish_answer'),
     # http://localhost:8000/test_code
     url(r'^test_code', views.test_code, name='test_code'),
 

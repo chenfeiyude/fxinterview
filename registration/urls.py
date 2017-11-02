@@ -1,12 +1,16 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
+from . import views
+
 # name space for url
 # e.g you can call {% url 'main.view_application_questions' xxx.id %} instead of hard code url in html
 
 # app_name = 'registration'
 
 urlpatterns = [
+    # http://localhost:8000/register/
+    url(r'^register/$', views.register, name='register'),
     # http://localhost:8000/accounts/login/
     url(r'^accounts/login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
     # http://localhost:8000/accounts/logout/

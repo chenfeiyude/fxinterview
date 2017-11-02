@@ -1,12 +1,12 @@
 import os, sys, subprocess, time
 import logging
 from .fx_common_executor import CommonExecutor
-from ..utils import fx_file_utils, fx_string_utils, fx_constants
+from main.utils import fx_file_utils, fx_string_utils, fx_constants
 
 
 class FXJavaExecutor(CommonExecutor):
 
-    bash_file = '%s/main/code_executor/run_java.sh'% os.getcwd()
+    bash_file = '%s/job_applications/code_executor/run_java.sh'% os.getcwd()
 
     # java file name
     @staticmethod

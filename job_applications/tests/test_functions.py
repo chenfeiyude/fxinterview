@@ -1,6 +1,6 @@
 from django.test import TestCase
 from ..code_executor.fx_executor_factory import FXExecutorFactory, ExecutorLanguage
-from ..utils import fx_constants
+from main.utils import fx_constants
 import logging
 
 
