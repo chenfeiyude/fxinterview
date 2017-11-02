@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['www.fxinterview.com', 'localhost']
 INSTALLED_APPS = [
     'widget_tweaks',
     'main.apps.MainConfig',
+    'registration.apps.RegistrationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
