@@ -10,7 +10,7 @@ from django.core.exceptions import *
 from .forms import JobForm, FXCreateUserForm, QuestionForm, FXUpdateUserForm, ProfileForm
 from .utils import fx_string_utils, fx_constants
 from .utils import fx_request_parameters
-from .code_executor.fx_executors import FX_COMPILER
+from .code_executor.fx_executor_factory import FXExecutorFactory
 from .utils import email_utils
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -265,10 +265,9 @@ def submit_answer(request):
             answer = Answer.objects.filter(application_question=application_question, job_question=job_question).first()
 
         if run_action is not None:
-
-            # run_results = fx_python_compiler.run_code(answer_content)
-            if selected_language in FX_COMPILER:
-                run_results = FX_COMPILER[selected_language].run_code(answer_content)
+            executor = FXExecutorFactory.get_executor(selected_language)
+            if executor:
+                run_results = executor.run_code(answer_content)
             else:
                 run_results = {fx_constants.KEY_CODE: fx_constants.KEY_CODE_ERROR,
                                fx_constants.KEY_OUTPUT: 'Language not supported'}
@@ -439,8 +438,9 @@ def test_code(request):
     answer_content = request.POST.get('answer_content')
     selected_language = request.POST.get('selected_language')
 
-    if selected_language in FX_COMPILER:
-        run_results = FX_COMPILER[selected_language].run_code(answer_content)
+    executor = FXExecutorFactory.get_executor(selected_language)
+    if executor:
+        run_results = executor.run_code(answer_content)
     else:
         run_results = {fx_constants.KEY_CODE: fx_constants.KEY_CODE_ERROR,
                        fx_constants.KEY_OUTPUT: 'Language not supported'}

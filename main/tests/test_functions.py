@@ -1,7 +1,16 @@
 from django.test import TestCase
-from ..code_executor import fx_python_executor, fx_java_executor, fx_js_executor, fx_php_executor
+from ..code_executor.fx_executor_factory import FXExecutorFactory, ExecutorLanguage
+from ..utils import fx_constants
 import logging
 
+
+class FXExecutorFactoryTestCase(TestCase):
+
+    def test_get_executor(self):
+
+        self.assertEquals(ExecutorLanguage.python, ExecutorLanguage[fx_constants.LANGUAGE_PYTHON])
+        self.assertIsNotNone(FXExecutorFactory.get_executor(ExecutorLanguage.python))
+        self.assertIsNotNone(FXExecutorFactory.get_executor(fx_constants.LANGUAGE_PYTHON))
 
 class FXPythonCompilerTestCase(TestCase):
 
@@ -13,7 +22,7 @@ def hello():
 
 hello()
         """
-        results = fx_python_executor.run_code(code)
+        results = FXExecutorFactory.get_executor(fx_constants.LANGUAGE_PYTHON).run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
         self.assertEqual(results['output'], "Hello World\n")
@@ -30,7 +39,7 @@ class FXJavaCompilerTestCase(TestCase):
             }
         }
         """
-        results = fx_java_executor.run_code(code)
+        results = FXExecutorFactory.get_executor(fx_constants.LANGUAGE_JAVA).run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
         self.assertEqual(results['output'], "Hello World\n")
@@ -46,7 +55,7 @@ class FXJSCompilerTestCase(TestCase):
             return test;
         }
         """
-        results = fx_js_executor.run_code(code)
+        results = FXExecutorFactory.get_executor(fx_constants.LANGUAGE_JAVASCRIPT).run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
 
@@ -63,7 +72,7 @@ class FXPHPCompilerTestCase(TestCase):
         echo "Hello World";
         ?> 
         """
-        results = fx_php_executor.run_code(code)
+        results = FXExecutorFactory.get_executor(fx_constants.LANGUAGE_PHP).run_code(code)
         self.assertIsNotNone(results)
         self.assertEqual(results['code'], "Success")
         self.assertEqual(results['output'].strip().replace('\n', ''), "Hello World")
