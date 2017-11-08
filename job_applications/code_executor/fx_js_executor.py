@@ -1,5 +1,6 @@
-import js2py, logging
-from main.utils import fx_constants
+import js2py
+
+from fx_tools.utils import fx_constants
 from .fx_common_executor import CommonExecutor
 
 

@@ -1,7 +1,7 @@
 from django.test import TestCase
+
+from fx_tools.utils import fx_constants
 from ..code_executor.fx_executor_factory import FXExecutorFactory, ExecutorLanguage
-from main.utils import fx_constants
-import logging
 
 
 class FXExecutorFactoryTestCase(TestCase):

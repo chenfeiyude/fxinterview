@@ -1,7 +1,9 @@
-import os, sys, subprocess, time
 import logging
+import os
+import subprocess
+
+from fx_tools.utils import fx_constants, fx_file_utils, fx_string_utils
 from .fx_common_executor import CommonExecutor
-from main.utils import fx_file_utils, fx_string_utils, fx_constants
 
 
 class FXJavaExecutor(CommonExecutor):
@@ -29,7 +31,7 @@ class FXJavaExecutor(CommonExecutor):
             out_data = fx_string_utils.decode_utf_8(subprocess.check_output([fx_constants.JAVAC_EXEC, file_path], stderr=subprocess.STDOUT, timeout=5))
             java_name = file_name.replace('.java', '')
             out_data = fx_string_utils.decode_utf_8(subprocess.check_output([self.bash_file, file_dir, fx_constants.JAVA_EXEC, java_name], stderr=subprocess.STDOUT,
-                                        timeout=5))
+                                                                            timeout=5))
 
             # return success data
             result[fx_constants.KEY_OUTPUT] = out_data

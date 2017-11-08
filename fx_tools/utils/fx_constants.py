@@ -1,5 +1,6 @@
 import sys
-from . import fx_file_utils
+
+from fx_tools.utils import fx_file_utils
 
 JAVAC_EXEC = fx_file_utils.get_javac_path()
 JAVA_EXEC = fx_file_utils.get_java_path()

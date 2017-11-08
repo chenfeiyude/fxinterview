@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'registration.apps.RegistrationConfig',
     'job_applications.apps.JobApplicationsConfig',
+    'fx_tools.apps.FxToolsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

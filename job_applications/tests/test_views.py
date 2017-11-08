@@ -1,8 +1,10 @@
-from django.test import TestCase
 from django.core.urlresolvers import reverse
-from ..models import *
+from django.test import TestCase
+
+from fx_tools.utils import fx_constants
 from main.models import *
-from main.utils import fx_constants
+from ..models import *
+
 
 # Create your tests here.
 

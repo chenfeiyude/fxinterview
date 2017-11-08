@@ -1,5 +1,9 @@
-import logging, os, tempfile, subprocess
-from . import fx_string_utils
+import logging
+import os
+import subprocess
+import tempfile
+
+from fx_tools.utils import fx_string_utils
 
 
 def make_temp_dir():
@@ -22,5 +26,5 @@ def get_java_path():
 
 
 def get_javac_path():
-    javac_path = fx_string_utils.decode_utf_8(subprocess.check_output(['whereis','javac'])).replace('\n', '')
+    javac_path = fx_string_utils.decode_utf_8(subprocess.check_output(['whereis', 'javac'])).replace('\n', '')
     return javac_path

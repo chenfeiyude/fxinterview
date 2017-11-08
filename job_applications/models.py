@@ -1,9 +1,11 @@
-from django.db import models
-
-from main.utils import fx_timezone_utils, fx_constants
-from main.models import Job, JobQuestion
 import datetime
+
+from django.db import models
 from django.utils import timezone
+
+from fx_tools.utils import fx_timezone_utils, fx_constants
+from main.models import Job, JobQuestion
+
 
 # Create your models here.
 

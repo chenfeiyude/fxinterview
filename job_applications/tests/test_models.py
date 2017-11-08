@@ -1,10 +1,10 @@
+import datetime
+
 from django.test import TestCase
 
 from main.models import *
 from ..models import *
-from django.utils import timezone
-import datetime
-from main.utils import fx_timezone_utils
+
 
 # Create your tests here.
 

@@ -1,6 +1,7 @@
-from . import fx_java_executor, fx_python_executor, fx_js_executor, fx_php_executor
-from main.utils import fx_constants
 from enum import Enum
+
+from fx_tools.utils import fx_constants
+from . import fx_java_executor, fx_python_executor, fx_js_executor, fx_php_executor
 
 
 class ExecutorLanguage(Enum):

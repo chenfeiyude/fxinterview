@@ -1,9 +1,8 @@
 from django.test import TestCase
+from django.utils import timezone
 
 from ..models import *
-from django.utils import timezone
-import datetime
-from ..utils import fx_timezone_utils
+
 
 # Create your tests here.
 
