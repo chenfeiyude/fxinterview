@@ -6,13 +6,13 @@ from django.http import *
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.urls import reverse
 
+from fx_tools.code_executor.fx_executor_factory import FXExecutorFactory
+from fx_tools.utils import email_utils, fx_request_parameters, fx_string_utils
 from fx_tools.utils import fx_constants
-from job_applications.code_executor.fx_executor_factory import FXExecutorFactory
 from job_applications.models import ApplicationQuestion
 from registration.forms import FXCreateUserForm
 from .forms import JobForm, QuestionForm, FXUpdateUserForm, ProfileForm
 from .models import JobQuestion, Job, Question, Profile, User, QuestionType
-from fx_tools.utils import email_utils, fx_request_parameters, fx_string_utils
 
 
 def index(request):
