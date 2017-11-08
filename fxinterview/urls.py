@@ -20,9 +20,9 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     # http://localhost:8000/admin/
     url(r'^admin/', admin.site.urls),
+    url(r'^application/', include('job_applications.urls')),
     url(r'^', include('main.urls')),
     url(r'^', include('registration.urls')),
-    url(r'^', include('job_applications.urls')),
 ]
 
 handler400 = 'main.views.error_400'
