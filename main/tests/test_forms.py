@@ -28,8 +28,8 @@ class FormTest(TestCase):
     def test_question_forms_valid(self):
         company = Company.objects.get(name='test_company')
         question = Question.objects.get(name='test_question2')
-        valid_form_data = {'name': 'test_question2', 'company': company.id, 'estimated_time_m': question.estimated_time_m,
-                           'sdf': question.question_type.id}
+        valid_form_data = {'name': 'test_question5', 'company': company.id, 'estimated_time_m': question.estimated_time_m,
+                           'question_type': question.question_type.id}
         valid__form = QuestionForm(data=valid_form_data)
         self.assertTrue(valid__form.is_valid())
 
