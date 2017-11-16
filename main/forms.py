@@ -31,13 +31,13 @@ class QuestionForm(forms.ModelForm):
 
     default_template = forms.CharField(required=False)
 
-    estimated_time_m = forms.IntegerField(required=True, error_messages={'required': 'ETC is required, default set to 0'})
+    estimated_time_m = forms.IntegerField(required=False, error_messages={'required': 'ETC is required, default set to 0'})
 
     question_type = forms.ModelChoiceField(queryset=QuestionType.objects.all())
 
     class Meta:
         model = Question
-        fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m', 'question_type')
+        fields = ('name', 'description', 'company', 'default_template', 'estimated_time_m')
 
     def clean(self):
         cleaned_data = super(QuestionForm, self).clean()
