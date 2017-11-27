@@ -31,17 +31,16 @@
                         <!--<td>{{ job.description }}</td>-->
                         <td>{{ job.updated|date:"Y-m-d H:i" }}</td>
                         <td>
-
-                            <div class="btn-group open">
-                                <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Questions</a>
+                            <div class="btn-group">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                                    Questions
+                                    <span class="fa fa-caret-down" title="All related questions"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                      {% for question in job.get_questions %}
                                         <li>
                                         <a href="{% url 'main:edit_question'%}?id={{ question.id }}">
-                                            <i class="fa fa-question-circle-o" aria-hidden="true"></i>{{ question.name }}
+                                            {{ question.name }}
                                         </a>
                                         </li>
                                     {% endfor %}

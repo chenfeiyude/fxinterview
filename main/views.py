@@ -79,7 +79,7 @@ def view_jobs(request):
     jobs = Job.objects.filter(company=user.profile.company)
     page = request.GET.get(fx_request_parameters.page)
     jobs = __get_pagination_list(jobs, page)
-    return render(request, 'main/accounts/jobs.html', {'jobs': jobs,
+    return render(request, 'main/accounts/view_jobs.html', {'jobs': jobs,
                                  'page_range': jobs.paginator.page_range})
 
 
@@ -191,7 +191,7 @@ def view_questions(request):
     questions = Question.objects.filter(company=user.profile.company)
     page = request.GET.get(fx_request_parameters.page)
     questions = __get_pagination_list(questions, page)
-    return render(request, 'main/accounts/questions.html', {'questions': questions,
+    return render(request, 'main/accounts/view_questions.html', {'questions': questions,
                                                             'page_range': questions.paginator.page_range})
 
 
