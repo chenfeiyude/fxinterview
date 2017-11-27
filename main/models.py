@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 # Create your models here.
 
 
@@ -16,6 +15,7 @@ class ContactDetails(models.Model):
     class Meta:
         app_label = "main"
 
+
 class Company(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
@@ -24,6 +24,7 @@ class Company(models.Model):
 
     class Meta:
         app_label = "main"
+
 
 class Profile(models.Model):
     ADMIN_ROLE = 1
