@@ -38,11 +38,16 @@
                     <h3 class="panel-title">
                         <i class="fa fa-code" aria-hidden="true"></i>
                         <select id="selected_language" name="selected_language">
-                        {% for support_language in support_languages %}
-                        <option {% if support_language == answer.selected_language %} selected {% endif %} value = {{ support_language }}>
-                            {{ support_language }}
-                        </option>
-                        {% endfor %}
+                        {% if job_question.question.question_type.is_coding_type %}
+                            {% for support_language in support_languages %}
+                            <option {% if support_language == answer.selected_language %} selected {% endif %} value = {{ support_language }}>
+                                {{ support_language }}
+                            </option>
+                            {% endfor %}
+                        {% else%}
+                            <option selected value = 'text'>text</option>
+                        {% endif %}
+
                     </select>
                     </h3>
                 </div>
@@ -54,6 +59,8 @@
             <div id="editor" >{% if answer %}{{ answer.answer }}{% else %}{{ job_question.question.default_template }}{% endif %}</div>
         </div>
     </div>
+
+    {% if job_question.question.question_type.is_coding_type %}
     <div class="panel panel-default">
         <div class="panel-heading">
              <h3 class="panel-title">Output</h3>
@@ -62,12 +69,15 @@
             <p>{{ run_results.output }}</p>
         </div>
     </div>
+    {% endif %}
+
     <div class="btn-group pull-right">
         <div class="btn-group">
             <button type="submit" class="btn btn-primary" name="prev_action" data-toggle="tooltip" title="Previous">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </button>
         </div>
+
         {% if not application_question.is_expired and not application_question.is_finished %}
         <div class="btn-group">
             <button type="submit" class="btn btn-primary" name="submit_action" data-toggle="tooltip" title="Save">
@@ -75,11 +85,15 @@
             </button>
         </div>
         {% endif %}
+
+        {% if job_question.question.question_type.is_coding_type %}
         <div class="btn-group">
             <button type="submit" class="btn btn-primary" name="run_action" data-toggle="tooltip" title="Run">
                 <i class="fa fa-play" aria-hidden="true"></i>
             </button>
         </div>
+        {% endif %}
+
         <div class="btn-group">
             <button type="submit" class="btn btn-primary" name="next_action" data-toggle="tooltip" title="Next">
                 <i class="fa fa-chevron-right" aria-hidden="true"></i>
