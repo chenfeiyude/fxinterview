@@ -17,7 +17,7 @@ class FXExecutorFactory():
     @staticmethod
     def get_executor(language):
         executor = None
-        if language:
+        if language and isinstance(language, ExecutorLanguage):
             language = ExecutorLanguage(language)
             if language is ExecutorLanguage.python:
                 executor = fx_python_executor.FXPythonExecutor()
