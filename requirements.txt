@@ -1,4 +1,4 @@
-pyyaml==3.11
+pyyaml==5.1
 coverage==4.4.1
 django-widget-tweaks==1.4.1
 js2py==0.50
