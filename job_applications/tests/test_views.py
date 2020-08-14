@@ -1,7 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from fx_tools.utils import fx_constants
 from main.models import *
 from ..models import *
 
