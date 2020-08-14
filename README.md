@@ -90,6 +90,9 @@ $ open ./htmlcov/index.html
 
 * Deployment instructions
 
+1. Start server
+$ python3.6 manage.py runserver
+
 ### Contribution guidelines ###
 
 * Writing tests  
