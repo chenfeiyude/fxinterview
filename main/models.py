@@ -19,7 +19,7 @@ class ContactDetails(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    contact = models.ForeignKey(ContactDetails)
+    contact = models.ForeignKey(ContactDetails,on_delete=models.CASCADE)
     updated = models.DateTimeField('company last update time', auto_now_add=True, blank=True)
 
     class Meta:
@@ -37,7 +37,7 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
-    contact_details = models.ForeignKey(ContactDetails, blank=True, null=True)
+    contact_details = models.ForeignKey(ContactDetails, on_delete=models.CASCADE, blank=True, null=True)
     validated = models.BooleanField(default=False)
     role = models.IntegerField(choices=ROLE_CHOICES, default=ADMIN_ROLE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)

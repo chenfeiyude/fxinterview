@@ -3,6 +3,8 @@ fxinterview/local_settings.py
 fxinterview/__pycache__/
 main/__pycache__/
 main/migrations/
+job_application/migrations/
 venv/
 log/error.log
 log/python.log
+*.pyc

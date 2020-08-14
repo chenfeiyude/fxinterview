@@ -3,7 +3,7 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import *
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from fx_tools.code_executor.fx_executor_factory import FXExecutorFactory
@@ -318,22 +318,26 @@ def test_code(request):
                    })
 
 
-def error_400(request):
-    logging.info(request)
-    return render_to_response('main/errors/400.html', status=400)
+def error_400(request, exception):
+    logging.error(exception)
+    return render(request, 'main/errors/400.html', status=400)
 
 
-def error_401(request):
-    return render_to_response('main/errors/401.html', status=401)
+def error_401(request, exception):
+    logging.error(exception)
+    return render(request, 'main/errors/401.html', status=401)
 
 
-def error_403(request):
-    return render_to_response('main/errors/403.html', status=403)
+def error_403(request, exception):
+    logging.error(exception)
+    return render(request, 'main/errors/403.html', status=403)
 
 
-def error_404(request):
-    return render_to_response('main/errors/404.html', status=404)
+def error_404(request, exception):
+    logging.error(exception)
+    return render(request, 'main/errors/404.html', status=404)
 
 
 def error_500(request):
-    return render_to_response('main/errors/500.html', status=500)
+    logging.error(request)
+    return render(request, 'main/errors/500.html', status=500)
